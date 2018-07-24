@@ -3,7 +3,7 @@ Repository for the fourth University of Chicago's *BSD Quantitative Biology Boot
 
 ## Instructors
 
-- Please upload your tutorials/workshops in the right place. If you need to get access, email Stefano your GitHub ID.
+Please upload your tutorials/workshops in the right place. If you need to get access, email Stefano your GitHub ID.
 
 ## Participants
 
