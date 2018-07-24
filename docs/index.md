@@ -1,6 +1,6 @@
 ## Welcome
 
-This page contains important information about the [Third BSD-qBio Boot Camp @ MBL](https://biosciences.uchicago.edu/content/mbl-bootcamp-2017), which will be held at the [Marine Biological Laboratory](http://www.mbl.edu/) in Woods Hole, MA, on Sept 10-17, 2017.
+This page contains important information about the [Fourth BSD-qBio Boot Camp @ MBL](https://biosciences.uchicago.edu/content/mbl-bootcamp), which will be held at the [Marine Biological Laboratory](http://www.mbl.edu/) in Woods Hole, MA, on Sept 2-9, 2018.
 
 More that 90 incoming graduate students from the different programs in the [Division of Biological Sciences](https://biosciences.uchicago.edu) at the [University of Chicago](http://www.uchicago.edu) will participate.
 
@@ -20,13 +20,13 @@ For any issue/question/comment, please contact the course directors:
 
 ## Schedule
 
-The qBio3 boot camp will be, as the name implies, quite intense. We are going to have **Tutorials** (short primers to a certain topic) and **Workshops** (discipline-specific, hands-on activities). We will dedicate Monday night to **Professional Development**, with armchair discussions on how to get the most out of your graduate school.
+The qBio3 boot camp will be, as the name implies, quite intense. We are going to have **Tutorials** (short primers to a certain topic) and **Workshops** (discipline-specific, hands-on activities). 
 
 You will get to know MBL better, with **Talks from MBL researchers**, a tour of the facilities, and even a **trip on the [Gemma](http://www.sciencemetropolis.com/wp-content/uploads/2008/06/img_0782.jpg)**.
 
-Here's the [general schedule](https://github.com/StefanoAllesina/BSD-QBio3/raw/master/schedule/GeneralSchedule.pdf).
+Here's the [general schedule](https://github.com/StefanoAllesina/BSD-QBio4/raw/master/schedule/GeneralSchedule.pdf).
 
-You can also browse the schedule [by group](https://github.com/StefanoAllesina/BSD-QBio3/tree/master/schedule).
+You can also browse the schedule [by group](https://github.com/StefanoAllesina/BSD-QBio4/tree/master/schedule).
 
 ## Computing tutorials
 
@@ -37,10 +37,10 @@ To accommodate the diverse background of our students, we have created two track
 
 To decide which track you want to choose, please consult the lecture materials, and make sure that the content is at the right level for you:
 
-*   Basic Computing I ([web](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/tutorials/basic_computing_1/code/basic_computing_1.Rmd), [pdf](https://github.com/StefanoAllesina/BSD-QBio3/raw/master/tutorials/basic_computing_1/code/basic_computing_1.pdf))
-*   Basic Computing II ([web](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/tutorials/basic_computing_2/code/basic_computing_2.Rmd), [pdf](https://github.com/StefanoAllesina/BSD-QBio3/raw/master/tutorials/basic_computing_2/code/basic_computing_2.pdf))
-*   Advanced Computing I ([web](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/tutorials/advanced_computing_1/code/advanced_computing_1.Rmd), [pdf](https://github.com/StefanoAllesina/BSD-QBio2/raw/master/tutorials/advanced_computing_1/code/advanced_computing_1.pdf))
-*   Advanced Computing II ([web](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/tutorials/advanced_computing_2/code/advanced_computing_2.Rmd), [pdf](https://github.com/StefanoAllesina/BSD-QBio2/raw/master/tutorials/advanced_computing_2/code/advanced_computing_2.pdf))
+*   Basic Computing I ([web](https://github.com/StefanoAllesina/BSD-QBio4/blob/master/tutorials/basic_computing_1/code/basic_computing_1.Rmd), [pdf](https://github.com/StefanoAllesina/BSD-QBio4/raw/master/tutorials/basic_computing_1/code/basic_computing_1.pdf))
+*   Basic Computing II ([web](https://github.com/StefanoAllesina/BSD-QBio4/blob/master/tutorials/basic_computing_2/code/basic_computing_2.Rmd), [pdf](https://github.com/StefanoAllesina/BSD-QBio4/raw/master/tutorials/basic_computing_2/code/basic_computing_2.pdf))
+*   Advanced Computing I ([web](https://github.com/StefanoAllesina/BSD-QBio4/blob/master/tutorials/advanced_computing_1/code/advanced_computing_1.Rmd), [pdf](https://github.com/StefanoAllesina/BSD-QBio4/raw/master/tutorials/advanced_computing_1/code/advanced_computing_1.pdf))
+*   Advanced Computing II ([web](https://github.com/StefanoAllesina/BSD-QBio4/blob/master/tutorials/advanced_computing_2/code/advanced_computing_2.Rmd), [pdf](https://github.com/StefanoAllesina/BSD-QBio4/raw/master/tutorials/advanced_computing_2/code/advanced_computing_2.pdf))
 
 ## Preparing your laptop
 
@@ -76,8 +76,6 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
 * **Install ImageJ**: go to [this page](http://imagej.net/Fiji/Downloads) and follow the instructions for your platform.
 
-* **Software for NGS**: This will take a while, so start early. [Here are](https://github.com/StefanoAllesina/BSD-QBio3/blob/master/workshops/yang/NGS_workshop_software_installation.pdf) very detalied instructions. Follow them closely and contact Lixing Yang in case of problems.  **NOTE** There's a small typo in step 0.h.3: "ensemble-tools-release-88" should be "ensembl-tools-release-88"
-
 * **UNIX Emulator**: If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (you will need this anyway!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
 
 * **System tools** (git and curl)
@@ -95,10 +93,10 @@ It is very important to **download the data** before you leave for MBL, as the f
 *   First, you need to download the repository containing all the boot camp lectures and data. There are two options
 
     *   If you're familiar with `Git`, clone the repository
-        `git clone https://github.com/StefanoAllesina/BSD-QBio3.git`
+        `git clone https://github.com/StefanoAllesina/BSD-QBio4.git`
         making sure that the directory is created within your home (Linux: `home/yourname`, Mac OSX: `Users/yourname`, Windows `Users/yourname`).
 
-     *   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio3/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio3` (it will be extracted as `BSD-QBio3-master`).
+     *   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio4/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio4` (it will be extracted as `BSD-QBio4-master`).
 
 *  Second, you need to download and unzip a large file containing all the data for the NGS tutorial. You can download the file [here](https://www.dropbox.com/s/kq7duts6i2heiup/ngs_workshop.zip?dl=0).
 
@@ -106,12 +104,12 @@ It is very important to **download the data** before you leave for MBL, as the f
 
 During the boot camp, the 12 groups of students will compete through 6 programming challenges. Here are the links to the webpages where the groups should post their solutions (one answer per group, please):
 
-* Submit your answer to [Programming Challenge 1 (Basic Programming I)](https://docs.google.com/forms/d/e/1FAIpQLSfrBRpsQc7XefhrUxHmm8W43SHfIxK-AtRUhEYjgaA_JD8TyQ/viewform?usp=sf_link)
-* Submit your answer to [Programming Challenge 2 (Basic Programming II)](https://docs.google.com/forms/d/e/1FAIpQLSf7aPH54rKd3Jn17sdSvtc_iB__0TEf2nioQb4iQiysCv18NQ/viewform?usp=sf_link)
-* Submit your answer for the tutorial on [Defensive Programming](https://docs.google.com/forms/d/e/1FAIpQLSd1MdL5enuJjKLmhNN4KJCNKglzt8QSuHjQEjjhzpVbRUBeQg/viewform?usp=sf_link)
-* Submit your answer for the tutorial on [Reproducibility](https://goo.gl/forms/kmHCkM6BYgBSVMuw2)
-* Submit your answer for the tutorial on [Data Visualization](https://docs.google.com/forms/d/e/1FAIpQLSdY54V7vUjOVbd76I1E3pRMLznfiI1kXW7obmdrl7gQxPyEcA/viewform?usp=sf_link)
-* Submit your answer for the tutorial on [Stats for large data](https://docs.google.com/forms/d/e/1FAIpQLSf_fXbqPfhNZYUwcSTu_ZBNGJkBBoxoepr280KPjy7Kn_wjXw/viewform?usp=sf_link)
+* Submit your answer to [Programming Challenge 1 (Basic Programming I)]()
+* Submit your answer to [Programming Challenge 2 (Basic Programming II)]()
+* Submit your answer for the tutorial on [Defensive Programming]()
+* Submit your answer for the tutorial on [Reproducibility]()
+* Submit your answer for the tutorial on [Data Visualization]()
+* Submit your answer for the tutorial on [Stats for large data]()
 
 
 
