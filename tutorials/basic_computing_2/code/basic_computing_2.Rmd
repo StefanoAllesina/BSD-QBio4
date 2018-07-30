@@ -1,10 +1,10 @@
 ---
 title: "Basic Computing 2 -- Packages, Functions, Documenting code"
 author: "Stefano Allesina"
-output:
-  html_document: default
+output: 
   pdf_document:
-    highlight: tango
+    highlight: kate
+    template: default
 ---
 
 # Basic Computing 2
@@ -562,7 +562,7 @@ You can find inspiration in the notes for the Boot Camp: both the notes for Basi
 # Programming Challenge
 ## Instructions
 
-You will work with your own group to solve the following exercise. When you have found the solution, go to `https://stefanoallesina.github.io/BSD-QBio3/` and follow the link `Submit solution to challenge 2` to submit your answer (alternatively, you can go directly to [goo.gl/forms/QJhKmdGqRCIuGNPa2](https://goo.gl/forms/QJhKmdGqRCIuGNPa2). At the end of the boot camp, the group with the highest number of correct solutions will be declared the winner. If you need extra time, you can work with your group during free time or in the breaks in the schedule.
+You will work with your own group to solve the following exercise. When you have found the solution, go to `https://stefanoallesina.github.io/BSD-QBio4/` and follow the link `Submit solution to challenge 2` to submit your answer (alternatively, you can go directly to [`goo.gl/forms/QJhKmdGqRCIuGNPa2`](https://goo.gl/forms/QJhKmdGqRCIuGNPa2). At the end of the boot camp, the group with the highest number of correct solutions will be declared the winner. If you need extra time, you can work with your group during free time or in the breaks in the schedule.
 
 ## Google Flu Trends
 

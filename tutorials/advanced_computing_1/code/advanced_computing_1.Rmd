@@ -1,10 +1,10 @@
 ---
 title: "Advanced Computing 1 -- Data wrangling and plotting"
 author: "Stefano Allesina"
-output:
-  html_document: default
+output: 
   pdf_document:
-    highlight: tango
+    highlight: kate
+    template: default
 ---
 
 # Data Wrangling and Plotting

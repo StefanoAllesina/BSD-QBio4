@@ -1,10 +1,10 @@
 ---
 title: "Statistics for a data rich world---some explorations"
 author: "Stefano Allesina"
-output:
-  html_document: default
+output: 
   pdf_document:
-    highlight: tango
+    highlight: kate
+    template: default
 fig_width: 4
 ---
 
@@ -595,7 +595,7 @@ Try your hand at finding something even more striking. You can:
 - use correlation (Pearson, Spearman, Kendall) or generalized linear models
 - etc.
 
-Once you've found something worth reporting in the front page of Chicago newspapers, post your answer at [goo.gl/forms/ysqKxxcfogmUKmQq2](https://goo.gl/forms/ysqKxxcfogmUKmQq2)
+Once you've found something worth reporting in the front page of Chicago's newspapers, post your answer at [`goo.gl/forms/ysqKxxcfogmUKmQq2`](https://goo.gl/forms/ysqKxxcfogmUKmQq2)
 
 
 
