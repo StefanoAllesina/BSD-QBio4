@@ -1,0 +1,199 @@
+---
+fontsize: 10pt
+geometry: margin=0.75in
+header-includes:
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \usepackage{lmodern}
+  - \usepackage{xcolor}
+  - \usepackage{sectsty}
+  - \definecolor{bsdqbio}{rgb}{0.44, 0.16, 0.39}
+  - \sectionfont{\color{bsdqbio}}
+  - \subsectionfont{\color{bsdqbio}}
+  - \subsubsectionfont{\color{bsdqbio}}
+  - \setlength\heavyrulewidth{0ex}
+output:
+  pdf_document:
+    fig_height: 2
+    latex_engine: xelatex
+    keep_tex: true
+    pandoc_args: ["numberLines"]
+---
+# BSD qBio$^4$ @ MBL
+
+## General Schedule
+### Sunday, September 2 
+
+------------------    ------------------------------------
+**2:45-5:00**         Check-in                            
+**5:00-6:30**         Dinner                              
+**6:30-7:00**         Team building activities            
+**7:15-8:30**         Introduction - Allesina and Palmer  
+------------------    ------------------------------------
+
+### Monday, September 3 
+
+------------------    ------------------------------------
+**8:30-10:00**        Basic comp. I                       
+**10:00-10:30**       Coffee break                        
+**10:30-12:00**       Basic comp. I                       
+**12:00-12:45**       Lunch                               
+**1:00-2:30**         Basic comp. II                      
+**2:30-2:45**         Coffee break                        
+**2:45-4:30**         Basic comp. II                      
+**5:00-6:30**         Dinner                              
+**6:15-7:30**         ??? Welcome - R. Nishi & V. Prince  
+------------------    ------------------------------------
+
+### Tuesday, September 4 
+
+------------------    ------------------------------------
+**8:30-10:00**        Free time                            (*M.mulatta M.musculus O.bimaculoides P.polytes*)
+                      Microscopy and ImageJ                (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
+                      Trip on the Gemma                    (*A.thaliana C.elegans*)
+                      Visit Marine Resources Center        (*D.melanogaster D.rerio*)
+**10:00-10:30**       Coffee break                        
+**10:30-12:00**       Free time                            (*M.mulatta M.musculus O.bimaculoides P.polytes*)
+                      Microscopy and ImageJ                (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
+                      Trip on the Gemma                    (*D.melanogaster D.rerio*)
+                      Visit Marine Resources Center        (*A.thaliana C.elegans*)
+**12:00-1:00**        Lunch                               
+**1:00-2:30**         Data visualization                   (*D.rerio M.mulatta P.polytes T.thermophila*)
+                      Defensive programming                (*D.melanogaster M.musculus O.bimaculoides S.aegyptiacus*)
+                      Reproducibility of data analysis     (*A.thaliana C.elegans T.roseae X.laevis*)
+**2:30-2:45**         Coffee break                        
+**2:45-4:30**         Data visualization                   (*D.rerio M.mulatta P.polytes T.thermophila*)
+                      Defensive programming                (*D.melanogaster M.musculus O.bimaculoides S.aegyptiacus*)
+                      Reproducibility of data analysis     (*A.thaliana C.elegans T.roseae X.laevis*)
+**5:00-6:30**         Dinner                              
+**7:15-8:00**         MBL Talk 1 XXX                      
+------------------    ------------------------------------
+
+### Wednesday, September 5 
+
+------------------    ------------------------------------
+**8:30-10:00**        Free time                            (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
+                      Microscopy and ImageJ                (*A.thaliana C.elegans D.melanogaster D.rerio*)
+                      Trip on the Gemma                    (*M.mulatta M.musculus*)
+                      Visit Marine Resources Center        (*O.bimaculoides P.polytes*)
+**10:00-10:30**       Coffee break                        
+**10:30-12:00**       Free time                            (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
+                      Microscopy and ImageJ                (*A.thaliana C.elegans D.melanogaster D.rerio*)
+                      Trip on the Gemma                    (*O.bimaculoides P.polytes*)
+                      Visit Marine Resources Center        (*M.mulatta M.musculus*)
+**12:00-1:00**        Lunch                               
+**1:00-2:30**         Data visualization                   (*A.thaliana M.musculus O.bimaculoides X.laevis*)
+                      Defensive programming                (*C.elegans M.mulatta P.polytes T.roseae*)
+                      Reproducibility of data analysis     (*D.melanogaster D.rerio S.aegyptiacus T.thermophila*)
+**2:30-2:45**         Coffee break                        
+**2:45-4:30**         Data visualization                   (*A.thaliana M.musculus O.bimaculoides X.laevis*)
+                      Defensive programming                (*C.elegans M.mulatta P.polytes T.roseae*)
+                      Reproducibility of data analysis     (*D.melanogaster D.rerio S.aegyptiacus T.thermophila*)
+**5:00-6:30**         Dinner                              
+**7:15-8:00**         Free time                           
+------------------    ------------------------------------
+
+### Thursday, September 6 
+
+------------------    ------------------------------------
+**8:30-10:00**        Free time                            (*A.thaliana C.elegans D.melanogaster D.rerio*)
+                      Microscopy and ImageJ                (*M.mulatta M.musculus O.bimaculoides P.polytes*)
+                      Trip on the Gemma                    (*S.aegyptiacus T.thermophila*)
+                      Visit Marine Resources Center        (*T.roseae X.laevis*)
+**10:00-10:30**       Coffee break                        
+**10:30-12:00**       Free time                            (*A.thaliana C.elegans D.melanogaster D.rerio*)
+                      Microscopy and ImageJ                (*M.mulatta M.musculus O.bimaculoides P.polytes*)
+                      Trip on the Gemma                    (*T.roseae X.laevis*)
+                      Visit Marine Resources Center        (*S.aegyptiacus T.thermophila*)
+**12:00-1:00**        Lunch                               
+**1:00-2:30**         Data visualization                   (*C.elegans D.melanogaster S.aegyptiacus T.roseae*)
+                      Defensive programming                (*A.thaliana D.rerio T.thermophila X.laevis*)
+                      Reproducibility of data analysis     (*M.mulatta M.musculus O.bimaculoides P.polytes*)
+**2:30-2:45**         Coffee break                        
+**2:45-4:30**         Data visualization                   (*C.elegans D.melanogaster S.aegyptiacus T.roseae*)
+                      Defensive programming                (*A.thaliana D.rerio T.thermophila X.laevis*)
+                      Reproducibility of data analysis     (*M.mulatta M.musculus O.bimaculoides P.polytes*)
+**5:00-6:30**         Dinner                              
+**7:15-8:00**         MBL Talk 2 XXX                      
+------------------    ------------------------------------
+
+### Friday, September 7 
+
+------------------    ------------------------------------
+**8:30-10:00**        Statistics for a data rich world     (*T.roseae T.thermophila X.laevis*)
+                      Workshop Eren                        (*A.thaliana C.elegans D.rerio*)
+                      Workshop Palmer                      (*D.melanogaster M.mulatta M.musculus*)
+                      Workshop Steinrücken                 (*O.bimaculoides P.polytes S.aegyptiacus*)
+**10:00-10:30**       Coffee break                        
+**10:30-12:00**       Statistics for a data rich world     (*T.roseae T.thermophila X.laevis*)
+                      Workshop Eren                        (*A.thaliana C.elegans D.rerio*)
+                      Workshop Palmer                      (*D.melanogaster M.mulatta M.musculus*)
+                      Workshop Steinrücken                 (*O.bimaculoides P.polytes S.aegyptiacus*)
+**12:00-1:00**        Lunch                               
+**1:00-2:30**         Statistics for a data rich world     (*D.rerio M.musculus S.aegyptiacus*)
+                      Workshop Eren                        (*D.melanogaster O.bimaculoides T.thermophila*)
+                      Workshop Palmer                      (*A.thaliana P.polytes T.roseae*)
+                      Workshop Steinrücken                 (*C.elegans M.mulatta X.laevis*)
+**2:30-2:45**         Coffee break                        
+**2:45-4:30**         Statistics for a data rich world     (*D.rerio M.musculus S.aegyptiacus*)
+                      Workshop Eren                        (*D.melanogaster O.bimaculoides T.thermophila*)
+                      Workshop Palmer                      (*A.thaliana P.polytes T.roseae*)
+                      Workshop Steinrücken                 (*C.elegans M.mulatta X.laevis*)
+**5:00-6:30**         Dinner                              
+**7:15-8:00**         MBL Talk -  N. Patel                
+------------------    ------------------------------------
+
+### Saturday, September 8 
+
+------------------    ------------------------------------
+**8:30-10:00**        Statistics for a data rich world     (*C.elegans D.melanogaster P.polytes*)
+                      Workshop Eren                        (*M.mulatta S.aegyptiacus T.roseae*)
+                      Workshop Palmer                      (*D.rerio O.bimaculoides X.laevis*)
+                      Workshop Steinrücken                 (*A.thaliana M.musculus T.thermophila*)
+**10:00-10:30**       Coffee break                        
+**10:30-12:00**       Statistics for a data rich world     (*C.elegans D.melanogaster P.polytes*)
+                      Workshop Eren                        (*M.mulatta S.aegyptiacus T.roseae*)
+                      Workshop Palmer                      (*D.rerio O.bimaculoides X.laevis*)
+                      Workshop Steinrücken                 (*A.thaliana M.musculus T.thermophila*)
+**12:00-1:00**        Lunch                               
+**1:00-2:30**         Statistics for a data rich world     (*A.thaliana M.mulatta O.bimaculoides*)
+                      Workshop Eren                        (*M.musculus P.polytes X.laevis*)
+                      Workshop Palmer                      (*C.elegans S.aegyptiacus T.thermophila*)
+                      Workshop Steinrücken                 (*D.melanogaster D.rerio T.roseae*)
+**2:30-2:45**         Coffee break                        
+**2:45-4:30**         Statistics for a data rich world     (*A.thaliana M.mulatta O.bimaculoides*)
+                      Workshop Eren                        (*M.musculus P.polytes X.laevis*)
+                      Workshop Palmer                      (*C.elegans S.aegyptiacus T.thermophila*)
+                      Workshop Steinrücken                 (*D.melanogaster D.rerio T.roseae*)
+**5:15-8:15**         BBQ and Wrap up                     
+------------------    ------------------------------------
+
+### Sunday, September 9 
+
+------------------    ------------------------------------
+**10:00-10:30**       Departure for BOS                   
+------------------    ------------------------------------
+
+### Tuesday, September 11 
+
+------------------    ------------------------------------
+**7:35-8:10**         Life after PhD a)                    (*M.mulatta M.musculus*)
+                      Life after PhD b)                    (*S.aegyptiacus T.roseae*)
+                      Navigating first year a)             (*D.rerio X.laevis*)
+                      Navigating first year b)             (*C.elegans D.melanogaster*)
+                      Publishing primer a)                 (*O.bimaculoides P.polytes*)
+                      Publishing primer b)                 (*A.thaliana T.thermophila*)
+**8:15-8:50**         Life after PhD a)                    (*D.rerio X.laevis*)
+                      Life after PhD b)                    (*C.elegans D.melanogaster*)
+                      Navigating first year a)             (*O.bimaculoides P.polytes*)
+                      Navigating first year b)             (*A.thaliana T.thermophila*)
+                      Publishing primer a)                 (*M.mulatta M.musculus*)
+                      Publishing primer b)                 (*S.aegyptiacus T.roseae*)
+**8:55-9:30**         Life after PhD a)                    (*O.bimaculoides P.polytes*)
+                      Life after PhD b)                    (*A.thaliana T.thermophila*)
+                      Navigating first year a)             (*M.mulatta M.musculus*)
+                      Navigating first year b)             (*S.aegyptiacus T.roseae*)
+                      Publishing primer a)                 (*D.rerio X.laevis*)
+                      Publishing primer b)                 (*C.elegans D.melanogaster*)
+------------------    ------------------------------------
+
