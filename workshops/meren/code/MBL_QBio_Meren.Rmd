@@ -1,12 +1,12 @@
 ---
-title: "QBio3 :: Microbiome workshop"
+title: "QBio4 :: Microbiome workshop"
 subtitle: 'A glimpse into the microbial jungle in your mouth'
 
 author:
 - A. Murat Eren^[Department of Medicine, University of Chicago] ^[Marine Biological Laboratory]
 - Alon Shaiber^[The Biophysical Sciences Program at the University of Chicago.]
-output: 
-  pdf_document: 
+output:
+  pdf_document:
     highlight: tango
 fig_height: 2
 ---
