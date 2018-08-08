@@ -20,39 +20,48 @@ knitr::opts_chunk$set(
   # collapse  = TRUE,
   fig.align = "center")
 ```
+{
+  \small
+## Installation notes
+For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, and `RMKdiscrete` packages. You should also install the UNIX utility `git` for [OSX](https://git-scm.com/download/mac) or [Windows](https://git-for-windows.github.io/).
+}
 
 # Goals
 This tutorial will cover methods for making your code reproducible, both by you and by others.
 Producing results that are reproducible by others is the very essence of science, and writing code that is reproducible by **you** is just the first step.
 In particular, we will discuss methods to ensure that you can:
 
-* reproduce your calculations precisely,
-* make your code readable,
 * track changes to your code,
-* make your code freely accessible to the wider world via [github](http://github.com/).
+* make your code freely accessible to the wider world via [github](http://github.com/),
+* make your code readable,
+* reproduce your calculations precisely,
 
 Along the way, you will get an introduction to stochastic processes and how they are used to model biological variability.
 By the end of this tutorial, you should know why it is important to save your seeds and merge your branches.
 You should also know why reproducible coding practices can help you *now*, even if (indeed, particularly if) you are just learning to code.
 
-<!-- TODO: Are stochastic processes still present? -->
+# What is reproducibility?
 
-## Installation notes
-For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, and `RMKdiscrete` packages. You should also install the UNIX utility `git` for [OSX](https://git-scm.com/download/mac) or [Windows](https://git-for-windows.github.io/).
+Here we'll consider three levels of reproducibility:
 
+0. Accessibility
+1. Replicability
+2. Reusability
+3. Extensibility
 
+These are hierarchically ordered in necessity, difficulty, and goodness.
 
+Reproducible code must be accessible to other researchers. However, accessible code is not necessarily reproducible in any sense. If the code is incomprehensible OR doesn't run, then you may as well not have published anything at all.
 
+The first real level of reproducibility is replicability: Does your code run and produce the result you said it would produce? If yes, then at least your result is replicable. If no, then you haven't done science, you've done magic. In an ideal world, your reviewers would catch this.
 
+Most scientists would probably aspire to reusability, the second level of reproducibility: can another scientist take your code and apply it to their own data? In order to apply your code correctly to their own data, another scientist will need to understand your code quite well. Therefore reusability requires more understandable code.
 
-# Introduction to `git`
-`git` is a version control system. Version control is a way to record and organize changes to a project that consists of files and directories. Over time, a version control system like `git` builds a repository of the whole history of your project.
+Finally, extensibility requires that your code be reconfigurable to address either different questions or different data. This is fundamentally different from the preceding, and is often beyond the scope of scientific inquiry. If you've written extensible code, you've made a tool, so this is more akin to methods development.
 
-When you start working on a new project, you tell `git` what directory will contain the project. Then `git` takes a snapshot of that directory to create the beginning of your repository. If the project is brand new, this may be a snapshot of an empty directory.  After you've done some work, you can tell `git` to take a new snapshot, called a **commit**. All snapshots remain available---you can always recover previously committed versions of files.
+# Accessibility
 
-`git` is especially important for collaborative projects: everybody can simultaneously work on the project, even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of **branching** allows you to experiment with changes (e.g. shall we rewrite the introduction of this paper?), and then decide whether to **merge** them into the project.
-
-### Why use Version Control?
+## Why use Version Control?
 If you ever collaborate on writing code, then version control is for you. If you ever horribly break your project and need to move quickly back in time two days (or two weeks), then version control is for you. If you ever need to replicate a figure you made three months ago, version control is for you (I *guarantee* you will need to do this at some point). If you ever need to share your code publicly, then version control is for you. Most likely, version control is for you.
 
 Version control is useful for small projects, and is essential for large collaborative projects. It vastly improves the workflow, efficiency and reproducibility. Without it, it is quite easy to lose track of the status of a manuscript (who has the most recent version?), or lose time (I cannot proceed with my changes, because I have to wait for the edits of my collaborators).
@@ -64,6 +73,15 @@ Version control makes it trivial to host your code publicly (e.g. on Github or B
 Version control might look like overkill at first. However, with a little bit of practice you will automatically run a few commands before you start working on a project, and again once you are done working on it. A small price to pay, considering the advantages. Simply put, using version control makes you a more organized and efficient scientist.
 
 > Stefano's testimonial: "Our laboratory adopted version control for all our projects in 2010, and sometimes we wonder how we managed without it."
+
+
+## Introduction to `git`
+`git` is a version control system. Version control is a way to record and organize changes to a project that consists of files and directories. Over time, a version control system like `git` builds a repository of the whole history of your project.
+
+When you start working on a new project, you tell `git` what directory will contain the project. Then `git` takes a snapshot of that directory to create the beginning of your repository. If the project is brand new, this may be a snapshot of an empty directory.  After you've done some work, you can tell `git` to take a new snapshot, called a **commit**. All snapshots remain available---you can always recover previously committed versions of files.
+
+`git` is especially important for collaborative projects: everybody can simultaneously work on the project, even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of **branching** allows you to experiment with changes (e.g. shall we rewrite the introduction of this paper?), and then decide whether to **merge** them into the project.
+
 
 
 
@@ -117,21 +135,11 @@ GitKraken is a graphical user interface (GUI) on top of the older command-line i
   - `checkout`: **TODO**
 
 
-## Workflow
-
- TODO: fix numbers
- 1) Pull any new changes from your collaborators
- 1) Work on your project
- 2) When you've done something meaningful, stage your changes
- 3) Commit your changes, writing a meaningful commit message
- 4) Repeat!
- 5) When you're done for the day, push your changes to the remote repository (e.g. on GitHub).
-
-# First Steps: Your First Repo
+## Exercise 1: Your First Repo
 
 Let's `init` your first repo from scratch! To do so, in GitKraken select `File > Init Repo`. We'll be creating a "Local Only" repository for this simple example. That just means we'll not be putting any files on any website (such as GitHub). The files are only stored on your computer. Browse for [TODO: Place to put files].
 
-Great! Now we have an empty repository. Let's put something in it. Using a text editor of your choice (Notepad, TextEdit, Sublime, even RStudio), create a file called `origin.txt` with the text "An abstract of an Essay on the Origin of Species...". Save it.
+Great! Now we have an empty repository. Let's put something in it. Using a text editor of your choice (Notepad, TextEdit, Sublime, even RStudio), create a file called `origin.txt` with the text "An abstract of an Essay on the Origin of Species..." and save it.
 
 Now go back to GitKraken. At the top of the center panel, an entry has been added, `// WIP`. This stands for "Work In Progress" and it indicates you've made changes to your project that have not been committed to the repository. We have two steps to record the changes to the repository: First, we stage the changes. Second, we commit the staged changes.
 
@@ -143,23 +151,34 @@ If you use `git` in the wild, you'll find that [TODO: This is everything]
 
 For the remainder of the tutorial, we'll be using a more complicated example based in code hosted on GitHub. TODO
 
+## Remote repositories
+So far, we have been working with a local repository, meaning the repository is hosted only on your computer. Usually, you will want to also keep a copy of the repository online, called a ``remote repository.'' With a remote repository, you can collaborate with others, sync your code across multiple machines, and back up your code.
+
+The most popular option for hosting remote repositories is [GitHub](http://github.com). As a student you can get private repositories for free! The [Student Developer Pack](https://education.github.com/pack) comes with access to lots of other goodies, but private repositories make it a necessity. They're useful in the early stages of your project when you're paranoid about anyone, let alone the entire world, seeing your hasty hacks. But remember to publicize your repository when you publish! (Note: probably still not HIPAA compliant)
+
+After the initial setup, you only need to add two new commands to your `git` workflow: `pull` and `push`. When you want to work on a project that is tracked by a remote repository, you `pull` the most recent version from the server to sync your local copy of the project to the most recent version. When you are done working, you `push` your commits to the server so that other users can see them.
+
+## Workflow
+
+ TODO: fix numbers
+ 1) Pull any new changes from your collaborators
+ 1) Work on your project
+ 2) When you've done something meaningful, stage your changes
+ 3) Commit your changes, writing a meaningful commit message
+ 4) Repeat!
+ 5) When you're done for the day, push your changes to the remote repository (e.g. on GitHub).
+
 ## Clone a Repo
 
 The previous section covered how to create your own repo from scratch [TODO: common use case: use someone else's code]
 
 [TODO: clone LotsOBugs repo]
 
-## Remote repositories
-So far, we have been working with local repositories, hosted in only one computer. When collaborating (or when working on the same project from different computers), it is convenient to host the repository on a server, so that the collaborators can see your changes, and add
-their own.
 
-There are two main options: a) setup your own server (this is beyond the scope of this introduction); b) host your repositories on a website offering this service (for a fee, or for free).
-
-The most popular option for hosting open source projects, where the whole world can see what and when you commit, is [GitHub](http://github.com), which will store all your public repositories for free. In fact, as as student you can get private repositories for free! The [Student Developer Pack](https://education.github.com/pack) comes with access to lots of other goodies, but private repositories make it a necessity. They're useful in the early stages of your project when you're paranoid about anyone, let alone the entire world, seeing your hasty hacks. But remember to publicize your repository when you publish! (Note: probably still not HIPAA compliant)
-
-After the initial setup (which is specific to the service you use, and thus not treated here), you only need to add two new commands to your `git` workflow: `pull` and `push`. When you want to work on a project that is tracked by a remote repository, you `pull` the most recent version from the server and work on your local copy using the commands illustrated above. When you are done, you `push` your commits to the server so that other users can see them. Your workflow will look like:
 
 ## Understanding the Code
+
+So far, we've just covered getting your code to be accessible, whether to yourself in the future (version control) or to other researchers (*remote* version control). Putting
 
 TODO: Maybe move the below to the README?
 
@@ -259,8 +278,7 @@ There are several Graphical User Interfaces for [git](http://git-scm.com/downloa
 
 
 
-# Readability
-<!-- TODO: Include story metaphor? -->
+<!-- # Readability
 When you begin programming, you have written just a few programs and functions and it might be possible to hold all of your naming conventions and little tricks in your mind at once. However, wait just a few days -- let alone a few months -- and you'll have a hard time deciphering, perhaps even running *your own* code if you don't write readable programs. Best practices in modern computational science also dictate that you share your code whenever you publish a result. This means that other people need to be able to read your code; it should run on other computers with other folks sending the input data and specifying or *changing* parameters. This might seem daunting, but a few simple habits will aid in keeping all of your code parsable by other humans, including your own future self.
 
 ## Commenting your code
@@ -337,99 +355,8 @@ In-line comments make complex code readable, but simple code that doesn't need c
   `make_and_crown_and_dethrone_a_foo()`. Each line is a sentence, and when you do many things on the same line, you run the risk of run-on sentences.
   * **Don't use magic numbers**\quad When programmers talk about magic numbers, they don't mean 7 (necessarily).
   They mean any number that's just sitting in your code, unnamed. This is similar to "use self-explanatory variable names." `area <- 5 * 3` is not as clear as `area <- width * height`.
+ -->
 
-
-
-<!-- # DIY lottery
-To practice writing readable code, let's write a short program to generate a draw from a lottery. The lottery is a somewhat peculiar one: Each ticket for the lottery is a buyer-determined string of $30$ $1$'s and $0$'s. The winning lottery number is drawn by flipping a coin 30 times and reporting a "$1$" for heads and a "$0$" for tails. The same bent coin is always used, and it has a probability of $0.1$ of turning up heads and a probability of $0.9$ of turning up tails. The prize money for the lottery is $\$10,000,000$, and each ticket costs only \$1.
-
-Let's make sure to load the `stats` package.
-```{r,eval=TRUE}
-library(stats)
-```
-
-Next, let's explore how we simulate flipping this bent coin once. We're going to use one of R's random number generator functions `runif`, which will give you uniformly distributed numbers on the interval $[0.1]$. Here's one way to do it:
-```{r,eval=TRUE}
-# define the probability of heads
-p_heads <- 0.1
-# draw a random number from the interval [0,1]
-random_val <- runif(1)
-# threshold the random number based on p_heads to decide the sign of the flip
-if (random_val < p_heads) {
-  coinflip <- 1
-} else {
-  coinflip <- 0
-}
-# 1 is for heads, 0 is for tails
-```
-Can you see any ways to make this code even more Really Obvious?
-
-> **Exercise**
->
-> Write a function in R that will simulate one random draw for the winning lottery ticket. Let the inputs to the function be the number of digits in the lottery ticket (default value $10$) and the probability of heads (default value $0.1$). The function should output a sequence of $1$'s and $0$'s. Use all of the best practices for commenting your code.
-
-Each flip of a coin like this with probability, $p$, of heads is an example of a Bernoulli trial, which is the technical term for an experiment with only two output states, success or failure. The number of heads in the sequence of independent coin flips generated by our lottery will follow a binomial distribution
-
-$P_n(k) = \binom{n}{k} p^k (1-p)^{n-k},$
-
-where $p$ is the probability of heads ($1$'s), $n$ is the length of our lottery ticket, and $k$ is the number of heads in the ticket. The prefactor $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is called the binomial coefficient and describes the number of unique ways of placing $k$ identical objects in $n$ bins. Capital "$P_n$" represents the probability distribution of $k$ heads out of $n$ tosses.
-
-You can use the function `rbinom` to generate draws from a Bernoulli distribution, since a Bernoulli trial is just a binomial trial with only one coin flip. In our lottery, this code would amount to flipping the coin $n_\textrm{flips}$ times.
-```{r,eval=TRUE}
-n_flips <- 10
-rbinom(n_flips,1,p_heads)
-```
-
-> **Exercise**
->
-> If you could only buy one ticket for this lottery, which one would you buy? Modify your code (perhaps use `rbinom`) and run it several times (maybe 100 or even 1000) to sample from lots of possible lottery outcomes. Did you pick a good number? How many times did your number come up?
-
-## Save your seeds
-Compare a draw from your lottery with your neighbor. Do you draw the same sequence of random lottery tickets? Why not? If you wanted to reproduce the *exact* same output from your lottery each time you decide to reset it, you'll need to know a little more about how R's random number generator (RNG) works. Try typing:
-
-```{r,eval=FALSE}
-? RNG
-```
-
-That should open documentation in the "Help" pane. You will notice that the function `RNGkind` is the interface for querying the current state of the RNG. Let's find out what the current settings are:
-
-```{r,eval=TRUE}
-RNGkind()
-```
-
-The first part is the RNG algorithm, the second specifies the algorithm for transforming uniformly distributed random numbers into random samples from the normal, or Gaussian, distribution. The twister algorithm based on Mersenne prime numbers, $M_n = 2^n -1$, where $n$ is also prime, is a state-of-the-art pseudo-random number generation scheme, developed by Matsumoto and Nishimura in 1997. NB: RNG's should technically be called *pseudo*-random number generators or PRNG's, in part because they all have some period after which they will produce exactly the same sequence. The trick is to find an algorithm with a period so long you'll never notice the "P" in the "PRNG". The Mersenne Twister algorithm has a period of $2^{19937}-1$ and passes many statistical tests for randomness.
-
-The seed to an RNG is usually a large integer that provides an initialization the RNG algorithm. Scrolling down to "Note" in the "Help" pane, you'll learn that the seed to `R`'s RNG is set by the current time and the process ID. That means that your simulation results will depend on when you start your `R` session, run your code, and even some local information in your processing environment. Compare the output of `runif` with your neighbor.
-
-```{r,eval=FALSE}
-runif(5)
-```
-
-Starting an RNG with the same seed will produce exactly the same sequence of random numbers; an RNG spits out random numbers, but not noisy ones. To reproduce your simulation results precisely when you use an RNG, you'll want control of that seed. `R` uses `set.seed` which takes a small integer as input and generates, deterministically, all the random seeds necessary for your RNG algorithm.
-
-```{r,eval=FALSE}
-set.seed(19937)
-runif(5)
-runif(5)
-set.seed(19937)
-runif(5)
-```
-
-> **Exercise**
->
->Test whether or not you and your neighbor get precisely the same sequence of numbers when you use the same seed. Will this work if you use different RNG algorithms? Try changing your RNG algorirhm using `RNGkind` and compare your results with your neighbor, when you use the same seed. If you wanted to be able to instruct someone to reproduce your exact simulation results using `R`'s RNG, what would you need to tell them?
-
-You can use `RNGkind` to set or query both the RNG and normal algorithms. You can save this information along with the current value of `seed` using something like:
-
-```{r,eval=FALSE}
-seed <- 19937
-set.seed(seed)
-seed_used <- seed
-RNGkind_used <- RNGkind()
-save("seed_used","RNGkind_used",file=RNGinfo_for_mycode)
-```
-
-When you are ready to share your code with others, you should also save all the version information for your current `R` package and libraries to this same file. -->
 
 <!--
 
