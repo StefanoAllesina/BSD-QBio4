@@ -112,7 +112,15 @@ When you start working on a new project, you tell `git` what directory will cont
 >
 > 5) Type a commit message (e.g. "Began Essay on the Origin of Species") and commit the staged change.
 >
-> TODO: Finish
+> 6) Now let's get crazy! Create a new file called `end.txt` with the text "Some say the world will end in fire..." AND add onto `origin.txt` so that it says
+> An abstract of an Essay on the Origin of Species... blaaaaah.
+> Writing is hard. Maybe I'll watch Netflix instead.
+>
+> 7) Go back to GitKraken, and `// WIP` should be back. This time when you click on it, you should see two changes are unstaged, one for each file. One is a change, and one is an addition.
+>
+> 8) We'll commit them separately, since they don't really have anything to do with one another. So first stage the new file `end.txt`, type in a commit message, and commit. You should still see `// WIP` at the top, but underneath should be the commit message you just typed.
+>
+> 9) Now click again on `// WIP` and stage the changes to `origin.txt`. Notice when you do so that there are *three* changes to the file: the original first line was deleted, and the new first line was added. That's just how `git` works. It only does whole-line changes, not within line changes. Of course the second line was simply added.
 
 If you use `git` in the wild, you'll find that staging and committing is 90% of what you do.
 
