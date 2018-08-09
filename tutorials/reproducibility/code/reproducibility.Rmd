@@ -321,11 +321,32 @@ For the data challenge, you'll be analysing real data from research papers found
 ### Arthropod dispersion
 In 1941 and 1942, zoologist LaMont Cole, then working at the University of Chicago, set out to survey species diversity and distribution in the woods and pastures of Kendall County, Illinois. He was particularly interested in which species co-occurred in woods versus grazing land and how their numbers varied with changes in humidity and temperature throughout the year. He laid thick oak boards in a variety of locations and counted the number of "cryptozoic" (animals found under stones, rotten logs, tree bark, etc.) individuals found under the boards several times a week, over the course of a year. For his spatial distribution studies, he aimed to determine whether arthropods distributed themselves randomly or if they had a more complex interaction pattern with each other or with their environment.
 
+If the bugs are randomly distributed, then they should be Poisson distributed. If there is some pattern, we might try to fit them by a Lagrangian Poisson Distribution or LGP, which accounts for the attraction or repulsion of individuals to each other. The LGP has a mean rate parameter, $\lambda_1$, just like in the Poisson distribution. The LGP has a second parameter, $\lambda_2$, that describes the deviation from expected Poisson dispersion.<!-- [TODO: the following is technically inaccurate, as then the Poisson distribution would be recovered by lambda2=1, not lambda2=0, as is the case: ], or the ratio of the variance of the distribution to the mean.-->
+
+>NB: A Poisson distribution has a variance-to-mean ratio equal to 1. As an exercise, show that the variance of the spider count distribution is approximately equal to its mean.
+
+$\lambda_2 > 0$ implies that organisms are over-dispersed and may be attracted to one another, forming more large-number clusters than expected by chance. $\lambda_2 < 0$ implies that organisms are under-dispersed and are likely repulsed by one another, resulting in a more even distribution across space and, hence, lower count variance. The LGP distribution, in terms of these two paramters, is
+
+$P(k) = \lambda_1 (\lambda_1 + k\lambda_2)^{k-1}\frac{e^{-(\lambda_1+k\lambda_2)}}{k!}.$
+
+When $\lambda_2 =0$, we get precisely the Poisson distribution.
+
 ### The challenge
 
-Make three figures of Poisson fits to the *probability* of bug counts, one for each spiders, sowbugs, and weevils. Each figure should have datapoints corresponding to empirical data, and lines corresponding to theoretical distribution. Indicate in the README how well the Poisson distribution fits these data sets.
+Check visually how the distributions of the three bug types fit to Poisson and LGP distributions.
 
-TODO: Add other distributions that do fit sowbugs
+1) Poisson fit to the *probability* of spider counts
+2) Poisson fit to the *probability* of sowbug counts
+3) Poisson fit to the *probability* of weevil counts
+4) LGP fit to the *probability* of spider counts
+5) LGP fit to the *probability* of sowbug counts
+6) LGP fit to the *probability* of weevil counts
+
+Each figure should have datapoints corresponding to empirical data, and lines corresponding to theoretical distribution. Indicate in the README how well the each distribution fits these data sets.
+
+For LGP, you can use the function `dLGP` from the library `RMKdiscrete`
+
+For sowbugs, you can use the empirically determined `lambda2 = 0.53214` and estimate `lambda1` by the formula `lambda1 = mean * (1 - lambda2)`.
 
 ### The requirements
 
