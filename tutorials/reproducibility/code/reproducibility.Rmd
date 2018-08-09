@@ -146,27 +146,25 @@ GitKraken is a graphical user interface (GUI) on top of the older command-line i
 
 So far, we've covered making your code accessible, whether to yourself in the future (via version control) or to other researchers (via *remote* version control). But accessibility is only the first step. To go further, we need to make sure other researchers can understand our code.
 
-In order learn how to write understandable code, we're going to try reproducing some figures ourselves. After cloning the LotsOBugs repo, you have a copy of all the code used to make some figures you'd like to replicate.
+In order learn how to write understandable code, we're going to try reproducing some figures ourselves.
 
 ## Understanding the Code
 
-Code should be understood from the top down.
+Well-written code is a lot like a well written essay: it should be understood from the top down.
 
-### Read the README
+At the top level, every project should have a file called simply **README**. The README introduces the project as a whole. It should explain the purpose of the project and direct the reader to important files (e.g. the script that runs the analysis). Thus the README is analogous to the essay's introduction.
 
-At the top level, every project should have a file called simply ``README.'' This file should explain the purpose of the project and direct the reader to important files (e.g. the script that runs the analysis).
+Then, analogous to the introduction to a section of your essay, each **file** should begin with a few lines of comments explaining what will be found in that file. Additionally, such comments usually include the author's name.
 
-In this project, the README very thoughtfully explains where you can find the code that made each figure.
+Similarly, every **block of code** should have a comment describing its purpose. A block of code is simply contiguous lines of code isolated by whitespace. Blocks are like paragraphs, so there isn't any rule as to how to make them. Loosely, if you can write a concise comment describing the action of some lines of code, that would make a good block. The comment describing the block's purpose is analogous to the topic sentence that should appear near the beginning of a paragraph (usually).
 
-### Read the block comments
+Finally, the most specific comments are **in-line comments**. As a beginning programmer, you should probably use in-line comments liberally, to make explicit to yourself what each line does. However, as you gain experience, inline comments should be used sparingly, if at all. There are a few reasons to avoid in-line comments once you gain experience coding:
 
-At the top, every file should have a block comment describing the purpose of that file. Similarly, every block of code should have a comment describing its purpose. You might ask what we mean by "block." Blocks are like paragraphs. There isn't any rule as to what constitutes a block of code. Loosely, if you can write a concise comment describing the action of some lines of code, that would make a good block. So, rather circularly, a block is a set of code that has a block comment. Separate blocks by empty lines.
+ 1) If the code in a single line needs a comment to be understandable, then it's too complicated.
+ 2) Similarly, if your code is written well, then the comment should be redundant
+ 3) Often, you'll change code but forget to change the comment, leading to misleading in-line comments
 
-In this project, the block comments provide a nice way to quickly find the code responsible for the figures in question.
-
-### Read the inline comments
-
-Inline comments are the most specific of comments. As a beginning programmer, you should probably use them liberally, to make explicit to yourself what each line does. However, in general inline comments should be used sparingly, if at all. Generally, if the code in a single line needs a comment to be understandable, then it's too complicated.
+In
 
 ### Read the code
 
@@ -261,7 +259,11 @@ runif(5)
 
 > **Exercise 4**: Playing with seeds
 >
->Test whether or not you and your neighbor get precisely the same sequence of numbers when you use the same seed. Will this work if you use different RNG algorithms? Try changing your RNG algorirhm using `RNGkind` and compare your results with your neighbor, when you use the same seed. If you wanted to be able to instruct someone to reproduce your exact simulation results using `R`'s RNG, what would you need to tell them?
+> 1) Test whether or not you and your neighbor get precisely the same sequence of numbers when you use the same seed.
+>
+> 2) Will this work if you use different RNG algorithms?
+> 3) Try changing your RNG algorirhm using `RNGkind` and compare your results with your neighbor, when you use the same seed.
+> 4) If you wanted to be able to instruct someone to reproduce your exact simulation results using `R`'s RNG, what would you need to tell them?
 
 You can use `RNGkind` to set or query both the RNG and normal algorithms. You can save this information along with the current value of `seed` using something like:
 
@@ -276,11 +278,11 @@ save("seed_used","RNGkind_used",file=RNGinfo_for_mycode)
 
 When you are ready to share your code with others, you should also save all the version information for your current `R` package and libraries to this same file.
 
-
-
-
-
-
+> **Exercise 5**: Replicate a figure
+>
+> 1) `checkout` the branch called "analysis."
+> 2) Find the code necessary to replicate Figure 1 (hint: when you switched branches, the README was updated)
+> 3) Replicate Figure 1 (hints are at the bottom of "References and Readings")
 
 
 # References and readings
@@ -299,8 +301,10 @@ A great way to try out Git in 15 minutes is [here](http://try.github.io).
 
 [Software Carpentry](http://swcarpentry.github.io/git-novice) offers intensive on-site workshops and online tutorials.
 
+### Hints to Exercise 5
 
-
+- Hint 1: Notice what section the exercise falls under.
+- Hint 2: You'll need to go through the commit history.
 
 # Data Challenge
 
