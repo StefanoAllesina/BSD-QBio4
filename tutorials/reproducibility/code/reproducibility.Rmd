@@ -82,9 +82,9 @@ Finally, extensibility requires that your code be reconfigurable to address eith
 - If you ever need to share your code publicly, then version control is for you.
 - Most likely, version control is for you.
 
-Version control is useful for small projects, and is essential for large collaborative projects. Without version control, for small projects like manuscripts, often researchers play a game of hot potato. They pass the manuscript back and forth, and the manuscript accumulates an increasingly incomprehensible name (e.g. "Significanceinnovation_draft_2_gs_edits_SEP.docx"). You can easily lose track of who has it, or lose time when one collaborator fails to make promised changes for weeks.
+Version control is useful for small projects, and is essential for large collaborative projects. Without version control, for small projects like manuscripts, often researchers play a game of hot potato. They pass the manuscript back and forth, and the manuscript accumulates an increasingly incomprehensible name (e.g. "Significanceinnovation_draft_2_gs_edits_SEP.docx", a relatively benign example). You can easily lose track of who has the latest copy, or lose time when one collaborator fails to make promised changes for weeks.
 
-Version control allows all collaborators to simultaneously make edits without fear of clobbering each other. Moreover, version control keeps all previously committed versions of the files and directories of your project. This means that it is quite easy to undo short-term changes: Bad day? Just go back to yesterday's version! You can also access previous stages of the project: "I need to access the manuscript's version and all the analysis files in exactly the state that they were in when I sent the draft for review three months ago." Checking out an entire project at a certain point in time is easy with a version control system but much more difficult with Dropbox or Google Drive.
+Version control keeps all previously committed versions of the files and directories of your project. This means that it is quite easy to undo short-term changes: Bad day? Just go back to yesterday's version! You can also access previous stages of the project: "I need to access the manuscript's version and all the analysis files in exactly the state that they were in when I sent the draft for review three months ago." Checking out an entire project at a certain point in time is easy with a version control system but much more difficult with Dropbox or Google Drive.
 
 Version control makes it trivial to host your code publicly (e.g. on Github or Bitbucket) and to share a robust link to your code in any publication.
 
@@ -97,7 +97,7 @@ For this introduction, we will be using `git`, a version control system that is 
 
 When you start working on a new project, you tell `git` what directory will contain the project. Then `git` takes a snapshot of that directory to create the beginning of your repository. If the project is brand new, this may be a snapshot of an empty directory.  After you've done some work, you can tell `git` to take a new snapshot, called a **commit**. All snapshots remain available---you can always recover previously committed versions of files.
 
-`git` is especially important for collaborative projects: everybody can simultaneously work on the project, even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of **branching** allows you to experiment with changes (e.g. shall we rewrite the introduction of this paper?), and then decide whether to **merge** them into the project.
+`git` is especially important for collaborative projects: everybody can simultaneously work on the project, even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of **branching** allows you to experiment with changes (e.g. shall we rewrite the introduction of this paper?), and then decide whether to **merge** them into the project. Merging is the chief advantage of `git` over some other version control systems.
 
 >
 > **Exercise 1**: Your First Repo
