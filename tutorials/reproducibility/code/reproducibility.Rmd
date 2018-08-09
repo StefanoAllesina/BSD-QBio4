@@ -26,15 +26,28 @@ knitr::opts_chunk$set(
 ## Installation notes
 For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, and `RMKdiscrete` packages. You should also install the UNIX utility `git` for [OSX](https://git-scm.com/download/mac) or [Windows](https://git-for-windows.github.io/).
 
+## `git` Glossary
+
+  - `branch`: *n.* A lineage of commits. A repository can have multiple branches, and committing changes to one will not affect the others. You can switch between branches (see `checkout`). When you switch branches, all your project's files change to the state they were in at the last commit on that branch. *v.* To create a new branch.
+  - `checkout`: *v.* Switch branches. Replaces all files with the files from the checked out branch.
+  - `clone`: *v.* Create a new local copy of a remote repository.
+  - `commit`: *v.* Take a snapshot of the current progress. *n.* A snapshot of the project at a particular point in time
+  - `init`: *v.* Create an empty repository.
+  - `pull`: *v.* Download the latest version of the project from the remote repository.
+  - `push`: *v.* Upload your latest local commit to the remote repository.
+  - `repository` (`repo`): *n.* Entire history of project. Set of all commits on all branches.
+  - `remote repository`: *n.* Repository hosted on a server (e.g. GitHub)
+  - `stage`: *v.* Add changes to the set that will be committed. (does not commit!)
+
 # Goals
 This tutorial will cover methods for making your code reproducible, both by you and by others.
 Producing results that are reproducible by others is the very essence of science, and writing code that is reproducible by **you** is just the first step.
 In particular, we will discuss methods to ensure that you can:
 
-* track changes to your code,
-* make your code freely accessible to the wider world via [github](http://github.com/),
-* make your code readable,
-* reproduce your calculations precisely,
+* back up versions of your code using `git` and GitKraken
+* make your code freely accessible to the wider world via [GitHub](http://github.com/)
+* make your code readable
+* reproduce your calculations precisely
 
 Along the way, you will get an introduction to stochastic processes and how they are used to model biological variability.
 By the end of this tutorial, you should know why it is important to save your seeds and merge your branches.
@@ -51,9 +64,9 @@ Here we'll consider three levels of reproducibility:
 
 These are hierarchically ordered in necessity, difficulty, and goodness.
 
-Reproducible code must be accessible to other researchers. However, accessible code is not necessarily reproducible in any sense. If the code is incomprehensible OR doesn't run, then you may as well not have published anything at all.
+Reproducible code must be accessible to other researchers. However, accessible code is not necessarily reproducible in any sense. If the code is incomprehensible or doesn't run, then you may as well not have published anything at all.
 
-The first real level of reproducibility is replicability: Does your code run and produce the result you said it would produce? If yes, then at least your result is replicable. If no, then you haven't done science, you've done magic. In an ideal world, your reviewers would catch this.
+The first real level of reproducibility is replicability: Does your code run and produce the result you said it would produce? If yes, then at least your result is replicable. If not, then you're just asking your readers to take your results on faith. Indeed, replicability is a bare minimum to qualify as "science."
 
 Most scientists would probably aspire to reusability, the second level of reproducibility: can another scientist take your code and apply it to their own data? In order to apply your code correctly to their own data, another scientist will need to understand your code quite well. Therefore reusability requires more understandable code.
 
@@ -69,9 +82,9 @@ Finally, extensibility requires that your code be reconfigurable to address eith
 - If you ever need to share your code publicly, then version control is for you.
 - Most likely, version control is for you.
 
-Version control is useful for small projects, and is essential for large collaborative projects. It vastly improves the workflow, efficiency and reproducibility. Without it, it is quite easy to lose track of the status of a manuscript (who has the most recent version?), or lose time (I cannot proceed with my changes, because I have to wait for the edits of my collaborators).
+Version control is useful for small projects, and is essential for large collaborative projects. Without version control, for small projects like manuscripts, often researchers play a game of hot potato. They pass the manuscript back and forth, and the manuscript accumulates an increasingly incomprehensible name (e.g. "Significanceinnovation_draft_2_gs_edits_SEP.docx"). You can easily lose track of who has it, or lose time when one collaborator fails to make promised changes for weeks.
 
-Many scientists keep backup versions of the same project over time or append a date/initials to different versions of the same file (e.g. various drafts of the same manuscript). This manual approach quickly becomes unmanageable, with simply too many files and versions to keep track of in a timely and organized manner. Version control allows you to access all previously committed versions of the files and directories of your project. This means that it is quite easy to undo short-term changes: Bad day? Just go back to yesterday's version! You can also access previous stages of the project: "I need to access the manuscript's version and all the analysis files in exactly the state that they where in when I sent the draft for review three months ago." Checking out an entire project at a certain point in time is easy with a version control system but much more difficult with Dropbox or Google Drive.
+Version control allows all collaborators to simultaneously make edits without fear of clobbering each other. Moreover, version control keeps all previously committed versions of the files and directories of your project. This means that it is quite easy to undo short-term changes: Bad day? Just go back to yesterday's version! You can also access previous stages of the project: "I need to access the manuscript's version and all the analysis files in exactly the state that they were in when I sent the draft for review three months ago." Checking out an entire project at a certain point in time is easy with a version control system but much more difficult with Dropbox or Google Drive.
 
 Version control makes it trivial to host your code publicly (e.g. on Github or Bitbucket) and to share a robust link to your code in any publication.
 
@@ -79,7 +92,8 @@ Version control makes it trivial to host your code publicly (e.g. on Github or B
 
 
 ## Introduction to `git`
-`git` is a version control system. Version control is a way to record and organize changes to a project that consists of files and directories. Over time, a version control system like `git` builds a repository of the whole history of your project.
+
+For this introduction, we will be using `git`, a version control system that is free and is available on all major operating systems. `git` was initially developed by Linus Torvalds (the "Linu" in Linux), exactly for the development of the Linux kernel. It was first released in 2005 and has since become the most widely adopted version control system.
 
 When you start working on a new project, you tell `git` what directory will contain the project. Then `git` takes a snapshot of that directory to create the beginning of your repository. If the project is brand new, this may be a snapshot of an empty directory.  After you've done some work, you can tell `git` to take a new snapshot, called a **commit**. All snapshots remain available---you can always recover previously committed versions of files.
 
@@ -128,19 +142,6 @@ After the initial setup, you only need to add two new commands to your `git` wor
 ## Help using GitKraken and `git`
 
 GitKraken is a graphical user interface (GUI) on top of the older command-line interface (CLI) `git`. If you've never used `git` before, GitKraken has a good tutorial: [https://support.gitkraken.com/start-here/guide](https://support.gitkraken.com/start-here/guide)
-
-
-## `git` Glossary
-
-  - `commit`: *v.* Take a snapshot of the current progress. *n.* A snapshot of the project at a particular point in time
-  - `stage`: *v.* Add changes to the set that will be committed. (does not commit!)
-  - `repository` (`repo`): *n.* Entire history of project. Set of all commits on all branches.
-  - `branch`: *n.* A lineage of commits. A repository can have multiple branches, and committing changes to one will not affect the others. You can switch between branches (see `checkout`). When you switch branches, all your project's files change to the state they were in at the last commit on that branch. *v.* To create a new branch.
-  - `checkout`: *v.* switch branches.
-  - `pull`: *v.* download the latest version of the project from the remote repository.
-  - `push`: *v.* upload your latest local commit to the remote repository.
-  - `init`: *v.* Create an empty repository.
-  - `clone`: *v.* Create a new local copy of a remote repository.
 
 # Replicability
 
