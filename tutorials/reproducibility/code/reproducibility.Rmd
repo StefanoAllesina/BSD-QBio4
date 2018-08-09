@@ -85,35 +85,20 @@ When you start working on a new project, you tell `git` what directory will cont
 
 `git` is especially important for collaborative projects: everybody can simultaneously work on the project, even on the same file. Conflicting changes are reported, and can be managed using side-by-side comparisons. The possibility of **branching** allows you to experiment with changes (e.g. shall we rewrite the introduction of this paper?), and then decide whether to **merge** them into the project.
 
-
-## Help using GitKraken and `git`
-
-GitKraken is a graphical user interface (GUI) on top of the older command-line interface (CLI) `git`. If you've never used `git` before, GitKraken has a good tutorial: [https://support.gitkraken.com/start-here/guide](https://support.gitkraken.com/start-here/guide)
-
-## Glossary
-
-  - `commit`: *v.* Take a snapshot of the current progress. *n.* A snapshot of the project at a particular point in time
-  - `stage`: *v.* Add changes to the set that will be committed. (does not commit!)
-  - `repository` (`repo`): *n.* Entire history of project. Set of all commits on all branches.
-  - `branch`: *n.* A lineage of commits. A repository can have multiple branches, and committing changes to one will not affect the others. You can switch between branches (see `checkout`). When you switch branches, all your project's files change to the state they were in at the last commit on that branch. *v.* To create a new branch.
-  - `checkout`: *v.* switch branches.
-  - `pull`: *v.* download the latest version of the project from the remote repository.
-  - `push`: *v.* upload your latest local commit to the remote repository.
-  - `init`: *v.* Create an empty repository.
-  - `clone`: *v.* Create a new local copy of a remote repository.
-
-
-## Exercise 1: Your First Repo
-
-1) Let's `init` your first repo from scratch! To do so, in GitKraken select `File > Init Repo`. We'll be creating a "Local Only" repository for this simple example. That just means we'll not be putting any files on any website (such as GitHub). The files are only stored on your computer. Browse for `Documents` or your equivalent. Note that you cannot put a `git` repository inside another `git` repository.
-
-2) Now we have an empty repository. Let's put something in it. Using a text editor of your choice (Notepad, TextEdit, Sublime, even RStudio), create a file called `origin.txt` with the text "An abstract of an Essay on the Origin of Species..." and save it.
-
-3) Now go back to GitKraken. At the top of the center panel, an entry has been added, `// WIP`. This stands for "Work In Progress" and it indicates you've made changes to your project that have not been committed to the repository. We have two steps to record the changes to the repository: First, we stage the changes. Second, we commit the staged changes.
-
-4) Stage the change.
-
-5) Type a commit message (e.g. "Began Essay on the Origin of Species") and commit the staged change.
+>
+> **Exercise 1**: Your First Repo
+>
+> 1) Let's `init` your first repo from scratch! To do so, in GitKraken select `File > Init Repo`. We'll be creating a "Local Only" repository for this simple example. That just means we'll not be putting any files on any website (such as GitHub). The files are only stored on your computer. Browse for `Documents` or your equivalent. Note that you cannot put a `git` repository inside another `git` repository.
+>
+> 2) Now we have an empty repository. Let's put something in it. Using a text editor of your choice (Notepad, TextEdit, Sublime, even RStudio), create a file called `origin.txt` with the text "An abstract of an Essay on the Origin of Species..." and save it.
+>
+> 3) Now go back to GitKraken. At the top of the center panel, an entry has been added, `// WIP`. This stands for "Work In Progress" and it indicates you've made changes to your project that have not been committed to the repository. We have two steps to record the changes to the repository: First, we stage the changes. Second, we commit the staged changes.
+>
+> 4) Stage the change.
+>
+> 5) Type a commit message (e.g. "Began Essay on the Origin of Species") and commit the staged change.
+>
+> TODO: Finish
 
 If you use `git` in the wild, you'll find that staging and committing is 90% of what you do.
 
@@ -140,10 +125,26 @@ After the initial setup, you only need to add two new commands to your `git` wor
 
 [TODO: clone LotsOBugs repo]
 
+## Help using GitKraken and `git`
+
+GitKraken is a graphical user interface (GUI) on top of the older command-line interface (CLI) `git`. If you've never used `git` before, GitKraken has a good tutorial: [https://support.gitkraken.com/start-here/guide](https://support.gitkraken.com/start-here/guide)
+
+
+## `git` Glossary
+
+  - `commit`: *v.* Take a snapshot of the current progress. *n.* A snapshot of the project at a particular point in time
+  - `stage`: *v.* Add changes to the set that will be committed. (does not commit!)
+  - `repository` (`repo`): *n.* Entire history of project. Set of all commits on all branches.
+  - `branch`: *n.* A lineage of commits. A repository can have multiple branches, and committing changes to one will not affect the others. You can switch between branches (see `checkout`). When you switch branches, all your project's files change to the state they were in at the last commit on that branch. *v.* To create a new branch.
+  - `checkout`: *v.* switch branches.
+  - `pull`: *v.* download the latest version of the project from the remote repository.
+  - `push`: *v.* upload your latest local commit to the remote repository.
+  - `init`: *v.* Create an empty repository.
+  - `clone`: *v.* Create a new local copy of a remote repository.
 
 # Replicability
 
-So far, we've covered making your code accessible, whether to yourself in the future (version control) or to other researchers (*remote* version control). But accessibility is only the first step. To go further, we need to make sure other researchers can understand our code.
+So far, we've covered making your code accessible, whether to yourself in the future (via version control) or to other researchers (via *remote* version control). But accessibility is only the first step. To go further, we need to make sure other researchers can understand our code.
 
 In order learn how to write understandable code, we're going to try reproducing some figures ourselves. After cloning the LotsOBugs repo, you have a copy of all the code used to make some figures you'd like to replicate.
 
@@ -185,35 +186,18 @@ While comments are useful and necessary, you should always strive to write code 
   * **Don't use magic numbers**\quad When programmers talk about magic numbers, they don't mean 7 (necessarily).
   They mean any number that's just sitting in your code, unnamed. This is similar to "use self-explanatory variable names." `area <- 5 * 3` is not as clear as `area <- width * height`.
 
-#### Exercise 2: Rename variables
-
-TODO: Write
-
-
 ## DIY lottery
-To practice commenting code, let's write a short program to generate a draw from a lottery. The lottery is a somewhat peculiar one: Each ticket for the lottery is a buyer-determined string of $30$ $1$'s and $0$'s. The winning lottery number is drawn by flipping a coin 30 times and reporting a "$1$" for heads and a "$0$" for tails. The same bent coin is always used, and it has a probability of $0.1$ of turning up heads and a probability of $0.9$ of turning up tails. The prize money for the lottery is $\$10,000,000$, and each ticket costs only \$1.
+To practice writing good code, let's take a look at a short lottery program and analysis. Functionally, we'll write a lottery simulation and analyse the results.
 
-Let's make sure to load the `stats` package.
+You should have cloned the code in the **Accessibility** section.
 
-```r
-library(stats)
-```
+Next, let's explore how we simulate flipping this bent coin once. We should tell you that the code uses one of R's random number generator functions `runif`, which will give you uniformly distributed numbers on the interval $[0.1]$.
 
-Next, let's explore how we simulate flipping this bent coin once. We're going to use one of R's random number generator functions `runif`, which will give you uniformly distributed numbers on the interval $[0.1]$. Here's one way to do it:
-
-```r
-# define the probability of heads
-p_heads <- 0.1
-# draw a random number from the interval [0,1]
-random_val <- runif(1)
-# threshold the random number based on p_heads to decide the sign of the flip
-coinflip <- if (random_val < p_heads) 1 else 0
-# 1 is for heads, 0 is for tails
-```
-
-> **Exercise**
+> **Exercise 2**: Use meaningful variables
 >
-> Write a function in R that will simulate one random draw for the winning lottery ticket. Let the inputs to the function be the number of digits in the lottery ticket (let's use $10$ to start) and the probability of heads (keep this at $p = 0.1$ to start). The function should output a sequence of $1$'s and $0$'s. Use all of the best practices for commenting your code.
+> Go through the lottery simulation, making all variable names meaningful, both by changing variable names and by introducing new variables to get rid of magic numbers.
+
+### Probability Interlude
 
 Each flip of a coin like this with probability, $p$, of heads is an example of a Bernoulli trial, the general term for an experiment with only two output states, success or failure. The number of heads in the sequence of independent coin flips generated by our lottery will follow a binomial distribution
 
@@ -221,7 +205,7 @@ $P_n(k) = \binom{n}{k} p^k (1-p)^{n-k},$
 
 where $p$ is the probability of heads ($1$'s), $n$ is the length of our lottery ticket, and $k$ is the number of heads in the ticket. The prefactor $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is called the binomial coefficient and describes the number of unique ways of placing $k$ identical objects in $n$ bins. Capital "$P_n$" represents the probability distribution of $k$ heads out of $n$ tosses.
 
-You can use the function `rbinom` to generate draws from a Bernoulli distribution. In our lottery, this would amount to flipping the coin $n_\textrm{flips}$ times.
+Knowing this, you can use the function `rbinom` to generate draws from a Bernoulli distribution. In our lottery, this would amount to flipping the coin `n_flips` times.
 
 ```r
 n_flips <- 3
@@ -232,9 +216,9 @@ rbinom(n_flips,1,p_heads)
 # [1] 0 0 0
 ```
 
-> **Exercise**
+> **Exercise 3**: Use functions
 >
-> If you could only buy one ticket for this lottery, which one would you buy? Modify your code (perhaps use `rbinom`) and run it several times (maybe 100 or even 1000) to sample from lots of possible lottery outcomes. Did you pick a good number? How many times did your number come up?
+> Rewrite the lottery to use `rbinom`. In case you decide to change the ticket generator in the future (*hint* *hint*), abstract the ticket generation into a function called `generate_ticket`. What arguments should this function accept? What should it return? Be sure to note both answers in a comment at the beginning of the function. Does using this meaningfully-named function make the code more readable? What about using `rbinom`?
 
 ### Save your seeds
 Compare a draw from your lottery with your neighbor. Do you draw the same sequence of random lottery tickets? Why not? If you wanted to reproduce the *exact* same output from your lottery each time you decide to reset it, you'll need to know a little more about how R's random number generator (RNG) works. Try typing:
@@ -275,7 +259,7 @@ set.seed(19937)
 runif(5)
 ```
 
-> **Exercise**
+> **Exercise 4**: Playing with seeds
 >
 >Test whether or not you and your neighbor get precisely the same sequence of numbers when you use the same seed. Will this work if you use different RNG algorithms? Try changing your RNG algorirhm using `RNGkind` and compare your results with your neighbor, when you use the same seed. If you wanted to be able to instruct someone to reproduce your exact simulation results using `R`'s RNG, what would you need to tell them?
 
@@ -292,33 +276,6 @@ save("seed_used","RNGkind_used",file=RNGinfo_for_mycode)
 
 When you are ready to share your code with others, you should also save all the version information for your current `R` package and libraries to this same file.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# A statistical interlude: Noise in biological systems
-Many of the variables that we observe in biological recordings fluctuate, sometimes because we cannot control all the states of the external and internal experimental system, other times because thermal noise makes the state of the biological system we interrogate inherently variable. Examples of fluctuating quantities in biological systems include: the number of a certain type of molecule in a cell; the number of open channels in a cell; the number of electrical action potentials or "spikes" emitted by a neuron in response to a stimulus; the number of individuals in a population at a particular moment in time; the number of bacterial colonies on a plate. These are all quantities that we can make precise claims about, on average, but cannot specify with certainty for any particular experimental observation.
-
-It is useful to model not only a mean value for a fluctuating variable, but the full shape of its distribution of values. For example, if we observe the firing of neurons in the brain to repeats of the same external stimulus, the precise times of spikes will vary between repeats. By fitting the statistics of this noise to models, we deepen our mechanistic understanding of the neural response. We can test whether or not the "noise" we observe is consistent with a truly random source of output variation, or if it has some structure that tells us about interactions between the neurons and their environment.
-
-Often, noise in biological systems is modeled by what's called a Poisson process, whose values follow a Poisson distribution. The program you wrote to sample the bent coin lottery generated tickets whose statistics follow the binomial distribution. The binomial distribution approches the familiar Poisson distribution, in the limit of a large number of trials, $n$, or a small probability of the event, $p$, per trial:
-
-$P_n(k)_{n\to \infty} = \frac{\lambda^k}{k!} e^{-\lambda}$
-
-where $\lambda$ is the average rate of occurrence of our event in $n$ trials. We have just written down the Poisson distribution.  You will see this used as a model for biological variability again and again, either explicitly or implicitly.  It is important to think about whether or not it is a good model for the system under study each time you come across it or are deciding to use it for your own research. Notes on deriving the relationships between some common distributions are provided in the readings folder.
 
 
 
