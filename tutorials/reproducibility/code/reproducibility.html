@@ -349,45 +349,47 @@ div.tocify {
 <p>In order learn how to write understandable code, we’re going to try reproducing some figures ourselves.</p>
 <div id="understanding-the-code" class="section level2">
 <h2>Understanding the Code</h2>
-<p>Well-written code is a lot like a well written essay: it should be understood from the top down.</p>
+<p>Well-written code is a lot like a well-written essay: it should be understood from the top down.</p>
 <p>At the top level, every project should have a file called simply <strong>README</strong>. The README introduces the project as a whole. It should explain the purpose of the project and direct the reader to important files (e.g. the script that runs the analysis). Thus the README is analogous to the essay’s introduction.</p>
 <p>Then, analogous to the introduction to a section of your essay, each <strong>file</strong> should begin with a few lines of comments explaining what will be found in that file. Additionally, such comments usually include the author’s name.</p>
 <p>Similarly, every <strong>block of code</strong> should have a comment describing its purpose. A block of code is simply contiguous lines of code isolated by whitespace. Blocks are like paragraphs, so there isn’t any rule as to how to make them. Loosely, if you can write a concise comment describing the action of some lines of code, that would make a good block. The comment describing the block’s purpose is analogous to the topic sentence that should appear near the beginning of a paragraph (usually).</p>
 <p>Finally, the most specific comments are <strong>in-line comments</strong>. As a beginning programmer, you should probably use in-line comments liberally, to make explicit to yourself what each line does. However, as you gain experience, inline comments should be used sparingly, if at all. There are a few reasons to avoid in-line comments once you gain experience coding:</p>
 <ol style="list-style-type: decimal">
 <li>If the code in a single line needs a comment to be understandable, then it’s too complicated.</li>
-<li>Similarly, if your code is written well, then the comment should be redundant</li>
+<li>Similarly, if your code is written well, then the comment would be redundant</li>
 <li>Often, you’ll change code but forget to change the comment, leading to misleading in-line comments</li>
 </ol>
-<p>In</p>
 <div id="read-the-code" class="section level3">
 <h3>Read the code</h3>
 <p>While comments are useful and necessary, you should always strive to write code that is understandable by itself. Here are a few rules of thumb to help you write understandable code:</p>
 <ul>
 <li><strong>Use good names</strong> Use function and variable names that are self-explanatory. For example, <code>random_locations_of_N_spiders_in_a_box.R</code> is a much better function name than <code>eek.R</code>. Don’t worry about forgetting such a long name, or even typing it in. In RStudio, you can simply type <code>random[TAB]</code> to see a list of all functions you’ve defined whose name starts with <code>random</code>, so the extra characters don’t waste time.</li>
-<li><p><strong>Do one thing at a time</strong> This:</p>
+<li><p><strong>Do one thing at a time</strong> When you put several things on one line, it can make the line more difficult to parse, much like a run-on sentence.</p>
+<pre class="r"><code>dethrone_a_foo(crown_a_foo(make_a_foo()))   # BAD</code></pre>
+<p>Instead, separate multi-part commands into multiple lines.</p>
 <pre class="r"><code>foo &lt;- make_a_foo()
 king &lt;- crown_a_foo(foo)
 dethrone_a_foo(king)</code></pre>
-is much more readable than <code>dethrone_a_foo(crown_a_foo(make_a_foo()))</code> or even  <code>make_and_crown_and_dethrone_a_foo()</code>. Each line is a sentence, and when you do many things on the same line, you run the risk of run-on sentences.</li>
-<li><p><strong>Don’t use magic numbers</strong>When programmers talk about magic numbers, they don’t mean 7 (necessarily). They mean any number that’s just sitting in your code, unnamed. This is similar to “use self-explanatory variable names.” <code>area &lt;- 5 * 3</code> is not as clear as <code>area &lt;- width * height</code>.</p></li>
+<p>Similarly, functions should only do one thing, conceptually. They may have many lines that do many different things, but all towards one purpose. So this function name doesn’t solve the problem:</p>
+<pre class="r"><code>make_and_crown_and_dethrone_a_foo()       # BAD</code></pre></li>
+<li><p><strong>Don’t use magic numbers</strong>When programmers talk about magic numbers, they don’t mean 7 (necessarily). They mean any number in your code lacking a name. This is similar to “use self-explanatory variable names.” The code <code>area &lt;- 5 * 3</code> is not as clear as <code>area &lt;- width * height</code>.</p></li>
 </ul>
 </div>
 </div>
 <div id="diy-lottery" class="section level2">
 <h2>DIY lottery</h2>
-<p>To practice writing good code, let’s take a look at a short lottery program and analysis. Functionally, we’ll write a lottery simulation and analyse the results.</p>
-<p>You should have cloned the code in the <strong>Accessibility</strong> section.</p>
-<p>Next, let’s explore how we simulate flipping this bent coin once. We should tell you that the code uses one of R’s random number generator functions <code>runif</code>, which will give you uniformly distributed numbers on the interval <span class="math inline">\([0.1]\)</span>.</p>
+<p>To practice writing good code, let’s take a look at some bad code. In this section, we’ll write a lottery simulation and analyse the results.</p>
+<p>Follow the instructions in “Clone a Repo” to clone <a href="https://github.com/grahamas/BentCoinLottery" class="uri">https://github.com/grahamas/BentCoinLottery</a></p>
+<p>Before you try reading the code, we should tell you that the code uses one of R’s random number generator functions <code>runif</code>, which will give you uniformly distributed numbers on the interval <span class="math inline">\([0.1]\)</span>.</p>
 <blockquote>
 <p><strong>Exercise 2</strong>: Use meaningful variables</p>
 <p>Go through the lottery simulation, making all variable names meaningful, both by changing variable names and by introducing new variables to get rid of magic numbers.</p>
 </blockquote>
 <div id="probability-interlude" class="section level3">
 <h3>Probability interlude</h3>
-<p>Each flip of a coin like this with probability, <span class="math inline">\(p\)</span>, of heads is an example of a Bernoulli trial, the general term for an experiment with only two output states, success or failure. The number of heads in the sequence of independent coin flips generated by our lottery will follow a binomial distribution</p>
+<p>Each flip of a coin with probability, <span class="math inline">\(p\)</span>, of heads is an example of a Bernoulli trial, the general term for an experiment with only two output states, success or failure. The number of heads in the sequence of independent coin flips generated by our lottery will follow a binomial distribution</p>
 <p><span class="math inline">\(P_n(k) = \binom{n}{k} p^k (1-p)^{n-k},\)</span></p>
-<p>where <span class="math inline">\(p\)</span> is the probability of heads (<span class="math inline">\(1\)</span>’s), <span class="math inline">\(n\)</span> is the length of our lottery ticket, and <span class="math inline">\(k\)</span> is the number of heads in the ticket. The prefactor <span class="math inline">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span> is called the binomial coefficient and describes the number of unique ways of placing <span class="math inline">\(k\)</span> identical objects in <span class="math inline">\(n\)</span> bins. Capital “<span class="math inline">\(P_n\)</span>” represents the probability distribution of <span class="math inline">\(k\)</span> heads out of <span class="math inline">\(n\)</span> tosses.</p>
+<p>where <span class="math inline">\(p\)</span> is the probability of heads (<span class="math inline">\(1\)</span>’s), <span class="math inline">\(n\)</span> is the length of our lottery ticket, and <span class="math inline">\(k\)</span> is the number of heads in the ticket. The prefactor <span class="math inline">\(\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span> is called the binomial coefficient and describes the number of unique ways of placing <span class="math inline">\(k\)</span> identical objects in <span class="math inline">\(n\)</span> bins. Capital “<span class="math inline">\(P_n(k)\)</span>” represents the probability distribution of <span class="math inline">\(k\)</span> heads out of <span class="math inline">\(n\)</span> tosses.</p>
 <p>Knowing this, you can use the function <code>rbinom</code> to generate draws from a Bernoulli distribution. In our lottery, this would amount to flipping the coin <code>n_flips</code> times.</p>
 <pre class="r"><code>n_flips &lt;- 3
 rbinom(n_flips,1,p_heads)</code></pre>
@@ -458,9 +460,11 @@ save(&quot;seed_used&quot;,&quot;RNGkind_used&quot;,file=RNGinfo_for_mycode)</co
 <p>For our final exercise, we’ll try to make a figure of our own. From Exercise 5, you should be on the “analysis” branch.</p>
 <blockquote>
 <p><strong>Exercise 6</strong>: Make a new figure</p>
-<p>When is the distribution modeled in Exercise 5 approximately normally distributed?</p>
-<p>Make a figure analogous to Figure 1, but with newly generated data nicely approximated by a normal distribution.</p>
-<p>Make sure you comment your code and include all the information necessary to reproduce your figure.</p>
+<ol style="list-style-type: decimal">
+<li>When is the distribution modeled in Exercise 5 approximately normally distributed?</li>
+<li>Make a figure analogous to Figure 1, but with newly generated data nicely approximated by a normal distribution.</li>
+<li>Make sure you comment your code and include all the information necessary to reproduce your figure.</li>
+</ol>
 </blockquote>
 </div>
 <div id="data-challenge" class="section level1">
@@ -489,9 +493,10 @@ save(&quot;seed_used&quot;,&quot;RNGkind_used&quot;,file=RNGinfo_for_mycode)</co
 <li>Add a curve to Plot 2) showing the LGP fit to the <em>probability</em> of sowbug counts</li>
 <li>Add a curve to Plot 3) showing the LGP fit to the <em>probability</em> of weevil counts</li>
 </ol>
-<p>Each figure should have datapoints corresponding to empirical data, and lines corresponding to theoretical distribution. Indicate in the README how well the each distribution fits these data sets.</p>
+<p>Each figure should have datapoints corresponding to empirical data, and lines corresponding to theoretical distribution. Indicate in the README how well the each distribution fits these data sets, as well as the chosen <span class="math inline">\(\lambda_2\)</span>.</p>
 <p>For LGP, you can use the function <code>dLGP</code> from the library <code>RMKdiscrete</code></p>
-<p>For sowbugs, you can use the empirically determined <code>lambda2 = 0.53214</code> and estimate <code>lambda1</code> by the formula <code>lambda1 = mean * (1 - lambda2)</code>.</p>
+<p>For sowbugs, you can use the empirically determined <span class="math inline">\(\lambda_2 = 0.53214\)</span> and estimate <span class="math inline">\(\lambda_1\)</span> by the formula <span class="math inline">\(\lambda_1 = \text{mean} * (1 - \lambda_2)\)</span>.</p>
+<p>For weevils, look at the data to see if you can gauge their sociability, and thereby start guessing appropriate <span class="math inline">\(\lambda_2\)</span>.</p>
 </div>
 <div id="the-requirements" class="section level3">
 <h3>The requirements</h3>
