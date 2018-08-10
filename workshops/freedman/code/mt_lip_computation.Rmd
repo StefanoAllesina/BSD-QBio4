@@ -21,7 +21,7 @@ To investigate how visual information is transformed from a (roughly) continuous
 Here, we'll use data originally published in Freedman and Assad (2006) *Nature*, in which they train two Rhesus macaques to categorize a visual motion stimulus according to an arbitrary category boundary, as here:
 
 ```{r category, echo=FALSE, fig.cap="A schematic of the category boundaries (both original and retrained) used in the delayed match-to-category (DMC) task, see below. Taken from Freedman and Assad (2006).", out.width="25%"}
-knitr::include_graphics("figs/category_bounds.png")
+knitr::include_graphics("../figs/category_bounds.png")
 ```
 
 The motion stimulus is a patch of 100% coherent (ie, all moving in the same direction) randomly placed moving dots. 
@@ -31,19 +31,19 @@ In particular, the animals are performing a delayed match-to-category (DMC) task
 1. They fixate in the center of a computer screen.  
 2. A motion stimulus in one of the 12 directions, the sample, is played.  
 3. There is a delay period of 1 second.  
-4. A second motion stimulus, the test, is played. If its category is the same as the first motion stimulus, the animal must release a lever -- otherwise, they continue to hold the lever. If the lever release is correct, they receive a juice reward.  
+4. A second motion stimulus, the test, is played. If its category is the same as the first motion stimulus, the animal must release a lever -- otherwise, they continue to hold the lever. If the lever release is correct, they receive a juice reward.
 5. If the animal was supposed to continue holding the lever, there is a second delay followed by a third stimulus which always matches the category of the first stimulus -- the animal must then release the lever to receive juice.  
 
 We will focus primarily on step 2 of the task. The schematic below may make it more clear:
 
-```{r task, echo=FALSE, fig.cap="A schematic of the task described above. The stimuli are 100% coherent dot motion and RF means the RF of a recorded neuron (see below). Taken from Freedman and Assad (2006).", out.width="80%"}
-knitr::include_graphics("figs/task_schematic.png")
+```{r task, echo=FALSE, fig.cap="A schematic of the task described above. The stimuli are 100% coherent dot motion and RF means the receptive field of a recorded neuron (see below). Taken from Freedman and Assad (2006).", out.width="80%"}
+knitr::include_graphics("../figs/task_schematic.png")
 ```
 
 Even though this task seems fairly complicated, the animals can do it with extensive training -- and their errors follow the pattern one might expect: They make more errors when performing categorizations that are close to the category boundary, but perform well-above chance at all distances from the boundary. 
 
 ```{r bhv, echo=FALSE, fig.cap="The average performance of the two animals on the DMC. Taken from Freedman and Assad (2006).", out.width="25%"}
-knitr::include_graphics("figs/bhv_performance.png")
+knitr::include_graphics("../figs/bhv_performance.png")
 ```
 
 So, we have our task that gets at (or, at least, requires) the process that we are interested in. But, now, how do we study this in the brain? Or, perhaps more immediately, *where* do we study it in the brain?
@@ -54,7 +54,7 @@ The middle temporal area (MT) is believed to be the first cortical area with rob
 Next from MT in the dorsal stream hierarchy is posterior parietal cortex (PPC) a complex of regions including the lateral intraparietal area (LIP). 
 
 ```{r anatomy, echo=FALSE, fig.cap="A schematic of the canonical dorsal visual stream overlaid on the Rhesus macaque brain. Adapted from Sereno & Lehky (2007).", out.width="50%"}
-knitr::include_graphics("figs/dv-lehky-sereno-dorsalonly.png")
+knitr::include_graphics("../figs/dv-lehky-sereno-dorsalonly.png")
 ```
 
 How does representation of visual motion while an animal is performing our categorization task differ between MT and LIP? What are some hypotheses that one could test? 
@@ -73,8 +73,8 @@ First, we need to load our dataset, which is in the MatLab format (for which we 
 ```{r load}
 library(rmatio)
 
-mt_neuron_folder <- 'data/MT/'
-mt_neuron_path <- 'data/MT/dseao01.mat'
+mt_neuron_folder <- '../data/MT/'
+mt_neuron_path <- '../data/MT/dseao01.mat'
 
 mt_neuron <- read.mat(mt_neuron_path)
 ```
@@ -311,7 +311,7 @@ get_direction_tuning(mt_neuron_path, count_start + stim_onset,
 Okay, now let's try an LIP neuron. 
 
 ```{r lip_neuron}
-lip_neuron_folder <- 'data/LIP/'
+lip_neuron_folder <- '../data/LIP/'
 lip_neuron_name <- 'dhbbf03.mat'
 lip_neuron_path <- paste(lip_neuron_folder, lip_neuron_name, 
                          sep='')
@@ -530,7 +530,7 @@ Let's publish this in Nature!
 But, wait, what if our category boundary just happened to reflect some innate bias in LIP direction representations? That would be weird, but it's not impossible. Let's retrain the animals on a new category boundary and then check that (a) we no longer have significant category tuning for the old categories and (b) we do have significant category tuning for the new boundary. 
 
 ```{r new_boundary}
-lip2_neuron_folder <- 'data/LIP2/'
+lip2_neuron_folder <- '../data/LIP2/'
 category_bound2 <- ensure_angle(category_bound + 90)
 
 lip2_ci_perp <- get_ci_dist(lip2_neuron_folder, category_bound, 
