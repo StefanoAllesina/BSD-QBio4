@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 
 ## Installation notes
-For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, and `RMKdiscrete` packages. You should also install the UNIX utility `git` for [OSX](https://git-scm.com/download/mac) or [Windows](https://git-for-windows.github.io/).
+For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `cowplot`, `stats`, and `RMKdiscrete` packages. You will also need [GitKraken](https://www.gitkraken.com/).
 
 ## `git` Glossary
 
