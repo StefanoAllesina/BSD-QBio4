@@ -145,11 +145,11 @@ After the initial setup, you only need to add two new commands to your `git` wor
 
 Just as you want to make your code reproducible for other researchers, one day you will want to use another researcher's code. When that time comes, if that researcher has politely hosted their code on GitHub, accessing their code will be as simple as this:
 
-1) In GitKraken, `[File icon in upper left] -> Clone`
+1) In GitKraken, `File -> Clone Repo`
 2) In "Where to clone to" browse to any location on your computer that is NOT within another `git` repo. For now, I'd recommend your "Documents" folder.
-3) In your browser, navigate to the repository and
-
-<!--TODO TODO TODO: uh-oh. make sure this is as simple as it should be. dammit, windows.-->
+3) In your browser, navigate to the repository, click the green button "Clone or download" and copy the URL that appears.
+4) Paste the URL into the URL field.
+5) Clone the repo!
 
 ## Help using GitKraken and `git`
 
