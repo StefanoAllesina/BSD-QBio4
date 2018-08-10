@@ -1,14 +1,14 @@
 ---
 title: "Reproducibility of data analysis"
 author: "Stephanie Palmer & Stefano Allesina & Graham Smith"
-date: "September 12-14, 2017"
+date: "September 2-9, 2018"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     theme: cosmo
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: yes
 urlcolor: blue
 ---
 
@@ -126,7 +126,7 @@ If you use `git` in the wild, you'll find that staging and committing is 90% of 
 
 ## Remote repositories
 
-For the remainder of the tutorial, we'll be using a more complicated example based in code hosted on [GitHub](http://github.com). So far, we have been working with a local repository, meaning the repository is hosted only on your computer. Usually, you will also want to keep a copy of the repository online, called a ``remote repository.'' With a remote repository, you can collaborate with others, sync your code across multiple machines, and back up your code.
+For the remainder of the tutorial, we'll be using a more complicated example based in code hosted on [GitHub](http://github.com). So far, we have been working with a local repository, meaning the repository is hosted only on your computer. Usually, you will also want to keep a copy of the repository online, called a "remote repository". With a remote repository, you can collaborate with others, sync your code across multiple machines, and back up your code.
 
 The most popular option for hosting remote repositories is [GitHub](http://github.com). As a student you can get private repositories for free! The [Student Developer Pack](https://education.github.com/pack) comes with access to lots of other goodies, but private repositories make it a necessity. They're useful in the early stages of your project when you're paranoid about anyone, let alone the entire world, seeing your hasty hacks. But remember to publicize your repository when you publish! (Note: probably still not HIPAA compliant)
 
@@ -231,7 +231,7 @@ rbinom(n_flips,1,p_heads)
 >
 > Rewrite the lottery to use `rbinom`. In case you decide to change the ticket generator in the future (*hint* *hint*), abstract the ticket generation into a function called `generate_ticket`. What arguments should this function accept? What should it return? Be sure to note both answers in a comment at the beginning of the function. Does using this meaningfully-named function make the code more readable? What about using `rbinom`?
 
-## A statistical interlude
+## Simulating noise
 For the remainder of the exercises, we'll need a bit of extra background. First we'll discuss "seeds," which are essential to making your stochastic code reproducible. For example, seeds will make it possible to draw the exact same "random" lottery tickets as your neighbor. Second we'll go into a bit of the math underlying our lottery tickets (the binomial distribution) so that we can do some analyses of our generated data.
 
 ### Save your seeds
@@ -336,7 +336,9 @@ In 1941 and 1942, zoologist LaMont Cole, then working at the University of Chica
 
 If the bugs are randomly distributed, then they should be Poisson distributed. If there is some pattern, we might try to fit them by a Lagrangian Poisson Distribution or LGP, which accounts for the attraction or repulsion of individuals to each other. The LGP has a mean rate parameter, $\lambda_1$, just like in the Poisson distribution. The LGP has a second parameter, $\lambda_2$, that describes the deviation from expected Poisson dispersion.<!-- [TODO: the following is technically inaccurate, as then the Poisson distribution would be recovered by lambda2=1, not lambda2=0, as is the case: ], or the ratio of the variance of the distribution to the mean.-->
 
->NB: A Poisson distribution has a variance-to-mean ratio equal to 1. As an exercise, show that the variance of the spider count distribution is approximately equal to its mean.
+> **Exercise 7**: 
+>
+>A Poisson distribution has a variance-to-mean ratio equal to 1. Show that the variance of the spider count distribution is approximately equal to its mean.
 
 $\lambda_2 > 0$ implies that organisms are over-dispersed and may be attracted to one another, forming more large-number clusters than expected by chance. $\lambda_2 < 0$ implies that organisms are under-dispersed and are likely repulsed by one another, resulting in a more even distribution across space and, hence, lower count variance. The LGP distribution, in terms of these two paramters, is
 
@@ -348,24 +350,24 @@ When $\lambda_2 =0$, we get precisely the Poisson distribution.
 
 Check visually how the distributions of the three bug types fit to Poisson and LGP distributions.
 
-1) Poisson fit to the *probability* of spider counts
-2) Poisson fit to the *probability* of sowbug counts
-3) Poisson fit to the *probability* of weevil counts
-4) LGP fit to the *probability* of spider counts
-5) LGP fit to the *probability* of sowbug counts
-6) LGP fit to the *probability* of weevil counts
+1) Plot the Poisson fit to the *probability* of spider counts, along with the data
+2) Plot the Poisson fit to the *probability* of sowbug counts, along with the data
+3) Plot the Poisson fit to the *probability* of weevil counts, along with the data
+4) Add a curve to Plot 1) showing the LGP fit to the *probability* of spider counts
+5) Add a curve to Plot 2) showing the LGP fit to the *probability* of sowbug counts
+6) Add a curve to Plot 3) showing the LGP fit to the *probability* of weevil counts
 
 Each figure should have datapoints corresponding to empirical data, and lines corresponding to theoretical distribution. Indicate in the README how well the each distribution fits these data sets.
 
 For LGP, you can use the function `dLGP` from the library `RMKdiscrete`
 
-For sowbugs, you can use the empirically determined `lambda2 = 0.53214` and estimate `lambda1` by the formula `lambda1 = mean * (1 - lambda2)`.
+For sowbugs, you can use the empirically determined `lambda2 = 0.53214` and estimate `lambda1` by the formula `lambda1 = mean * (1 - lambda2)`. 
 
 ### The requirements
 
 1) Create a **private** repository on GitHub.
       - On the GitHub homepage, select "New Repository" and then on the next page select "Private"
-2) Add all members of your group as collaborators, plus Graham (username: grahamas)
+2) Add all members of your group as collaborators, plus Graham (username: grahamas) and Stephanie (usernames: sepalmer).
       - On your repository's GitHub page, select "Settings -> Collaborators" then add by GitHub username
 3) Every member of your group must make at least one substantive commit.
 4) Follow the commenting guidelines outlined above.
