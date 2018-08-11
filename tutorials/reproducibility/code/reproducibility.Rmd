@@ -3,12 +3,12 @@ title: "Reproducibility of data analysis"
 author: "Stephanie Palmer & Stefano Allesina & Graham Smith"
 date: "September 2-9, 2018"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     theme: cosmo
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: yes
 urlcolor: blue
 ---
 
@@ -113,8 +113,7 @@ When you start working on a new project, you tell `git` what directory will cont
 > 5) Type a commit message (e.g. "Began Essay on the Origin of Species") and commit the staged change.
 >
 > 6) Now let's get crazy! Create a new file called `end.txt` with the text "Some say the world will end in fire..." AND add onto `origin.txt` so that it says
-> An abstract of an Essay on the Origin of Species... blaaaaah.
-> Writing is hard. Maybe I'll watch Netflix instead.
+> "An abstract of an Essay on the Origin of Species. Darwin's treatise posits that the process of natural selection passes heritable traits of more advantageous adaptations to subsequent generations. In this essay, we examine..." 
 >
 > 7) Go back to GitKraken, and `// WIP` should be back. This time when you click on it, you should see two changes are unstaged, one for each file. One is a change, and one is an addition.
 >
@@ -128,7 +127,7 @@ If you use `git` in the wild, you'll find that staging and committing is 90% of 
 
 For the remainder of the tutorial, we'll be using a more complicated example based in code hosted on [GitHub](http://github.com). So far, we have been working with a local repository, meaning the repository is hosted only on your computer. Usually, you will also want to keep a copy of the repository online, called a "remote repository". With a remote repository, you can collaborate with others, sync your code across multiple machines, and back up your code.
 
-The most popular option for hosting remote repositories is [GitHub](http://github.com). As a student you can get private repositories for free! The [Student Developer Pack](https://education.github.com/pack) comes with access to lots of other goodies, but private repositories make it a necessity. They're useful in the early stages of your project when you're paranoid about anyone, let alone the entire world, seeing your hasty hacks. But remember to publicize your repository when you publish! (Note: probably still not HIPAA compliant)
+The most popular option for hosting remote repositories is [GitHub](http://github.com). As a student you can get private repositories for free! The [Student Developer Pack](https://education.github.com/pack) comes with access to lots of other goodies, but private repositories make it a necessity. They're useful in the early stages of your project when you're paranoid about anyone, let alone the entire world, seeing your hasty hacks. But remember to publicize your repository when you do publish! 
 
 After the initial setup, you only need to add two new commands to your `git` workflow: `pull` and `push`. When you want to work on a project that is tracking a remote repository, you `pull` the most recent version from the server to sync your local copy of the project to the most recent version. When you are done working, you `push` your commits to the server so that other users can see them.
 
@@ -174,8 +173,8 @@ Similarly, every **block of code** should have a comment describing its purpose.
 Finally, the most specific comments are **in-line comments**. As a beginning programmer, you should probably use in-line comments liberally, to make explicit to yourself what each line does. However, as you gain experience, inline comments should be used sparingly, if at all. There are a few reasons to avoid in-line comments once you gain experience coding:
 
  1) If the code in a single line needs a comment to be understandable, then it's too complicated.
- 2) Similarly, if your code is written well, then the comment would be redundant
- 3) Often, you'll change code but forget to change the comment, leading to misleading in-line comments
+ 2) Similarly, if your code is written well, then the comment would be redundant.
+ 3) Often, you'll change code but forget to change the comment, leading to misleading in-line comments.
 
 
 ### Read the code
@@ -199,8 +198,8 @@ While comments are useful and necessary, you should always strive to write code 
     ```{r,eval=FALSE}
     make_and_crown_and_dethrone_a_foo()       # BAD
     ```
-  * **Don't use magic numbers**\quad When programmers talk about magic numbers, they don't mean 7 (necessarily).
-  They mean any number in your code lacking a name. This is similar to "use self-explanatory variable names." The code `area <- 5 * 3` is not as clear as `area <- width * height`.
+  * **Don't use magic numbers**  When programmers talk about magic numbers, they don't mean 7 (necessarily).
+  They mean any number in your code lacking a name. This is similar to "use self-explanatory variable names." For example, the code `area <- 5 * 3` is not as clear as `area <- width * height`.
 
 ## DIY lottery
 To practice writing good code, let's take a look at some bad code. In this section, we'll write a lottery simulation and analyse the results.
@@ -215,11 +214,11 @@ Before you try reading the code, we should tell you that the code uses one of R'
 
 ### Probability interlude
 
-Each flip of a coin with probability, $p$, of heads is an example of a Bernoulli trial, the general term for an experiment with only two output states, success or failure. The number of heads in the sequence of independent coin flips generated by our lottery will follow a binomial distribution
+Each flip of a coin with probability, $p$, of heads is an example of a Bernoulli trial, the general term for an experiment with only two output states, success or failure. The number of heads in the sequence of independent coin flips generated by our lottery will follow a Bernoulli distribution, which is more commonly called a binomial distribution
 
 $P_n(k) = \binom{n}{k} p^k (1-p)^{n-k},$
 
-where $p$ is the probability of heads ($1$'s), $n$ is the length of our lottery ticket, and $k$ is the number of heads in the ticket. The prefactor $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is called the binomial coefficient and describes the number of unique ways of placing $k$ identical objects in $n$ bins. Capital "$P_n(k)$" represents the probability distribution of $k$ heads out of $n$ tosses.
+where $p$ is the probability of heads ($1$'s), $n$ is the length of our lottery ticket, and $k$ is the number of heads in the ticket. The prefactor $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ is called the binomial coefficient and describes the number of unique ways of placing $k$ identical objects in $n$ bins. Capital "$P_n(k)$" represents the probability distribution of $k$ heads out of $n$ tosses. We're calling this a "bent coin lottery" because the probability of heads is not 1/2, it's some other number. The coin we are simulating flipping isn't a fari coin, perhaps it's been subtly bent so that it mostly lands tails up.
 
 Knowing this, you can use the function `rbinom` to generate draws from a Bernoulli distribution. In our lottery, this would amount to flipping the coin `n_flips` times.
 
@@ -234,7 +233,7 @@ rbinom(n_flips,1,p_heads)
 
 > **Exercise 3**: Use functions
 >
-> Rewrite the lottery to use `rbinom`. In case you decide to change the ticket generator in the future (*hint* *hint*), abstract the ticket generation into a function called `generate_ticket`. What arguments should this function accept? What should it return? Be sure to note both answers in a comment at the beginning of the function. Does using this meaningfully-named function make the code more readable? What about using `rbinom`?
+> Rewrite the lottery to use `rbinom`. In case you decide to change the ticket generator in the future, abstract the ticket generation into a function called `generate_ticket`. What arguments should this function accept? What should it return? Be sure to note both answers in a comment at the beginning of the function. Does using this meaningfully-named function make the code more readable? What about using `rbinom`?
 
 ## Simulating noise
 For the remainder of the exercises, we'll need a bit of extra background. First we'll discuss "seeds," which are essential to making your stochastic code reproducible. For example, seeds will make it possible to draw the exact same "random" lottery tickets as your neighbor. Second we'll go into a bit of the math underlying our lottery tickets (the binomial distribution) so that we can do some analyses of our generated data.
@@ -303,7 +302,7 @@ When you are ready to share your code with others, you should also save all the 
 
 Many of the variables that we observe in biological recordings fluctuate, sometimes because we cannot control all the states of the external and internal experimental system, other times because thermal noise makes the state of the biological system we interrogate inherently variable. Examples of fluctuating quantities in biological systems include: the number of a certain type of molecule in a cell; the number of open channels in a cell; the number of electrical action potentials or "spikes" emitted by a neuron in response to a stimulus; the number of individuals in a population at a particular moment in time; the number of bacterial colonies on a plate. These are all quantities that we can make precise claims about, on average, but cannot specify with certainty for any particular experimental observation.
 
-It is useful to model not only a mean value for a fluctuating variable, but the full shape of its distribution of values. For example, if we observe the firing of neurons in the brain to repeats of the same external stimulus, the precise times of spikes will vary between repeats. By fitting the statistics of this noise to models, we deepen our mechanistic understanding of the neural response. We can test whether or not the "noise" we observe is consistent with a truly random source of output variation, or if it has some structure that tells us about interactions between the neurons and their environment.
+It is useful to model not only a mean value for a fluctuating variable, but the full shape of its distribution of values. For example, if we observe the firing of neurons in the brain to repeats of the same external stimulus, the precise times of spikes will vary between repeats. By fitting the statistics of this noise to models, we deepen our mechanistic understanding of the neural response. We can test whether or not the "noise" we observe is consistent with a truly random source of output variation, or if it has some structure that tells us about interactions between the biological components and their environment.
 
 Often, noise in biological systems is modeled by what's called a Poisson process, whose values follow a Poisson distribution. The function you wrote to sample the bent coin lottery generated tickets whose statistics follow the binomial distribution. The binomial distribution approches the familiar Poisson distribution, in the limit of a large number of trials, $n$, or a small probability of the event, $p$, per trial:
 
@@ -339,9 +338,7 @@ In 1941 and 1942, zoologist LaMont Cole, then working at the University of Chica
 
 If the bugs are randomly distributed, then they should be Poisson distributed. If there is some pattern, we might try to fit them by a Lagrangian Poisson Distribution or LGP, which accounts for the attraction or repulsion of individuals to each other. The LGP has a mean rate parameter, $\lambda_1$, just like in the Poisson distribution. The LGP has a second parameter, $\lambda_2$, that describes the deviation from expected Poisson dispersion.<!-- [TODO: the following is technically inaccurate, as then the Poisson distribution would be recovered by lambda2=1, not lambda2=0, as is the case: ], or the ratio of the variance of the distribution to the mean.-->
 
-> **Exercise 7**: 
->
->A Poisson distribution has a variance-to-mean ratio equal to 1. Show that the variance of the spider count distribution is approximately equal to its mean.
+> NB: A Poisson distribution has a variance-to-mean ratio equal to 1. Show that the variance of the spider count distribution is approximately equal to its mean.
 
 $\lambda_2 > 0$ implies that organisms are over-dispersed and may be attracted to one another, forming more large-number clusters than expected by chance. $\lambda_2 < 0$ implies that organisms are under-dispersed and are likely repulsed by one another, resulting in a more even distribution across space and, hence, lower count variance. The LGP distribution, in terms of these two paramters, is
 
@@ -372,7 +369,7 @@ For weevils, look at the data to see if you can gauge their sociability, and the
 
 1) Create a **private** repository on GitHub.
       - On the GitHub homepage, select "New Repository" and then on the next page select "Private"
-2) Add all members of your group as collaborators, plus Graham (username: grahamas) and Stephanie (usernames: sepalmer).
+2) Add all members of your group as collaborators, plus Graham (username: grahamas) and Stephanie (username: sepalmer).
       - On your repository's GitHub page, select "Settings -> Collaborators" then add by GitHub username
 3) Every member of your group must make at least one substantive commit.
 4) Follow the commenting guidelines outlined above.
