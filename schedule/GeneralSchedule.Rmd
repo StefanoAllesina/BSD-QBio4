@@ -48,12 +48,12 @@ output:
 ### Tuesday, September 4 
 
 ------------------    ------------------------------------
-**8:30-10:00**        CURRENTLY UNDEFINED                  (*A.thaliana C.elegans*)
+**8:30-10:00**        Boat tour                            (*A.thaliana C.elegans*)
                       Free time                            (*M.mulatta M.musculus O.bimaculoides P.polytes*)
                       Microscopy and ImageJ                (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
                       Visit Marine Resources Center        (*D.melanogaster D.rerio*)
 **10:00-10:30**       Coffee break                        
-**10:30-12:00**       CURRENTLY UNDEFINED                  (*D.melanogaster D.rerio*)
+**10:30-12:00**       Boat tour                            (*D.melanogaster D.rerio*)
                       Free time                            (*M.mulatta M.musculus O.bimaculoides P.polytes*)
                       Microscopy and ImageJ                (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
                       Visit Marine Resources Center        (*A.thaliana C.elegans*)
@@ -72,12 +72,12 @@ output:
 ### Wednesday, September 5 
 
 ------------------    ------------------------------------
-**8:30-10:00**        CURRENTLY UNDEFINED                  (*M.mulatta M.musculus*)
+**8:30-10:00**        Boat tour                            (*M.mulatta M.musculus*)
                       Free time                            (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
                       Microscopy and ImageJ                (*A.thaliana C.elegans D.melanogaster D.rerio*)
                       Visit Marine Resources Center        (*O.bimaculoides P.polytes*)
 **10:00-10:30**       Coffee break                        
-**10:30-12:00**       CURRENTLY UNDEFINED                  (*O.bimaculoides P.polytes*)
+**10:30-12:00**       Boat tour                            (*O.bimaculoides P.polytes*)
                       Free time                            (*S.aegyptiacus T.roseae T.thermophila X.laevis*)
                       Microscopy and ImageJ                (*A.thaliana C.elegans D.melanogaster D.rerio*)
                       Visit Marine Resources Center        (*M.mulatta M.musculus*)
@@ -96,12 +96,12 @@ output:
 ### Thursday, September 6 
 
 ------------------    ------------------------------------
-**8:30-10:00**        CURRENTLY UNDEFINED                  (*S.aegyptiacus T.thermophila*)
+**8:30-10:00**        Boat tour                            (*S.aegyptiacus T.thermophila*)
                       Free time                            (*A.thaliana C.elegans D.melanogaster D.rerio*)
                       Microscopy and ImageJ                (*M.mulatta M.musculus O.bimaculoides P.polytes*)
                       Visit Marine Resources Center        (*T.roseae X.laevis*)
 **10:00-10:30**       Coffee break                        
-**10:30-12:00**       CURRENTLY UNDEFINED                  (*T.roseae X.laevis*)
+**10:30-12:00**       Boat tour                            (*T.roseae X.laevis*)
                       Free time                            (*A.thaliana C.elegans D.melanogaster D.rerio*)
                       Microscopy and ImageJ                (*M.mulatta M.musculus O.bimaculoides P.polytes*)
                       Visit Marine Resources Center        (*S.aegyptiacus T.thermophila*)
