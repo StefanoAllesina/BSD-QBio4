@@ -1,75 +1,95 @@
 ---
 title: "Neural computation workshop"
-output: html_document
+author: "Stephanie Palmer & Jeff Johnston"
+date: "September 2-9, 2018"
+output:
+  html_document:
+    theme: cosmo
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+urlcolor: blue
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r knitr, echo=FALSE}
+knitr::opts_chunk$set(
+  eval      = TRUE,
+  comment   = "#",
+  results   = "hold",
+  # collapse  = TRUE,
+  fig.align = "center")
 ```
 
-### Welcome
-This exercise will demonstrate a simple computation performed by neurons in two different brain regions in the brain of the Rhesus macaque. It will illustrate how information is transformed when moving from sensory representations -- in this case, motion direction -- to more abstract representations -- in this case, an arbitrary category of motion direction. 
 
-### The scenario
-To solve complex tasks, the brain must often interpret continuous sensory stimuli according to some non-physical or abstract discrete category membership. Thus, both quantities (a sensory and a categorical representation) are likely to be represented in the brain. 
+## Installation notes
+For this tutorial, relatively up-to-date versions of `R` and `RStudio` are needed. To install `R`, follow instructions at [`cran.rstudio.com`](https://cran.rstudio.com/). Then install `Rstudio` following the instructions at [`goo.gl/a42jYE`](https://www.rstudio.com/products/rstudio/download2/). Download the `ggplot2`, `stats`, `plyr`, and `rmatio` packages. 
 
-Here, we will investigate one such transform and evaluate data from both sides of this transformation in the domain of visual motion. 
+# Welcome
+Understanding the detailed workings of the brain is one of the grand challenges in modern biology. While we have learned quite a bit about the brain in the 100 years or so since Golgi and Ramon y Cajal first revealed its neural-cellular microstructure, we still have yet to fully "crack the code" this marvelous piece of tissue uses to generate complex actions, feelings, memories, and thoughts. This workshop will demonstrate a simple computation performed by neurons in two different regions in the brain of the Rhesus macaque. It will illustrate how information is transformed when moving from sensory representations -- in this case, motion direction -- to more abstract, cognitive representations -- in this case, categorization of motion direction into two clusters: up and to the right, and down and to the left. 
 
-### The task
-To investigate how visual information is transformed from a (roughly) continuous representation to a discrete, categorical representation, we need a task that relies on that transformation. 
+# Neural encoding
+To solve complex tasks, the brain must often interpret continuous sensory stimuli according to some non-physical or abstract discrete category membership. Thus, both quantities (a sensory and a categorical representation) are likely to be represented in the brain. Here, we will investigate one such transform and evaluate data from both before and after it has begun. As noted, we'll be exploring this question in the context of the transformation of a visual motion signal. We'll explore how different brain areas encode something like a stimulus variable (the direction of motion of the visual object) versus something closer to a stimulus motion category (like "up" or "down"). 
+
+## The task
+To investigate how visual information is transformed from a (roughly) continuous representation to a discrete, categorical representation, we need to ask the subject to perform a task that relies on that transformation. 
 
 Here, we'll use data originally published in Freedman and Assad (2006) *Nature*, in which they train two Rhesus macaques to categorize a visual motion stimulus according to an arbitrary category boundary, as here:
 
-```{r category, echo=FALSE, fig.cap="A schematic of the category boundaries (both original and retrained) used in the delayed match-to-category (DMC) task, see below. Taken from Freedman and Assad (2006).", out.width="25%"}
+```{r category, echo=FALSE, fig.cap="A schematic of the category boundaries (both original and retrained) used in the delayed match-to-category (DMC) task, see below. Taken from Freedman and Assad (2006).", out.width="33%"}
 knitr::include_graphics("../figs/category_bounds.png")
 ```
 
-The motion stimulus is a patch of 100% coherent (ie, all moving in the same direction) randomly placed moving dots. 
+The motion stimulus is a patch of dots that move across the screen. They are placed at random positions within a small region in visual space, but all move in the same direction. The region in space where the dots appear on the screen is fixed, but the direciton of motion of the dots varies from trial-to-trial. The subject is asked, during a particular trial, to view the motion of an initial dot patch, then report whether or not it matches a second moving dot patch.
 
-In particular, the animals are performing a delayed match-to-category (DMC) task with the following structure: 
+Specifically, the subjects are performing a delayed match-to-category (DMC) task with the following structure: 
 
 1. They fixate in the center of a computer screen.  
 2. A motion stimulus in one of the 12 directions, the sample, is played.  
 3. There is a delay period of 1 second.  
-4. A second motion stimulus, the test, is played. If its category is the same as the first motion stimulus, the animal must release a lever -- otherwise, they continue to hold the lever. If the lever release is correct, they receive a juice reward.
-5. If the animal was supposed to continue holding the lever, there is a second delay followed by a third stimulus which always matches the category of the first stimulus -- the animal must then release the lever to receive juice.  
+4. A second motion stimulus, the test, is played. If its category is the same as the first motion stimulus, the subject must release a lever -- otherwise, they continue to hold the lever. If the lever release is correct, they receive a juice reward.
+5. If the subject was supposed to continue holding the lever, there is a second delay followed by a third stimulus which always matches the category of the first stimulus -- the subject must then release the lever to receive juice.  
 
-We will focus primarily on step 2 of the task. The schematic below may make it more clear:
-
-```{r task, echo=FALSE, fig.cap="A schematic of the task described above. The stimuli are 100% coherent dot motion and RF means the receptive field of a recorded neuron (see below). Taken from Freedman and Assad (2006).", out.width="80%"}
+```{r task, echo=FALSE, fig.cap="A schematic of the task described below. The stimuli are coherent patches of dot motion and RF indicates the receptive field of a recorded neuron. Taken from Freedman and Assad (2006).", out.width="75%"}
 knitr::include_graphics("../figs/task_schematic.png")
 ```
 
-Even though this task seems fairly complicated, the animals can do it with extensive training -- and their errors follow the pattern one might expect: They make more errors when performing categorizations that are close to the category boundary, but perform well-above chance at all distances from the boundary. 
+We will focus primarily on step 2 of the task. Even though this task seems fairly complicated, the subjects can perform well at it with sufficient training -- and their errors follow the pattern one might expect: They make more errors when performing categorizations that are close to the category boundary, but perform well-above chance at all distances far from the boundary. 
 
-```{r bhv, echo=FALSE, fig.cap="The average performance of the two animals on the DMC. Taken from Freedman and Assad (2006).", out.width="25%"}
+```{r bhv, echo=FALSE, fig.cap="The average performance of the two subjects on the DMC. Taken from Freedman and Assad (2006).", out.width="40%"}
 knitr::include_graphics("../figs/bhv_performance.png")
 ```
 
-So, we have our task that gets at (or, at least, requires) the process that we are interested in. But, now, how do we study this in the brain? Or, perhaps more immediately, *where* do we study it in the brain?
+We have in hand our task that requires the process that we are interested in, the categorization of motion direction of the dot patch. But, now, how do we study this in the brain? Or, perhaps more immediately, *where* do we study it in the brain?
 
-### The brain regions of interest
-The middle temporal area (MT) is believed to be the first cortical area with robust representations of visual motion, and has been shown (more recently than the data we are looking at) to be necessary to a similar task using visual motion stimuli. However, MT is thought to provide a more sensory (or literal) representation of motion direction, rather than representing more abstract category membership. MT is also part of the canonical dorsal visual stream, which is thought to primarily underly the allocation of visual attention and spatial processing. 
+## The brain regions of interest
+The middle temporal area (MT) is believed to be the first higher brain area with robust representations of visual motion. MT neurons display "tuning" to motion direction, meaning that they have a preferred direction that they respond to most vigorously, and lesser responses to other directions. By monitoring the responses of many MT neurons, one can read out the direction of the visual stimulus. MT is also part of the canonical dorsal visual stream, which is thought to primarily underly the allocation of visual attention and spatial processing. MT has been shown to be necessary to perform a similar categorization task, however, MT is thought to provide a more sensory (or literal) representation of motion direction, rather than representing more abstract category membership, so it can't be the end of the road for this neural computation. 
 
-Next from MT in the dorsal stream hierarchy is posterior parietal cortex (PPC) a complex of regions including the lateral intraparietal area (LIP). 
+The next brain area after MT in the dorsal stream is posterior parietal cortex (PPC) a complex of regions including the lateral intraparietal area (LIP). LIP is known to display a range of representations of task variables including those aligned with a subject's upcoming behavioral choice and with memories of past visual stimuli.
 
-```{r anatomy, echo=FALSE, fig.cap="A schematic of the canonical dorsal visual stream overlaid on the Rhesus macaque brain. Adapted from Sereno & Lehky (2007).", out.width="50%"}
+```{r anatomy, echo=FALSE, fig.cap="A schematic of the canonical dorsal visual stream overlaid on the Rhesus macaque brain. Adapted from Sereno and Lehky (2007).", out.width="50%"}
 knitr::include_graphics("../figs/dv-lehky-sereno-dorsalonly.png")
 ```
 
-How does representation of visual motion while an animal is performing our categorization task differ between MT and LIP? What are some hypotheses that one could test? 
+How does representation of visual motion while a subject is performing our categorization task differ between MT and LIP? What are some hypotheses that one could test? 
 
-### Spiking: the substrate of neural communication
-Neurons in the brain are believed to communicate through the firing of action potentials and consequent release of neurotransmitters, commonly called spiking. One of the problems of neuroscience is gaining access to this spiking activity with the appropriate level of granularity for our questions. 
+## Spiking: the substrate of neural communication
+Neurons in the brain communicate through the firing of action potentials, a short (~1ms long) spike in electrical depolarization that travels down the axon and releases a chemical signal at the synpase that opens ion channels in the downstream cell. 
 
-In the literature on non-human primates (NHPs) including Rhesus macaques, one of the most common techniques is called extracellular electrophysiology, which can be performed in awake and behaving animals. With this technique, an experimentalist is able to record single spikes from single neurons in an anatomically (and sometimes functionally) defined region of the brain. While techniques exist now for recording modestly sized groups of neurons, the dataset we are using today is from 2006, so all of the single neurons we will look at were recorded in separate sessions -- independently of one another. As one might guess, then, sometimes these experiments can take awhile. 
+```{r spike anatomy, echo=FALSE, fig.cap="A schematic of an action potential or 'spike' from a neuron.", out.width="50%"}
+knitr::include_graphics("../figs/action_potential.png")
+```
 
-This technique has high temporal resolution (ie, we are recording single spikes) and high spatial resolution (ie, we are recording from single cells), but relatively poor spatial and temporal extent (ie, we can typically record spikes from a single neuron for only a couple hours and we have limited information about what other, nearby cells are doing). So, it is a good technique for studying how stimuli are represented at the neuron level in particular brain regions, and therefore a good technique for studying the neural code -- however, it is not a good technique for looking at large-scale neuronal activity or neural dynamics within and across areas. 
+Understanding how the brain functions involves catching this electrical activity in action and recording from neurons while the subject receives sensory inputs, makes decisions, and reports those choices behaviorally. 
 
-So, we recorded a bunch of spikes from a bunch of neurons in both MT and LIP. And we want to understand how their representations of visual motion direction and (potentially) visual motion category differ. Let's get started! 
+One of the most common neural recording techniques is called extracellular electrophysiology, which can be performed in awake and behaving subjects. With this technique, an experimentalist is able to record single spikes from single neurons in an anatomically targeted region of the brain. While techniques exist now for recording modestly sized groups of neurons (e.g. up to 100 or 1000), the dataset we are using today is from 2006, and all of the recordings are from single neurons, recorded independently of one another. 
 
-### The spiking of an MT neuron
-First, we need to load our dataset, which is in the MatLab format (for which we can use the library "rmatio" -- which should be installed on your machine): 
+This technique has high temporal resolution (i.e., we are recording single spikes) and high spatial resolution (i.e., we are recording from single cells), and current engineering efforts focus on attaining this kind of space-time resolution while recording from tens of thousands of cells, or perhaps the entire brain of a smaller organism. Here, we have the benefit of decades of neuroanatomy that let's us pinpoint regions in the brain that display evidence of a concrete neural computation in the response of single cells. 
+
+We will now examine spikes from a many neurons in both MT and LIP. We want to understand how their representations of visual motion direction and (potentially) visual motion category differ. Let's get started! 
+
+# The spiking of an MT neuron
+First, we need to load our dataset, which has been saved in the MatLab data format (for which we can use the library "rmatio" to import into R). Let's start by loading the data for one particular cell: 
 ```{r load}
 library(rmatio)
 
@@ -78,12 +98,12 @@ mt_neuron_path <- '../data/MT/dseao01.mat'
 
 mt_neuron <- read.mat(mt_neuron_path)
 ```
-Now, what's happening in this data structure?
+Now, let's examine what's happening in this data structure:
 ```{r mt_summary}
 str(mt_neuron)
 ```
 
-This is read into R as a named list, which is not the most convenient format, but we can use it, and we can see that:
+We can see that:
 
 - Everything is nested inside one list. 
 - The inner list has three elements: 
@@ -92,20 +112,27 @@ This is read into R as a named list, which is not the most convenient format, bu
     - **samp_direction_this_trial:** This is the direction in degrees of the first visual motion stimulus. Since MT neurons are thought to be tuned to visual motion, we might expect them to vary their responses with changes in direction. 
     - **test_direction_this_trial:** We will largely ignore this here, but it is the direction of the second visual motion stimulus.
     
-So, let's analyze this:
+We can begin to visualize the response of this neuron by creating a "raster plot" where the times of spikes in each trial are marked by a dash or circle, and trials are aligned and stacked along the y-axis.
 
-**Q:** How should we visualize spiking information?  
-**A:** A raster plot.
-
-```{r raster_plot}
+>
+> **Exercise 1**: Make a raster plot for the MT neuron we loaded earlier.
+>
+>
+```{r raster plot, out.width = '65%'}
 
 library(ggplot2)
 
+# the stimulus starts 500ms after the beginning of each trial
 stim_onset = 500
 
 mt_raster <- mt_neuron[['trial_raster']]
 
-# where are there spikes?
+# Find all the (time bin, trial) pairs in which there were spikes. 
+# We'll use the `which` function to find the values where the raster 
+# contains spikes (a value of '1' in the raster matrix), and we'll use 
+# `arr.ind` (which means 'array indices') to report back where in the 
+# matrix those values of '1' were found.
+
 spkpairs = which(mt_raster == 1, arr.ind=TRUE)
 qplot(spkpairs[ , 2] - stim_onset, spkpairs[ , 1], 
       xlab='time from stimulus onset (ms)',
@@ -113,9 +140,16 @@ qplot(spkpairs[ , 2] - stim_onset, spkpairs[ , 1],
 
 ```
 
-This is hard to make sense of. It seems like we get a response to the first stimulus, relatively less firing during the delay period, followed by a strong response to the second stimulus. But is this neuron tuned to anything in particular? In particular, we would expect it to represent motion direction... so, let's sort this raster by motion direction!
+This gives us the overall structure of the trial. We get a response to the first or "sample" stimulus, relatively less firing during the delay period, followed by a strong response to the second, or "test" stimulus. In each trial, a different motion direction was shown, and these were pseudo-randomly interleaved (i.e. not in any particular order in direction space). We would expect, based on what we just learned about area MT, that the neuron will be tuned to its particular favorite direction... so, let's sort this raster by motion direction!
 
-```{r sorted_raster}
+>
+> **Exercise 2**: Color the raster plot by the motion direction of the first or "sample" direction. You'll want to grab the sample directions for each trial from the data structure `mt_neuron` and its component `samp_direction_this_trial`. You can try coloring each trial by its direction first, then sort those direction into clusters so you can plot them in contiguous rows.
+>
+>
+
+There are many ways to create this plot, but here is some code that succintly creates a nice colored raster plot, using the `factor` function in `R`:
+
+```{r sorted_raster, out.width = '65%'}
 
 dirs = mt_neuron[['samp_direction_this_trial']]
 sort_dirs = sort(dirs, index.return=TRUE)
@@ -134,115 +168,15 @@ qplot(sorted_spkpairs[ , 2] - stim_onset, sorted_spkpairs[ , 1],
 
 ```
 
-Yes! This neuron appears to be strongly tuned to motion around 210 and 240 degrees. But this does not really give us a full picture... 
+This neuron appears to be strongly tuned to motion around 210 and 240 degrees. Let's summarize this by taking some averages.
 
-**Q:** How can we summarize multiple trials of spikes?   
-**A:** The peri-event time histogram, or the average number of spikes in each time bin. 
+> **Exercise 3**: Plot the average number of spikes (across trials) for a particular motion direction, as a function of the time within the trial. Spike times are measured with millisecond precision, so you may wish to create a smoothed average of these spike times across trials, to get a clearer picture of the shape of the neuron's response in time. Neuroscientists call this the "peri-stimulus time histogram" or PSTH. 
+>
+>
 
-```{r psth}
+Let's start to pull together some of the useful, and reusable, code elements we've developed. We're going to define a function that creates a PSTH plot for a given neural dataset, with a particular choice of smoothing window. First, we'll create a function that reads in the data, then we'll create another function that takes those data and plots them. We'll use a boxcar or moving average smoothing window, and we'll send the size of the smoothing window to the PSTH plotting function. We'll spell out the `read_neuron` function here. You can check out the contents of `plot_PSTH_neuron` in the `code` folder. 
 
-unique_dirs <- unique(dirs)
-xs <- 1:2700 - stim_onset
-filter_size <- 51
-conversion <- 1000
-
-raster_ts = ts(t(ordered_raster), xs[1], xs[length(xs)], 
-               frequency=1)
-
-# for a boxcar filter
-filter <- rep(1/filter_size, filter_size)
-smooth_raster <- stats::filter(raster_ts, filter)*conversion
-
-mean_arr <- array(dim=c(length(unique_dirs), length(xs)))
-for (i in 1:length(unique_dirs)) {
-  d <- unique_dirs[i]
-  dir_raster <- smooth_raster[ , s_dirs == d]
-  mean_arr[i, ] <- apply(dir_raster, 1, mean)
-}
-
-flat_means <- as.vector(t(mean_arr))
-d = data.frame(ts=rep(xs, length(unique_dirs)),
-               dir=rep(unique_dirs, length(unique_dirs), 
-                       each=length(xs)),
-               spk_rates=flat_means)
-
-ggplot(d, aes(x=ts, y=spk_rates, color=factor(dir))) +
-  geom_line(aes(group=factor(dir)), size=1) +
-  labs(x='time from stimulus onset (ms)', y='spks/s', 
-       color='motion direction (degrees)')
-```
-
-*We can explore different sizes of smoothing windows, too -- how much smoothing is appropriate? What do we lose by using more smoothing? What do we gain?*
-
-**Q:** How can we summarize a stimulus response?  
-**A:** If we believe that stimulus information is conveyed by the rate of spiking, then examining only the average count of spikes in the stimulus response window will be sufficient. 
-
-```{r spk_count}
-
-count_start <- 100
-count_end <- 600
-count_filter <- (xs >= count_start) & (xs < count_end)
-conversion <- 1000/(count_end - count_start)
-
-spk_counts <- apply(raster_ts[count_filter, ], 2, sum)*conversion
-
-sorted_udirs <- sort(unique_dirs)
-cts = array(dim=c(length(unique_dirs)))
-for (i in 1:length(cts)) {
-  cts[i] = mean(spk_counts[sorted_udirs[i] == s_dirs])
-}
-
-d <- data.frame(spk_cts=cts, dirs=sorted_udirs)
-ggplot(d, aes(x=dirs, y=spk_cts)) +
-  geom_line() +
-  labs(x='motion direction (degrees)', y='spks/s')
-```
-
-Cool! This neuron has strongly peaked responsiveness for a particular motion direction. 
-
-*Experiment with different spike counting windows (ie, change count_start and count_end), and view how this changes! (Also look at this later, for LIP neurons as well.)*
-
-**Q:** How does this selectivity line up with our category boundaries?  
-**A:** Category 1 runs from 135 to 315 degrees, so we can shift our data (slightly) to make 135 degrees in the center of the x-axis. 
-
-```{r shifted_rates}
-
-# let's define our first function
-# taken from https://stackoverflow.com/questions/30542128
-# /circular-shifting-arrays-in-r-by-distance-n
-
-category_bound <- 135
-bound_dists <- abs(sorted_udirs - category_bound)
-mindist <- min(bound_dists)
-first_min <- which(mindist == bound_dists)[1]
-target <- length(sorted_udirs)/2
-steps <- first_min - target
-
-## we could give them this (why doesn't R have one in the default
-## library?!)
-circular_shift <- function(vec, steps) {
-  if (steps == 0) vec else c(tail(vec, -steps), head(vec, steps))
-}
-
-shift_udirs <- circular_shift(sorted_udirs, steps)
-shift_cts <- circular_shift(cts, steps)
-dummy_x = 1:length(shift_udirs)
-
-d <- data.frame(dirs=shift_udirs, cts=shift_cts, xs=dummy_x)
-ggplot(d, aes(x=dummy_x, y=shift_cts)) + 
-  geom_line() +
-  labs(x='motion direction (degrees)', y='spks/s') +
-  geom_vline(aes(xintercept=(length(dummy_x) + 1)/2),
-             linetype="dashed", size=1) +
-  scale_x_continuous(breaks=dummy_x, 
-                     labels=as.character(shift_udirs))
-```
-
-This neuron does seem to also respond preferentially to a particular category, though its response is heteregeneous within that category... we will come back to this later. 
-
-First, let's make things easy on ourselves: Let's write a function to take in a datafile of the format we've been dealing with and process the data to produce this plot. Then, we can easily look at other MT cells -- and some LIP cells. 
-
-```{r functions}
+```{r}
 
 read_neuron <- function(filename) {
   neuron <- read.mat(filename)
@@ -259,90 +193,106 @@ read_neuron <- function(filename) {
   neur <- list(name=name, dirs=dirs, udirs=udirs, spks=spks)
   neur
 }
-
-direction_spkcounts <- function(spks, udirs, dirs, count_beg, 
-                                count_end) {
-  xs <- 1:dim(spks)[1]
-  count_filter <- (xs >= count_beg) & (xs < count_end)
-  conversion = 1000/(count_end - count_beg)
-  spk_counts <- apply(spks[count_filter, ], 2, sum)*conversion
-  cts = array(dim=c(length(udirs)))
-  for (i in 1:length(cts)) {
-    cts[i] = mean(spk_counts[udirs[i] == dirs])
-  }
-  cts
-}
-
-plot_direction_tuning <- function(cts, sorted_udirs, category_bound,
-                                  neuron_name) {
-  # now for the shifting we did earlier
-  bound_dists <- abs(sorted_udirs - category_bound)
-  mindist <- min(bound_dists)
-  first_min <- which(mindist == bound_dists)[1]
-  target <- length(sorted_udirs)/2
-  steps <- first_min - target
-  shift_udirs <- circular_shift(sorted_udirs, steps)
-  shift_cts <- circular_shift(cts, steps)
-  dummy_x <- 1:length(shift_udirs)
-  d <- data.frame(dirs=shift_udirs, cts=shift_cts, xs=dummy_x)
-  fig <- ggplot(d, aes(x=dummy_x, y=shift_cts)) + 
-    geom_line() +
-    labs(x='motion direction (degrees)', y='spks/s') +
-    geom_vline(aes(xintercept=(length(dummy_x) + 1)/2),
-               linetype="dashed", size=1) +
-    scale_x_continuous(breaks=dummy_x, 
-                       labels=as.character(shift_udirs))
-  fig
-}
-
-get_direction_tuning <- function(filename, count_beg, count_end, 
-                                 category_bound) {
-  n <- read_neuron(filename)
-  cts <- direction_spkcounts(n[['spks']], n[['udirs']], n[['dirs']],
-                             count_beg, count_end)
-  plot_direction_tuning(cts, n[['udirs']], category_bound, n[['name']])
-}
-
-# let's check it works with our original neuron
-get_direction_tuning(mt_neuron_path, count_start + stim_onset, 
-                     count_end + stim_onset, category_bound)
 ```
 
-Okay, now let's try an LIP neuron. 
+Next, let's let R know we'd like to load the function `plot_PSTH_neuron` so that we can use it here in our console. While we're at it, let's source the `read_neuron` function, which is also saved in the code directory for this workshop.
+
+```{r}
+source('plot_PSTH_neuron.R')
+source('read_neuron.R')
+```
+
+...and now let's test the plotting function by setting a filter size of 51ms and sending it the MT neuron we've been using so far in this workshop.
+
+```{r psth, out.width = '65%'}
+filter_size <- 51
+plot_PSTH_neuron(mt_neuron_path,filter_size)
+```
+
+> **Exercise 4**: Explore different sizes of smoothing windows. How much smoothing is appropriate? What do we lose by using more smoothing? What do we gain?
+>
+>
+
+## Tuning curves
+You will notice that the neuron's response is *approximately* constant in each trial part: the "sample" period, the "delay" period, and the "test" period. To further summarize the neuron's response, we can plot the average number of spikes in a large window within one of these trial periods, as a function of the direction of the stimulus during that period. Now that you're familiar with the data structure, we've created some useful functions that will help you pull out and plot average spike counts from particular parts of the trial.
+
+The function you will find most useful is `get_direction_tuning`. This takes as arguments: the path to the data file we'd like to open, the time in the trial to begin counting spikes, the time in the trial to end counting spikes, and the direction to put at the center of the tuning plot. 
+
+To use this function we'll need to `source` it, and to load up a few other functions that `get_direction_tuning` calls. 
+
+```{r}
+source('get_direction_tuning.R')
+source('direction_spkcounts.R')
+source('plot_direction_tuning.R')
+source('circular_shift.R')
+```
+
+An example call to `get_direction_tuning` is:
+
+```{r, out.width = '50%'}
+count_start <- 100
+count_end <- 600
+dir_center <- 165 #this input variable will become more useful later
+get_direction_tuning(mt_neuron_path, count_start + stim_onset, 
+                     count_end + stim_onset, dir_center)
+```
+
+> **Exercise 5**: Use `get_direction_tuning` to plot the average number of spikes our original MT neuron emits between 100ms and 600ms, as a function of the direction of motion of the stimulus. Cool! This neuron has strongly peaked responsiveness for a particular motion direction. Experiment with different spike counting windows (i.e. change count_start and count_end), and see how this changes the tuning curve. Refer back to the PSTH plot to examine different regions of interest.
+>
+>
+
+Category 1 runs from 135 to 315 degrees, so we can shift our data (slightly) to place 135 degrees in the center of the x-axis. The `get_direction_tuning` function circularly shifts the data so that the center of the direction axis is between two stimulus directions. You can set this to be the category boundary, so you can see how 'categorical' an individual neuron's response looks. A perfect category neuron would respond equally and strongly to all directions within a category and not at all to directions in the other category. A perfectly direction tuned neuron would response to only one motion direction and no others. Let's take a look at data from the other brain area we're interested in, LIP!
+
+# The spiking of an LIP neuron
+
+LIP stands for the lateral interparietal area of the brain and it codes for a variety of task variables, particularly those relating to visual motion and eye movements. Area LIP sits downstream of area MT in the visual motion pathway, and upstream of the motor areas that control eye movements. In this part of the workshop, we'll explore how LIP neurons respond during the delayed match-to-same task, and compare those responses to the MT neuron we started with. 
+
 
 ```{r lip_neuron}
+category_bound <- 135
 lip_neuron_folder <- '../data/LIP/'
-lip_neuron_name <- 'dhbbf03.mat'
+lip_neuron_name <- 'dhbbg05.mat'
 lip_neuron_path <- paste(lip_neuron_folder, lip_neuron_name, 
                          sep='')
+```
 
-## as a note, the really striking LIP category tuning (as shown 
-## in the paper) happens during the delay period -- but, there's
-## very little interesting activity in MT during the delay period
+```{r, eval=FALSE}
+plot_PSTH_neuron(lip_neuron_path,filter_size)
+```
+
+> **Exercise 6**: Plot the tuning curve for this LIP neuron during the sample period, then for the delay period (from, say, 750ms to 1500ms).
+>
+>
+
+```{r, eval=FALSE}
+count_start <- 100
+count_end <- 600
+category_bound <- 135
 get_direction_tuning(lip_neuron_path, count_start + stim_onset, 
                      count_end + stim_onset, category_bound)
 ```
 
-This looks at least slightly more... categorical. But, let's look at more neurons from LIP and from MT. 
+This response during the sample period looks a bit more categorical than the MT neuron we started with, but perhaps is tuned to motion at 300 degrees. When we have a look at the delay period, the time in between the presentation of the first sample motion direction and the second, "test", motion direction, however, we see something more interesting.
+```{r, out.width = '65%'}
+count_start <- 750
+count_end <- 1500
+get_direction_tuning(lip_neuron_path, count_start + stim_onset, 
+                     count_end + stim_onset, category_bound)
+```
+Now we see striking categorical tuning in LIP! The response of our MT neuron was mostly zero during this same delay period. Our LIP neuron is computing something different about the stimulus, something that more closely reflects the abstract category boundary we, as experimental designers, cooked up. The brain of the subject has formed a representation of this arbitrary boundary and we can "see" it. Next up, we'll make this more quantitative. 
 
-Now, let's plot a bunch of neurons from LIP:
-
-```{r lip_pop}
-lip_neuron_names <- list.files(lip_neuron_folder)
-
-## take a random subset from MT too!
-plots <- 5
-lip_samp <- sample(lip_neuron_names, plots)
-for (n in lip_samp) {
-  neur_path <- paste(lip_neuron_folder, n, sep='')
-  f <- get_direction_tuning(neur_path, count_start + stim_onset, 
-                            count_end + stim_onset, category_bound)
-  print(f)
-}
+# Comparing MT to LIP
+MT neurons don't have much activity during this delay period, so to compare the two neural responses, we'll start with an analysis window that's the same for both. We'll use the sample period:
+```{r}
+count_start <- 100
+count_end <- 600
 ```
 
-And now from MT! 
-```{r mt_pop}
+> **Exercise 7**: Plot the tuning curves during the sample period defined above for a handful of MT neurons. You may decide to choose them at random. Make plots for at least 5 neurons. 
+>
+>
+
+```{r mt_pop,eval=FALSE}
 mt_neuron_names <- list.files(mt_neuron_folder)
 
 ## take a random subset from MT too!
@@ -356,10 +306,26 @@ for (n in lip_samp) {
 }
 ```
 
-Okay, it's difficult to make sense of all of these plots. Some plots from MT and LIP look similar -- others look different! We need to find a way to summarize the category and direction tuning of each. 
+> **Exercise 8**: Plot the tuning curves during the sample period defined above for a handful of LIP neurons. How do the tuning curves compare? Can you uncover any systematic differences between the populations? What do you notice if you try plotting the LIP tuning curves different trial periods, like the delay period?
+>
+>
 
-**Q:** Why is it difficult to tease apart category and direction selectivity? 
-**A:** Because they're correlated in the experimental design. 
+```{r lip_pop,eval=FALSE}
+lip_neuron_names <- list.files(lip_neuron_folder)
+
+## take a random subset of 5 of these data files
+plots <- 5
+lip_samp <- sample(lip_neuron_names, plots)
+for (n in lip_samp) {
+  neur_path <- paste(lip_neuron_folder, n, sep='')
+  f <- get_direction_tuning(neur_path, count_start + stim_onset, 
+                            count_end + stim_onset, category_bound)
+  print(f)
+}
+```
+
+# Quantifying category tuning
+Okay, it's difficult to draw quantitative conclusions just by squinting at all of these plots. Some plots from MT and LIP look similar -- others look different! We need to find a way to summarize the category and direction tuning of each. 
 
 In the paper, the authors develop a measure of within-category difference (WCD; how much heterogeneity in response does a neuron have for members of the same category?) as well as a between-category difference (BCD; how much heterogeneity is there across categories?). Using both of these, to construct a single index, written as: 
 $$
@@ -367,126 +333,27 @@ CI = \frac{BCD - WCD}{WCD + BCD}
 $$
 which ranges from $[-1, 1]$ with positive values indicating a neuron is more modulated by changes in motion direction across the category boundary than by changes in motion direction within a category -- thus, more categorically tuned.
 
-Looking at this index across our MT and LIP populations will tell us whether they tend to represent the categories particularly or direction uniformly. 
+Looking at this index across our MT and LIP populations will tell us whether they tend to represent the categories particularly or direction uniformly. We've written a function that will compute the category index for you. You can take a look under the hood if you're interested in how to implement this in `R`. For now, let's just use the function to have a look at the results. First, we need to `source` all the functions we'll call from it, then we'll run the function itself.
 
-Let's implement that here:
-
-```{r wcd_bcd}
-
-ensure_angle <- function(ang) {
-  ang <- ang %% 360
-  ang[ang < 0] <- ang[ang < 0] + 360
-  ang[ang == 360] <- 0
-  ang
-}
-
-ang_dist <- function(ang1, ang2) {
-  d1 <- ensure_angle(ang1 - ang2)
-  d2 <- ensure_angle(ang2 - ang1)
-  d <- min(c(d1, d2))
-  d
-}
-
-## definitely we should give them this function, it was sort of
-## annoying to write
-get_pairs <- function(reference, udirs, dist) {
-  gap <- mean(diff(sort(udirs)))
-  z <- dist/gap
-  c1 <- ensure_angle(udirs - reference) >= 0
-  c2 <- ensure_angle(udirs - reference - 90) < 0
-  ac <- c1 & c2
-  if (z %% 2 == 1) {
-    left <- ensure_angle(reference - dist/2)
-    right <- ensure_angle(reference + dist/2)
-  } else {
-    l1 <- ensure_angle(reference - dist/3)
-    r1 <- ensure_angle(reference + 2*dist/3)
-    adj1 <- udirs - l1
-    adj1 <- adj1[which.min(abs(adj1))]
-    l1 <- ensure_angle(l1 + adj1)
-    r1 <- ensure_angle(r1 + adj1)
-    l2 <- ensure_angle(reference - 2*dist/3)
-    r2 <- ensure_angle(reference + dist/3)
-    adj2 <- udirs - l2
-    adj2 <- adj2[which.min(abs(adj2))]
-    l2 <- ensure_angle(l2 + adj2)
-    r2 <- ensure_angle(r2 + adj2)
-    left <- c(l1, l2)
-    right <- c(r1, r2)
-  }
-  x <- list(left=left, right=right)
-  x
-}
-
-## we could potentially give them this one too
-take_count_diff <- function(cts, udirs, comp_dirs) {
-  n_pairs <- length(comp_dirs[['left']])
-  ds <- array(dim=n_pairs)
-  for (i in 1:n_pairs) {
-    l <- comp_dirs[['left']][i]
-    r <- comp_dirs[['right']][i]
-    ds[i] <- abs(cts[l == udirs] - cts[r == udirs])
-  }
-  absdiff <- mean(ds)
-  absdiff
-}
-
-avg_oriented_diff <- function(cts, udirs, dir_cent) {
-  gap <- mean(diff(sort(udirs)))
-  spacings <- seq(gap, 180 - gap, by=gap)
-  diff_avgs <- array(dim=c(length(spacings)))
-  for (i in 1:length(diff_avgs)) {
-    spacing <- spacings[[i]]
-    d1 <- get_pairs(dir_cent, udirs, spacing)
-    diff1 <- take_count_diff(cts, udirs, d1)
-    d2 <- get_pairs(ensure_angle(dir_cent + 180), udirs, spacing)
-    diff2 <- take_count_diff(cts, udirs, d2)
-    diff_avgs[i] <- mean(c(diff1, diff2))
-  }
-  mean(diff_avgs)
-}
-
-bcd <- function(cts, udirs, category_bound) {
-  avg_oriented_diff(cts, udirs, category_bound)
-}
-
-wcd <- function(cts, udirs, category_bound) {
-  avg_oriented_diff(cts, udirs, ensure_angle(category_bound + 90))
-}
-
-category_index <- function(cts, udirs, category_bound) {
-  n_bcd <- bcd(cts, udirs, category_bound)
-  n_wcd <- wcd(cts, udirs, category_bound)
-  (n_bcd - n_wcd)/(n_bcd + n_wcd)
-}
-
-get_category_index <- function(path, category_bound, count_beg,
-                               count_end) {
-  neur <- read_neuron(path)
-  cts <- direction_spkcounts(neur[['spks']], neur[['udirs']], 
-                             neur[['dirs']], count_beg, count_end)
-  category_index(cts, neur[['udirs']], category_bound)
-}
-
-get_ci_dist <- function(folder, category_bound, count_beg, count_end) {
-  names <- list.files(folder)
-  ci_dist <- array(dim=c(length(names)))
-  for (i in 1:length(names)) {
-    n <- names[[i]]
-    neur_path <- paste(folder, n, sep='')
-    ci_dist[i] <- get_category_index(neur_path, category_bound, 
-                                     count_beg, count_end)
-  }
-  ci_dist
-}
+```{r wcd_bcd, eval=TRUE}
+source('get_category_index.R')
+source('ang_dist.R')
+source('avg_oriented_diff.R')
+source('bcd.R')
+source('category_index.R')
+source('ensure_angle.R')
+source('get_ci_dist.R')
+source('get_pairs.R')
+source('take_count_diff.R')
+source('wcd.R')
 
 get_category_index(lip_neuron_path, category_bound, 
                    count_start + stim_onset, count_end + stim_onset)
 ```
 
-Okay, this seems to work: now, let's compute the distribution of category indices for our MT and LIP populations. 
+That's the category tuning index for one LIP neuron. Now, let's compute the distribution of category indices for our MT and LIP populations. We've created some functions to help you compute these numbers across all of the data in the data folder. The `get_ci_dist` function evaluates the category tuning index for all neurons in the specified folder. The syntax is illustrated here.
 
-```{r index_distrib}
+```{r index_distrib, eval=TRUE}
 lip_ci <- get_ci_dist(lip_neuron_folder, category_bound, 
                       count_start + stim_onset, count_end + stim_onset)
 
@@ -495,9 +362,14 @@ mt_ci <- get_ci_dist(mt_neuron_folder, category_bound,
 
 ```
 
-Now, let's look at the results:
+The vectors `lip_ci` and `mt_ci` now contain all of the category indices for the 67 MT neurons in our data folder and the 92 LIP neurons. Now, let's plot the results.
 
-```{r distrib_results}
+> **Exercise 9**: Make plots of the distribution of category tuning indices for the MT neurons and for the LIP neurons. How do these compare? Is either population more category tuned than the other?
+>
+>
+
+We plotted these distributions using a few `R` tricks you might find useful.
+```{r distrib_results, out.width = '55%'}
 
 library(plyr)
 
@@ -519,17 +391,19 @@ ggplot(d, aes(x=ci, fill=region)) +
 
 So, it looks like LIP does have a significant bias toward category tuning. But let's test that: 
 
-```{r stats}
+```{r stats, eval=TRUE}
 
 str(c('LIP, p-value ', t.test(lip_ci)$p.value))
 str(c('MT, p-value ', t.test(mt_ci)$p.value))
 ```
 
-Let's publish this in Nature! 
+Now let's publish this in Nature! ...at least, that's what happened back in 2006, modulo some other controls and elaborations. Congrats! You've just worked through a major result in neuroscience that displays how a neural computation evolves from a stimulus centered representation in one brain area (area MT) to a more abstract categorical representation in the next brain area (area LIP).
 
-But, wait, what if our category boundary just happened to reflect some innate bias in LIP direction representations? That would be weird, but it's not impossible. Let's retrain the animals on a new category boundary and then check that (a) we no longer have significant category tuning for the old categories and (b) we do have significant category tuning for the new boundary. 
+# Bonus: an important control
 
-```{r new_boundary}
+But, wait, what if our category boundary just happened to reflect some innate bias in LIP direction representations? That would be weird, but it's not impossible. Let's retrain the subjects on a new category boundary and then check that (a) we no longer have significant category tuning for the old categories and (b) we do have significant category tuning for the new boundary. 
+
+```{r new_boundary, eval=TRUE}
 lip2_neuron_folder <- '../data/LIP2/'
 category_bound2 <- ensure_angle(category_bound + 90)
 
@@ -546,7 +420,7 @@ lip2_ci_cong <- get_ci_dist(lip2_neuron_folder, category_bound2,
 
 These distributions are, by definition, negatives of each other -- but we can plot them anyway just to see:
 
-```{r new_bound_stats}
+```{r new_bound_stats, out.width = '55%'}
 
 d <- data.frame(region=factor(c(rep("LIP2 perp", length(lip2_ci_perp)),
                                 rep("LIP2 cong", length(lip2_ci_cong)))),
@@ -569,5 +443,3 @@ str(c('LIP new bound, p-value ', t.test(lip2_ci_cong)$p.value))
 Significant category tuning for the new boundary, and (of course) significant tuning against the old boundary! LIP really does appear to be learning and robustly representing these arbitrary motion direction boundaries. 
 
 This is one step in the processing of a "raw" sensory representation into the kind of categorical representation that we all use for making decisions! 
-
-## one thing we could easily add if this is too short is constructing a null distribution of gaussian tuned neurons to see what a uniform tiling of direction space would produce for a CI distribution
