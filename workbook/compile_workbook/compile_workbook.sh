@@ -38,7 +38,7 @@ pdftk tmp.pdf ../../tutorials/microscopy_and_imageJ/data/ImageProcessingExercise
 pdftk tmp.pdf ../../tutorials/basic_computing_1/code/basic_computing_1.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
 ## insert blank page
-pdftk tmp.pdf ../other_docs/blank.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
+#pdftk tmp.pdf ../other_docs/blank.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf
 
 ## Basic II # Revised
 pdftk tmp.pdf ../../tutorials/basic_computing_2/code/basic_computing_2.pdf output tmp2.pdf; mv tmp2.pdf tmp.pdf

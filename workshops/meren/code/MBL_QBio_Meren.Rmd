@@ -37,12 +37,12 @@ Here we will focus only on the oral cavity here to characterize the microbial co
 
 ---
 
-OK. First things first. We will need the following libraries throughout this toturial for statistical analyses (`vegan`), re-formatting the input data (`reshape2`), and to visualize it (`ggplot2`):
+OK. First things first. We will need the following libraries throughout this tutorial for statistical analyses (`vegan`), re-formatting the input data (`reshape2`), and to visualize it (`ggplot2`):
 
-```{r}
-suppressPackageStartupMessages(library(vegan))
-suppressPackageStartupMessages(library(reshape2))
-suppressPackageStartupMessages(library(ggplot2))
+```{r, message=FALSE}
+library(vegan)
+library(reshape2)
+library(ggplot2)
 ```
 
 If you are missing any of these libraries, you can install them using `install.packages("LIBRARY_NAME_HERE")` notation.
@@ -50,27 +50,26 @@ If you are missing any of these libraries, you can install them using `install.p
 There are two data files for you to read in. The first one is the observation matrix that shows the distribution of each oligotype across each sample:
 
 ```{r}
-oligotypes <- as.data.frame(read.table('../data/oligotypes.txt',
-                            header = TRUE,
-                            sep="\t"))
+oligotypes <- read.table('../data/oligotypes.txt',
+                        header = TRUE,
+                        sep="\t")
 ```
 
 The second data file contains data about our samples:
 
 ```{r}
-samples <- as.data.frame(read.table('../data/samples.txt',
-                                    header = TRUE,
-                                    sep="\t"))
+samples <- read.table('../data/samples.txt',
+                       header = TRUE,
+                       sep="\t")
 ```
 
 
 ```{r include=FALSE}
-if(quick_test_run==TRUE){
+if(quick_test_run == TRUE){
   oligotypes <- oligotypes[1:100, ]
   samples <- samples[1:100, ]
 }
 ```
-
 
 Feel free to take a look at its format:
 
@@ -106,12 +105,34 @@ Fine. We have everything we need.
 
 # A visualization-driven exploration of the data
 
-A couple of sentences about exploratory data analysis and the importance of visualization (and maybe some links).
+## MDS 
+For this exploration, we're going to use multi-dimensional scaling, a commonly used technique to make sense of large dimensional data sets. In particular, MDS takes as input a "distance" matrix (say the distance between samples, sequences, etc.), and tries to find a projections onto few dimensions (typically 2) that can be used to find "clusters" of similar samples. 
 
-A couple of sentences regarding the widely used approaches.
+To see how this works, let's load some non-biological data. 
+```{r}
+load("../data/travel_times.RData")
+```
 
-A simple introduction to MDS here.
+The matrix `travel_time` contains the number of minutes it would take you to drive between two of the major US cities listed. You can take a look at the data by calling
 
+```{r, eval = FALSE}
+View(travel_times)
+```
+
+Now we're going to apply MDS to the data, and find which two cities are "similar" (i.e., close to reach by car).
+```{r}
+fit_mds <- cmdscale(travel_times, k = 2) # use two dimensions
+```
+
+Let's plot the results
+```{r, eval = FALSE}
+cities_names <- rownames(travel_times)
+plot(fit_mds)
+text(fit_mds, labels = cities_names)
+```
+Not bad! Now, let's try with our microbial community.
+
+## Back to the oral cavity
 Here we create an ordination of our data using MDS:
 
 ```{r echo=TRUE, results="hide"}
@@ -147,7 +168,7 @@ Well, this is more like it. Now we can take a look this with `ggplot`:
 
 ```{r fig.height = 3}
 p <- ggplot(data = mds_df, aes(MDS1, MDS2))
-p <- p + geom_point(size=1)
+p <- p + geom_point(size = 1)
 p
 ```
 
@@ -229,7 +250,7 @@ Aha!
 
 What does this tell us?
 
-(It would be great to do an anova here to show oral sites explain a much more significant amount of variance in the dataset before moving on to the next chapter)
+(It would be great to do an ANOVA here to show oral sites explain a much more significant amount of variance in the dataset before moving on to the next chapter)
 
 # Making publication-ready visualizations with R
 
