@@ -381,6 +381,7 @@ str(trees) # structure of data frame
 ncol(trees)
 nrow(trees)
 head(trees) # print the first few rows
+summary(trees) # Quickly get an overview of the data frame.
 trees$Girth # select column by name
 trees$Height[1:5] # select column by name; return first five elements
 trees[1:3, ] #select rows 1 through 3
