@@ -99,6 +99,13 @@ v <- 3.77
 class(v)
 ```
 
+- Real numbers can also be specified using scientific notation:
+
+```{r}
+v <- 6.022e23
+class(v)
+```
+
 - `integer`, storing whole numbers 
 ```{r}
 v <- 23L # the L signals that this should be stored as integer
@@ -170,6 +177,8 @@ If sensible, you can use the comparison operators `>` (greater), `<` (lower), `=
 2 <= sqrt(4)
 ```
 
+*Why are two equal signs used to check that two numbers are equal?*
+
 Similarly, you can concatenate several comparison and logical variables using `&` (and), `|` (or), and `!` (not):
 
 ```{r}
@@ -183,7 +192,7 @@ Besides these simple types, `R` provides structured data types, meant to collect
 
 ## Vectors
 
-The most basic data structure in `R` is the vector, which is an ordered collection of values of the same type. Vectors can be created by concatenating different values with the function `c()` (concatenate):
+The most basic data structure in `R` is the vector, which is an ordered collection of values of the same type. Vectors can be created by concatenating different values with the function `c()` ("combine"):
 
 ```{r}
 x <- c(2, 3, 5, 27, 31, 13, 17, 19) 
@@ -197,7 +206,7 @@ x[8]
 x[9] # what if the element does not exist?
 ```
 
-`NA` stands for Not Available. Other special values are `NaN` (Not a Number, e.g., `0/0`), `Inf` (Infinity, e.g., `1/0`), and `NULL` (variable not set). You can test for special values using `is.na(x)`, `is.infinite(x)`, etc.
+`NA` stands for "Not Available". Other special values are `NaN` (Not a Number, e.g., `0/0`), `Inf` (Infinity, e.g., `1/0`), and `NULL` (variable undefined). You can test for special values using `is.na(x)`, `is.infinite(x)`, etc.
 
 Note that in `R` a single number (string, logical) is a vector of length 1 by default. That's why if you type `3` in the console you see `[1] 3` in the output.
 
@@ -372,6 +381,7 @@ str(trees) # structure of data frame
 ncol(trees)
 nrow(trees)
 head(trees) # print the first few rows
+summary(trees) # Quickly get an overview of the data frame.
 trees$Girth # select column by name
 trees$Height[1:5] # select column by name; return first five elements
 trees[1:3, ] #select rows 1 through 3
@@ -682,3 +692,4 @@ The file `../data/nobel_nominations.csv` contains the nominations to the Nobel p
 - You will need to subset the data. To make operations clearer, you can give names to the columns. For example, suppose you stored the data in in a data frame called `nobel`. Then `colnames(nobel) <- c("Field", "Year", "Nominee")` will do the trick.
 - The simplest way to obtain a count from a vector is to use the command `table`. The command `sort(table(my_vector))` produces a table of the occurrences in `my_vector` sorted from few to many counts.
 - You can build a table using more than one vector. For example, store the Nobel nominations in the data frame `nobel`, and name the columns as suggested above. The command `head(table(nobel$Nominee, nobel$Field))` will build a table with the number of nominations in each field (column) for each nominee (rows).
+- Save your solution code for each exercise in a file.
