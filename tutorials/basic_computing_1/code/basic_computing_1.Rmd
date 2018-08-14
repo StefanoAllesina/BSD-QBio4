@@ -177,6 +177,8 @@ If sensible, you can use the comparison operators `>` (greater), `<` (lower), `=
 2 <= sqrt(4)
 ```
 
+*Why are two equal signs used to check that two numbers are equal?*
+
 Similarly, you can concatenate several comparison and logical variables using `&` (and), `|` (or), and `!` (not):
 
 ```{r}
