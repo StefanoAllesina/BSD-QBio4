@@ -195,11 +195,10 @@ read_neuron <- function(filename) {
 }
 ```
 
-Next, let's let R know we'd like to load the function `plot_PSTH_neuron` so that we can use it here in our console. While we're at it, let's source the `read_neuron` function, which is also saved in the code directory for this workshop.
+Next, let's let R know we'd like to load the function `plot_PSTH_neuron` so that we can use it here in our console. While we're at it, let's source the `read_neuron` function, which is also saved in the code directory for this workshop. There are actually a whole bunch of functions we wrote for this workshop, so let's run `source_neuro_workshop_functions.R` to do everything at once!
 
 ```{r}
-source('plot_PSTH_neuron.R')
-source('read_neuron.R')
+source('source_neuro_workshop_functions.R')
 ```
 
 ...and now let's test the plotting function by setting a filter size of 51ms and sending it the MT neuron we've been using so far in this workshop.
@@ -217,15 +216,6 @@ plot_PSTH_neuron(mt_neuron_path,filter_size)
 You will notice that the neuron's response is *approximately* constant in each trial part: the "sample" period, the "delay" period, and the "test" period. To further summarize the neuron's response, we can plot the average number of spikes in a large window within one of these trial periods, as a function of the direction of the stimulus during that period. Now that you're familiar with the data structure, we've created some useful functions that will help you pull out and plot average spike counts from particular parts of the trial.
 
 The function you will find most useful is `get_direction_tuning`. This takes as arguments: the path to the data file we'd like to open, the time in the trial to begin counting spikes, the time in the trial to end counting spikes, and the direction to put at the center of the tuning plot. 
-
-To use this function we'll need to `source` it, and to load up a few other functions that `get_direction_tuning` calls. 
-
-```{r}
-source('get_direction_tuning.R')
-source('direction_spkcounts.R')
-source('plot_direction_tuning.R')
-source('circular_shift.R')
-```
 
 An example call to `get_direction_tuning` is:
 
@@ -336,16 +326,6 @@ which ranges from $[-1, 1]$ with positive values indicating a neuron is more mod
 Looking at this index across our MT and LIP populations will tell us whether they tend to represent the categories particularly or direction uniformly. We've written a function that will compute the category index for you. You can take a look under the hood if you're interested in how to implement this in `R`. For now, let's just use the function to have a look at the results. First, we need to `source` all the functions we'll call from it, then we'll run the function itself.
 
 ```{r wcd_bcd, eval=TRUE}
-source('get_category_index.R')
-source('ang_dist.R')
-source('avg_oriented_diff.R')
-source('bcd.R')
-source('category_index.R')
-source('ensure_angle.R')
-source('get_ci_dist.R')
-source('get_pairs.R')
-source('take_count_diff.R')
-source('wcd.R')
 
 get_category_index(lip_neuron_path, category_bound, 
                    count_start + stim_onset, count_end + stim_onset)
