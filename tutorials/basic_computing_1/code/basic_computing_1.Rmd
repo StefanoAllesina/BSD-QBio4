@@ -99,6 +99,13 @@ v <- 3.77
 class(v)
 ```
 
+- Real numbers can also be specified using scientific notation:
+
+```{r}
+v <- 6.022e23
+class(v)
+```
+
 - `integer`, storing whole numbers 
 ```{r}
 v <- 23L # the L signals that this should be stored as integer
