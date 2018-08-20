@@ -150,7 +150,7 @@ ggplot(gTidy) + geom_point(aes(x = p1,
 
 Now let's look at the graph that we produced.  There is some scatter in the relationship between genotype proportion and allele frequency for any given genotype, but at the same time there is a very regular underlying relationship between these variables. 
 
-**Question:** What are approximate relationships between $p_{11}$ vs $p_1$, $p_{12}$ vs $p_1$, and $p_22$ vs $p_1$?  (Hint: These look like parabolas, which suggests are some very simple quadratic functions of $p_1$). 
+**Question:** What are approximate relationships between $p_{11}$ vs $p_1$, $p_{12}$ vs $p_1$, and $p_{22}$ vs $p_1$?  (Hint: These look like parabolas, which suggests are some very simple quadratic functions of $p_1$). 
 
 You might start to recognize that these are the classic relationships that are taught in  introductory biology courses.  If you recall, under assumptions that there is no mutation, no natural selection, infinite population size, no population substructure and no migration, then the genotype frequencies will take on a simple relationship with the allele frequencies.  That is: $p_{11}=p_1^2$, $p_{12}=2p_1(1-p_1)$ and $p_{22}=(1-p_1)^2$.  In your basic texts, they typicaly use $p$ and $q$ for the frequencies of allele 1 and 2, and present these *Hardy-Weinberg proportions* as: $p^2$,$2pq$, and $q^2$.  
 
