@@ -18,6 +18,13 @@ For any issue/question/comment, please contact the course directors:
 *   [Stefano Allesina](mailto:sallesina@uchicago.edu?Subject=Help%20BSD%20QBio) ([webpage](http://allesinalab.uchicago.edu/))
 *   [Victoria Prince](mailto:vprince@uchicago.edu?Subject=Help%20BSD%20QBio) ([webpage](https://princelab-sites.uchicago.edu/))
 
+## Instructors
+
+* [Peter Carbonetto](mailto:pcarbo@uchicago.edu) ([webpage](https://pcarbo.github.io/))
+* [A. Murat Eren](mailto:meren@uchicago.edu) ([webpage](http://merenlab.org/))
+* [Patrick J. La Riviere](mailto:pjlarivi@uchicago.edu)([webpage](https://radiology.uchicago.edu/page/patrick-la-riviere-lab))
+* [Matthias Steinrücken](mailto:steinrue@uchicago.edu)([webpage](https://voices.uchicago.edu/steinrueckenlab/))
+
 ## Schedule
 
 The qBio4 boot camp will be, as the name implies, quite intense. We are going to have **Tutorials** (short primers to a certain topic) and **Workshops** (discipline-specific, hands-on activities). 
@@ -76,13 +83,9 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
 * **UNIX Emulator**: If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (you will need this anyway!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
 
-* **System tools** (git)
-
-    * **Windows Users** If you installed the UNIX emulator already, you should be good to go! (if not, please email [Graham](mailto:grahams@uchicago.edu?Subject=Help%20BSD%20QBio))
-
-    * **Mac Users** Install `git` instructions [here](https://git-scm.com/download/mac).
-
-    * **Linux Users** Use your favorite package manager to install `git`. 
+* **Git**
+    * **Join GitHub** click [here](https://education.github.com/pack/join) and make sure you use your uchicago email to get free tools.
+    * **Download GitKracken** click [here](https://support.gitkraken.com/how-to-install) 
 
 ## Downloading the data
 
