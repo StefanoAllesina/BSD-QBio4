@@ -22,14 +22,14 @@ For any issue/question/comment, please contact the course directors:
 
 * [Peter Carbonetto](mailto:pcarbo@uchicago.edu) ([webpage](https://pcarbo.github.io/))
 * [A. Murat Eren](mailto:meren@uchicago.edu) ([webpage](http://merenlab.org/))
-* [Patrick J. La Riviere](mailto:pjlarivi@uchicago.edu)([webpage](https://radiology.uchicago.edu/page/patrick-la-riviere-lab))
-* [Matthias Steinrücken](mailto:steinrue@uchicago.edu)([webpage](https://voices.uchicago.edu/steinrueckenlab/))
+* [Patrick J. La Riviere](mailto:pjlarivi@uchicago.edu) ([webpage](https://radiology.uchicago.edu/page/patrick-la-riviere-lab))
+* [Matthias Steinrücken](mailto:steinrue@uchicago.edu) ([webpage](https://voices.uchicago.edu/steinrueckenlab/))
 
 ## Schedule
 
 The qBio4 boot camp will be, as the name implies, quite intense. We are going to have **Tutorials** (short primers to a certain topic) and **Workshops** (discipline-specific, hands-on activities). 
 
-You will get to know MBL better, with **Talks from MBL researchers**, a tour of the facilities, and even a **trip on a boat!**.
+You will get to know MBL better, with **Talks from MBL researchers**, a tour of the facilities, and even take a **trip on a boat!**.
 
 Here's the [general schedule](https://github.com/StefanoAllesina/BSD-QBio4/raw/master/schedule/GeneralSchedule.pdf).
 
@@ -90,8 +90,7 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 ## Downloading the data
 
 It is very important to **download the data** before you leave for MBL, as the files are quite large. 
-
-*   First, you need to download the repository containing all the boot camp lectures and data. There are two options
+All you need to do is to download the repository containing all the boot camp lectures and data. There are two options
 
     *   If you're familiar with `Git`, clone the repository
         `git clone https://github.com/StefanoAllesina/BSD-QBio4.git`
