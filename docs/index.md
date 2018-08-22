@@ -92,11 +92,11 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 It is very important to **download the data** before you leave for MBL, as the files are quite large. 
 All you need to do is to download the repository containing all the boot camp lectures and data. There are two options
 
-    *   If you're familiar with `Git`, clone the repository
+*   If you're familiar with `Git`, clone the repository
         `git clone https://github.com/StefanoAllesina/BSD-QBio4.git`
         making sure that the directory is created within your home (Linux: `home/yourname`, Mac OSX: `Users/yourname`, Windows `Users/yourname`).
 
-     *   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio4/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio4` (it will be extracted as `BSD-QBio4-master`).
+*   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio4/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio4` (it will be extracted as `BSD-QBio4-master`).
 
 ## Programming Challenges
 
