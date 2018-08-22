@@ -100,12 +100,12 @@ It is very important to **download the data** before you leave for MBL, as the f
 
 During the boot camp, the 12 groups of students will compete through 6 programming challenges. Here are the links to the webpages where the groups should post their solutions (one answer per group, please):
 
-* Submit your answer to [Programming Challenge 1 (Basic Programming I)]()
-* Submit your answer to [Programming Challenge 2 (Basic Programming II)]()
-* Submit your answer for the tutorial on [Defensive Programming]()
-* Submit your answer for the tutorial on [Reproducibility]()
-* Submit your answer for the tutorial on [Data Visualization]()
-* Submit your answer for the tutorial on [Stats for large data]()
+* Submit your answer to [Programming Challenge 1 (Basic Programming I)](https://goo.gl/forms/9Zrxpgsi4wAKZd4q1)
+* Submit your answer to [Programming Challenge 2 (Basic Programming II)](https://goo.gl/forms/jMD93Os8r93T37033)
+* Submit your answer for the tutorial on [Defensive Programming](https://goo.gl/forms/IPc1MgenI1eNcu2M2)
+* Submit your answer for the tutorial on [Reproducibility](https://goo.gl/forms/fRPxZiYq9FcGxvOs2)
+* Submit your answer for the tutorial on [Data Visualization](https://goo.gl/forms/RMWpFqNL0GuxDzI33)
+* Submit your answer for the tutorial on [Stats for large data](https://goo.gl/forms/von5dQWKMBaGgolw2)
 
 ### Notes
 This material is based upon work supported by the National Science Foundation under Grant Number 1734818
