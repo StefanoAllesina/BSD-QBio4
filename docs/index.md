@@ -94,9 +94,9 @@ All you need to do is to download the repository containing all the boot camp le
 
 *   If you're familiar with `Git`, clone the repository
         `git clone https://github.com/StefanoAllesina/BSD-QBio4.git`
-        making sure that the directory is created within your home (Linux: `home/yourname`, Mac OSX: `Users/yourname`, Windows `Users/yourname`).
+        making sure that the directory is created within your home (Linux: `home/yourname`, Mac OSX: `Users/yourname`, Windows `Users/yourname`). The repo is about 430Mb.
 
-*   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio4/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio4` (it will be extracted as `BSD-QBio4-master`).
+*   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio4/archive/master.zip) (about 157Mb), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio4` (it will be extracted as `BSD-QBio4-master`).
 
 ## Programming Challenges
 
