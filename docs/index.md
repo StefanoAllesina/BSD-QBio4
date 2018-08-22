@@ -20,9 +20,9 @@ For any issue/question/comment, please contact the course directors:
 
 ## Schedule
 
-The qBio3 boot camp will be, as the name implies, quite intense. We are going to have **Tutorials** (short primers to a certain topic) and **Workshops** (discipline-specific, hands-on activities). 
+The qBio4 boot camp will be, as the name implies, quite intense. We are going to have **Tutorials** (short primers to a certain topic) and **Workshops** (discipline-specific, hands-on activities). 
 
-You will get to know MBL better, with **Talks from MBL researchers**, a tour of the facilities, and even a **trip on the [Gemma](http://www.sciencemetropolis.com/wp-content/uploads/2008/06/img_0782.jpg)**.
+You will get to know MBL better, with **Talks from MBL researchers**, a tour of the facilities, and even a **trip on a boat!**.
 
 Here's the [general schedule](https://github.com/StefanoAllesina/BSD-QBio4/raw/master/schedule/GeneralSchedule.pdf).
 
@@ -57,18 +57,16 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 *   Once installed R and RStudio, open RStudio and **install the following packages**:
 
     *   tidyverse
+    *   devtools
+    *   knitr
     *   ggthemes
     *   stringr
-    *   deSolve
+    *   plyr
+    *   reshape2
+    *   vegan
     *   lubridate
-    *   devtools
-    *   phaseR
+    *   rmatio
     *   cowplot
-    *   plotly
-    *   htmlwidgets
-    *   ggcorrplot
-    *   knitr
-    *   RMKdiscrete
 
     You can find instructions on how to install `R` packages in RStudio [here](https://www.youtube.com/watch?v=3RWb5U3X-T8).
 
@@ -78,13 +76,13 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
 * **UNIX Emulator**: If you are using Windows, you need to install a UNIX emulator. We suggest downloading the version control software `Git` (you will need this anyway!), because it ships with a small emulator (`Git Bash`). Simply go to [this page](https://git-scm.com/download/win) and follow the instructions.
 
-* **System tools** (git and curl)
+* **System tools** (git)
 
     * **Windows Users** If you installed the UNIX emulator already, you should be good to go! (if not, please email [Graham](mailto:grahams@uchicago.edu?Subject=Help%20BSD%20QBio))
 
-    * **Mac Users** The easiest way is to install Homebrew first, then to use Homebrew to install the system tools. Follow [these instructions](https://gist.github.com/derhuerst/1b15ff4652a867391f03#file-mac-md) to install Homebrew and git. Then type `brew install curl` to install curl.
+    * **Mac Users** Install `git` instructions [here](https://git-scm.com/download/mac).
 
-    * **Linux Users** Use your favorite package manager to install `git`. `curl`, on the other hand, isn't quite `curl`; If you're on Ubuntu, you'll want to install `libcurl4-openssl-dev`. If you have something other than Ubuntu, you should be able to find an equivalent.
+    * **Linux Users** Use your favorite package manager to install `git`. 
 
 ## Downloading the data
 
@@ -97,8 +95,6 @@ It is very important to **download the data** before you leave for MBL, as the f
         making sure that the directory is created within your home (Linux: `home/yourname`, Mac OSX: `Users/yourname`, Windows `Users/yourname`).
 
      *   If you're not familiar with `Git`, download the [zip file](https://github.com/StefanoAllesina/BSD-QBio4/archive/master.zip), and extract it to your home directory. Make sure to rename the folder to `BSD-QBio4` (it will be extracted as `BSD-QBio4-master`).
-
-*  Second, you need to download and unzip a large file containing all the data for the NGS tutorial. You can download the file [here](https://www.dropbox.com/s/kq7duts6i2heiup/ngs_workshop.zip?dl=0).
 
 ## Programming Challenges
 
