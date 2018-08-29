@@ -77,7 +77,7 @@ You will work on your laptop all day long. **If you don't have a laptop, please 
 
     You can find instructions on how to install `R` packages in RStudio [here](https://www.youtube.com/watch?v=3RWb5U3X-T8).
 
-* **Other packages** Two of the packages need to be installed from within `R`. Open Rstudio and in the Console type `library(devtools)`, hit Return (or Enter) and then `install_github("pcarbo/cfwlab")`. This will install the library `cfwlab` that is needed for one of the tutorials. Once that is installed,  type `install_github("jdstorey/qvalue")`.
+* **Other packages** Two of the packages need to be installed from within `R`. Open Rstudio and in the Console type `library(devtools)`, hit Return (or Enter) and then `install_github("jdstorey/qvalue")`. This will install the library `qvalue` that is needed for one of the tutorials. 
 
 * **Install ImageJ**: go to [this page](http://imagej.net/Fiji/Downloads) and follow the instructions for your platform.
 
