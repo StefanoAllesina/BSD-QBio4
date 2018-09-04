@@ -224,6 +224,7 @@ Knowing this, you can use the function `rbinom` to generate draws from a Bernoul
 
 ```r
 n_flips <- 3
+p_heads <- 0.1
 rbinom(n_flips,1,p_heads)
 ```
 
