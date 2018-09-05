@@ -3,12 +3,12 @@ title: "Reproducibility of data analysis"
 author: "Stephanie Palmer & Stefano Allesina & Graham Smith"
 date: "September 2-9, 2018"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     theme: cosmo
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: yes
 urlcolor: blue
 ---
 
