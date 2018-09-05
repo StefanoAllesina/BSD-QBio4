@@ -14,36 +14,22 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hide",
                       fig.show = "hide", message = FALSE,warning = FALSE)
 ```
 
-Tutorial online
-===============
+2. Tutorial outline
+===================
 
 ![Tutorial outline as bar chart](images/outline.png)
 
-Aim: learn how to create effective plots
-========================================
 
-"Figures will typically carry the weight of your arguments. They need
-to be clear, attractive, and convincing... And yet, there are
-surprisingly few resources to teach you how to make compelling data
-visualizations." --Claus Wilke
-
-Revised aim: learn how to create plots
-======================================
-
-"In my experience, again just as in writing, you don’t develop eye by
-reading a book over the weekend. It is a lifelong process..." --Claus
-Wilke
-
-Overlap with "Advanced Computing, Part 1"
-=========================================
+3. Overlap with "Advanced Computing, Part 1"
+============================================
 
 + Some inevitable overlap.
 
 + Here we take a more careful look at ggplot2, and data visualization
   strategies in general.
 
-Why plot?
-=========
+4. Why plot?
+============
 
 1. To gain insight into your data ("exploratory data visualization").
 
@@ -52,66 +38,23 @@ Why plot?
 Both 1 & 2 are usually *iterative* and *repetitive*. Therefore, you
 need to develop skills to *efficiently* create & refine plots.
 
-Effective visualizations aren't hard to find
-============================================
-
-*New York Times*, Aug. 4, 2018:
-
-![Bar chart from New York Times article](images/nyt.png)
-
-Plots need not be complicated to be effective
-=============================================
-
-Hancock et al, *Science*, 2011:
-
-![Scatterplot from Hancock et al](images/hancock.png)
-
-Complicated plots can still be *intuitive*
-==========================================
-
-Pickrell et al, *Nature*, 2010:
-
-![Figure from Pickrell et al](images/pickrell.png)
-
-The best plots *tell a story*
-=============================
-
-![Infographic from National Geographic magazine](images/natgeo.png)
-
-The programmatic approach
-=========================
+5. The programmatic approach
+============================
 
 We will take the *programmatic approach* to data visualization, which
 will allow us to...
 
 + Create an endless variety of plots.
 
-+ Expand expand possibilities with R plots.
++ Expand possibilities by installing new R packages.
 
 + Reuse code to quickly create sophisticated plots---*automation is
-  your friend*.
+  your friend*!
 
 + **ggplot2** is (currently) the preferred approach to creating plots in R.
 
-The programmatic approach
-=========================
-
-The code used to generate the "tutorial outline" slide:
-
-```{r outline-bar-chart}
-library(ggplot2)
-library(cowplot)
-x <- data.frame(part=c("intro","hands-on","break",
-                       "challenge","check-in"),
-                time=c(15,75,15,65,10))
-x <- transform(x,part = factor(part,part[5:1]))
-ggplot(x,aes(x = part,y = time,fill = part)) +
-  geom_bar(stat = "identity") +
-  coord_flip()
-```
-
-Tutorial aims
-=============
+6. Tutorial aims
+================
 
 1. Get hands-on experience with the basic elements of data visualization
    in R.
@@ -119,37 +62,21 @@ Tutorial aims
 2. Learn how to interpret & build on someone else's R code for creating
    plots using ggplot2.
 
-3. Scrutinize plots, good and bad.
+3. Build on some of the skills you learned in the previous tutorials.
 
-4. Build on some of the skills you learned in the previous tutorials.
-
-5. Learn through "live coding"---this includes learning from our
+4. Learn through "live coding"---this includes learning from our
    mistakes!
 
-The hands-on exercise
-=====================
+#7. The hands-on exercise
 
 + We will use someone else's R code to create some plots.
 
 + To achieve our aims, we will need to make some changes to the code.
 
-+ First, we will slowly step through the code to learn how it works.
++ First, we will step through the code to learn how it works.
 
-It's your choice
+8. Initial setup
 ================
-
-Your may choose to...
-
-+ Use RStudio on your laptop.
-
-+ Use R on your laptop.
-
-+ Pair up with your neighbour.
-
-+ Follow what I do on the projector.
-
-Initial setup
-=============
 
 + WiFi.
 
@@ -157,22 +84,25 @@ Initial setup
 
 + Pace & questions (e.g., keyboard shortcuts).
 
-+ Copying-and-pasting from PDF.
-
 + Reading what I type.
 
-+ Tutorial packet.
++ Tutorial packet (**this has been updated**).
+
++ TAs.
 
 + Locating your team.
 
-+ Help.
++ Clean up computer clutter.
 
-Materials for the hands-on exercise
-===================================
++ Posture.
+
+9. Materials for the hands-on exercise
+======================================
 
 + **slides.pdf:** These slides.
 
-+ **slides.Rmd:** R Markdown source used to generate these slides.
++ **slides.Rmd:** R Markdown source used to generate these
+  slides. *Copy and paste code from this file.*
 
 + **handout.pdf**: Tutorial handout.
 
@@ -186,17 +116,14 @@ Materials for the hands-on exercise
 
 + **communitymap_nov2016.pdf:** City of Chicago Police Community Areas Map.
 
-Software we will use in this tutorial
-=====================================
+10. Software we will use in this tutorial
+=========================================
 
-1. **R**
+1. **R** and/or **RStudio**.
 
-2. R packages **ggplot2**, **cowplot** and **readr**.
+2. R packages **ggplot2**, **cowplot** & **readr**.
 
-3. **RStudio** (optional).
-
-Run `sessionInfo()`
-===================
+# 11. Run `sessionInfo()`
 
 Check the version of R that you are using:
 
@@ -204,8 +131,9 @@ Check the version of R that you are using:
 sessionInfo()
 ```
 
-Check your R environment
-========================
+
+12. Clear your R environment
+============================
 
 The R environment is where all variables (and functions) are stored and
 accessed. You should start with an empty environment. Run this:
@@ -219,10 +147,11 @@ empty, and you should restart R with a clean environment. Do either:
 
 + `rm(list = ls())`.
 
-+ Or, in RStudio, **Session > Restart R**.
++ Or, in RStudio, **Session > Clear Workspace**.
 
-A test plot
-===========
+
+13. A test plot
+===============
 
 To test that your R environment is properly set up, let's plot some
 fuel economy data from the EPA:
@@ -234,21 +163,19 @@ ggplot(mpg,aes(displ,cty,color = class)) +
   geom_point()
 ```
 
-Does it work? Later we will understand what this code does.
+Did it work? Later we will understand what this code does.
 
-Hands-on exercise
-=================
+14. Hands-on exercise
+=====================
 
 1. *Read description from handout.*
 
-2. Open source file, **pizzaplots.R**, in RStudio or your
-   favourite editor.
+2. Open source file, **pizzaplots.R**.
 
 3. Make sure your working directory is the same directory containing
    the tutorial materials; use `getwd()` to check this.
 
-Set up your R environment for the analysis
-==========================================
+# 15. Set up your R environment for the analysis
 
 If you haven't already done so, install the packages we will use:
 
@@ -258,7 +185,7 @@ install.packages("ggplot2")
 install.packages("cowplot")
 ```
 
-Next, load the packages:
+Once installed, *load* the packages:
 
 ```{r load-pkgs}
 library(readr)
@@ -266,34 +193,32 @@ library(ggplot2)
 library(cowplot)
 ```
 
-Specify the file containing the data to be analyzed:
+16. Load the Food Inspection data
+=================================
 
-```{r script-settings}
-data.file <- "Food_Inspections.csv.gz"
-```
-
-Load the Food Inspection data
-=============================
-
-Use `read_csv` from the **readr** package to load the data into a data
-frame:
+Use `read_csv` from the **readr** package to load the data into a "data
+frame":
 
 ```{r load-data}
+data.file  <- "Food_Inspections.csv.gz"
 dat        <- read_csv(data.file)
 class(dat) <- "data.frame"
 ```
+
 
 Check that the data were read correctly, and inspect the table:
 
 ```{r inspect-data}
 nrow(dat)
 ncol(dat)
+names(dat)
 summary(dat)
 object.size(dat)
 ```
 
-Keep some columns, and rename them
-==================================
+
+17. Keep some columns, and rename them
+======================================
 
 ```{r remove-columns}
 cols     <- c(2:5,7,8,11,13,15,16)
@@ -304,11 +229,9 @@ dat        <- dat[cols]
 names(dat) <- colnames
 ```
 
-Which assignments *create* objects in your environment, and which
-assignments *overwrite* objects?
 
-Extract year from inspection date
-=================================
+18. Extract year from inspection date
+=====================================
 
 ```{r extract-year}
 get.third.entry <- function(x) x[3]
@@ -317,13 +240,9 @@ dat$year <- sapply(out,get.third.entry)
 dat$year <- as.numeric(dat$year)
 ```
 
-Note that processing dates & times is a complicated topic.
 
-+ *How many inspections were done in each year? Which year saw the
-  most inspections?*
-
-Filter out rows
-===============
+19. Filter inspections
+======================
 
 ```{r filter-rows} 
 dat <- subset(dat,
@@ -334,13 +253,12 @@ dat <- subset(dat,
               !is.na(license))
 ```
 
-*How many records satisfy these criteria?*
 
-Extract data on pizza restaurants
-=================================
+20. Extract pizza restaurant inspections
+========================================
 
 As before, we use `subset` to filter out inspection records. To be
-prudent, create a new data frame, "pdat", short for "pizza data":
+prudent, create a new data frame, "pdat" (short for "pizza data"):
 
 ```{r get-pizza-data}
 pdat <- subset(dat,
@@ -348,10 +266,9 @@ pdat <- subset(dat,
   grepl("pizz",aka,ignore.case = TRUE))
 ```
 
-*How many inspections were done in pizza restaurants?*
 
-Sort rows and keep unique license entries
-=========================================
+21. Sort rows & keep unique license entries
+===========================================
 
 First, sort the rows of the table by year of inspection:
 
@@ -368,20 +285,16 @@ rows <- which(!duplicated(pdat$license))
 pdat <- pdat[rows,]
 ```
 
-*How many rows to you have in your table after these steps? How would
-you double-check that each license appears only once in the table?*
 
-Our first plot: number of new pizza places by year
-==================================================
+22. Our first plot: new pizza places by year
+============================================
 
 Our first plot is a bar chart of the estimated number of new pizza
 restaurants by year. Use `table` to create a table containing number
-of newly inspected restaurants by year, skipping the first and last
-years:
+of newly inspected restaurants by year:
 
 ```{r count-inspections-by-year}
 counts <- table(pdat$year)
-counts <- counts[2:8]
 ```
 
 To plot these counts in ggplot2, we need to create a data frame:
@@ -394,26 +307,26 @@ names(counts) <- c("year","count")
 We now have a data frame with two columns, "year" and "count". *Let's
 plot it!*
 
-Our first plot... finally
-=========================
+23. Our first plot... finally!
+==============================
 
 Specify the data frame, and the mapping between variables (columns)
 and plotting elements:
 
 ```{r create-barchart-1}
-aes1 <- aes(x = as.numeric(year),y = count)
+aes1 <- aes(x = year,y = count)
 p1   <- ggplot(counts,aes1)
 ```
 
 Specify *how* to plot the data points:
 
 ```{r create-barchart-2}
-out <- geom_col(fill = "darkblue",width = 0.5)
+out <- geom_col(width = 0.5)
 p1  <- ggplot_add(out,p1)
 ```
 
-Where is the plot?
-==================
+24. But where is the plot?
+==========================
 
 Variable `p1` is a "ggplot" object. Internally, it is very
 complicated, so you don't want to manipulate it directly:
@@ -430,10 +343,9 @@ print(p1)
 p1
 ```
 
-*What is the overall trend?*
 
-ggplot2 essentials
-==================
+25. The essentials of ggplot2
+=============================
 
 All plots in ggplot2 require these three elements:
 
@@ -447,8 +359,8 @@ All plots in ggplot2 require these three elements:
 
 All plots are created by *adding layers.*
 
-Adjusting the plot
-==================
+26. Adjusting the plot
+======================
 
 Let's improve the y-axis label:
 
@@ -459,15 +371,15 @@ p1  <- ggplot_add(out,p1)
 
 *All plot adjustments are also "layers".*
 
-First challenge
-===============
+27. Your first challenge
+========================
 
 Sometimes lines are more effective than bars for highlighting
 trends. If you wanted to show the trend as a line plot, how would you
 change the code to do this?
 
-Alternative ggplot2 syntax
-==========================
+28. Alternative ggplot2 syntax
+==============================
 
 Here is equivalent code that is more concise (and more commonly used),
 but also more difficult to understand because it is less clear what
@@ -475,15 +387,13 @@ the "+" does:
 
 ```{r create-barchart-6}
 p1 <- ggplot(counts,aes(x = year,y = count)) +
-  geom_col(fill = "darkblue",width = 0.5) +
+  geom_col(width = 0.5) +
   labs(y = "number of locations")
 ```
 
-*I recommend using the less concise syntax until you are more
-comfortable with ggplot2.*
 
-Our second plot
-===============
+29. Our second plot
+===================
 
 The second plot is far more interesting, and no less difficult to
 create *now that we have carefully prepared the data*. First, we
@@ -498,12 +408,9 @@ out  <- geom_point(pch = 20)
 p2   <- ggplot_add(out,p2)
 ```
 
-*Compare to the Chicago community map provided in the tutorial
-packet. What geographic features of Chicago are recognizable from
-this plot?*
 
-Adjusting the colour mapping
-============================
+30. Adjusting the colour mapping
+================================
 
 This code chunk adjusts the way that the years are mapped to colours:
 
@@ -514,16 +421,12 @@ out <- scale_color_gradient2(low = "skyblue",
 p2  <- ggplot_add(out,p2)
 ```
 
-All functions starting with `scale_` modify the behaviour of the
+All functions starting with `scale_` **modify** the behaviour of the
 geoms.
 
-+ *Based on the plot output, what do the `scale_color_gradient2`
-  arguments do?
 
-+ *Why do these colours work better than before?*
-
-Combining the plots
-===================
+31. Combining the plots
+=======================
 
 With cowplot, this is easily done:
 
@@ -534,8 +437,8 @@ p12 <- plot_grid(p1,p2,labels = c("A","B"))
 In **pizzaplots.R**, the `theme_cowplot` function is used to adjust
 the size of the text.
 
-Save your plot
-==============
+32. Save your plot
+==================
 
 PNG is a commonly used format to share images.
 
@@ -543,8 +446,8 @@ PNG is a commonly used format to share images.
 ggsave("plots.png",p12,dpi = 150)
 ```
 
-Re: plots for report
-====================
+33. Re: plots for report
+========================
 
 ```
 I was able to generate the plots using the
@@ -552,8 +455,8 @@ R code. Please see attached. Are these the
 plots you were expecting for the paper?
 ```
 
-Re: plots for report
-====================
+34. Re: plots for report
+========================
 
 ```
 Great work, and quick turnaround. These
@@ -569,8 +472,8 @@ won't work for the report. Please send me
 a PDF instead. Thanks.
 ```
 
-Automating plot creation
-========================
+35. Automating plot creation
+============================
 
 Instead of stepping through the code line by line, we can run all the
 code at once, which should automate all the steps of the analysis and
@@ -582,10 +485,10 @@ source("pizzaplots.R")
 
 In RStudio, there are buttons to do the same thing.
 
-Add the labels, first attempt
-=============================
+36. Add the labels, first attempt
+=================================
 
-The same code as before, but with a "label" mapping:
+Mostly the same code as before, but with a "label" mapping:
 
 ```{r add-labels-to-map-1}
 aes2 <- aes(x = longitude,y = latitude,
@@ -606,23 +509,23 @@ out <- geom_text()
 p2  <- ggplot_add(out,p2)
 ```
 
-Add labels, second attempt
-==========================
+37. Add labels, second attempt
+==============================
 
 Clearly, showing *all* restaurant names won't work. So let's create a
 new "label" column in the data frame that is blank except for
 the Nella's & Marie's locations:
 
 ```{r add-labels-to-map-3}
-rows1<-grepl("nella",pdat$dba,ignore.case=TRUE)
-rows2<-grepl("marie",pdat$dba,ignore.case=TRUE)
 pdat$label <- ""
-pdat[rows1,"label"] <- "Nella's"
-pdat[rows2,"label"] <- "Marie's"
+rows<-grepl("nella",pdat$dba,ignore.case=TRUE)
+pdat[rows,"label"] <- "Nella's"
+rows<-grepl("marie",pdat$dba,ignore.case=TRUE)
+pdat[rows,"label"] <- "Marie's"
 ```
 
-Add labels, second attempt
-==========================
+38. Add labels, second attempt
+==============================
 
 Now we can use the new "label" column. Let's also make a few
 adjustments so that the text is easier to read on the map.
@@ -644,18 +547,17 @@ p2  <- ggplot_add(out,p2)
 This looks good, so let's add our code to **pizzaplots.R** in case we
 need to make improvements later.
 
-Second challenge
-================
+39. Follow-up challenge
+=======================
 
-Other improvements are left as a programming
-challenge---see the handout:
+Other improvements are left as a programming challenge---see the
+handout:
 
 1. Add color to the bar chart.
 
 2. Save the combined plot as a PDF.
 
-Some take-home points
-=====================
+# 40. Some take-home points
 
 + Preparing data is tedious. Data preparation is sometimes >90% of the
   effort! *Many analysis mistakes are due to poor data preparation.*
@@ -679,8 +581,8 @@ Some take-home points
 + Plots are created by combining "layers" using `ggplot_add` or the +
   operator.
 
-Some Best Practices we illustrated
-==================================
+41. Some Best Practices we illustrated
+======================================
 
 1. Record your analysis and plotting steps in a file so you can
    reproduce them later.
@@ -690,26 +592,28 @@ Some Best Practices we illustrated
 3. Use pixel formats (e.g., GIF, PNG, JPEG) for exploratory work, and
    vector formats (e.g., EPS, PDF) for publication-ready figures.
 
-An xkcd bar chart
-=================
+# 42. An xkcd bar chart
 
 From http://xkcd.com/688:
 
 ![xkcd comic 688](images/xkcd.png)
 
-Main programming challenge
-==========================
+43. Main programming challenge
+==============================
 
 + Gain insight into biological data using simple visualizations.
 
-+ The data: behavioral tests, physiological trait measurements, and
++ DATA: behavioral tests, physiological trait measurements, and
   genotypes from an outbred mouse population.
 
-+ Study aim: understand the genetic contributions to behaviour and
++ GOAL: understand the genetic contributions to behaviour and
   musculoskeletal traits in mice.
 
-Data used in programming challenge
-==================================
+
+44. Data used in programming challenge
+======================================
+
+All data are stored in CSV files:
 
 + **pheno.csv:** Various traits measured in 1,219 CFW mice. We will
   explore a few of the columns in this table.
@@ -721,8 +625,8 @@ Data used in programming challenge
 
 + **geno_rs29477109.csv:** Genotypes at one SNP in 1,038 CFW mice.
 
-Overview of main programming challenge
-======================================
+45. Overview of main programming challenge
+==========================================
 
 + **Part A:** You will use plots to explore features of the data, and
   relationships between different types of data.
@@ -734,3 +638,16 @@ Overview of main programming challenge
   genome-wide association study of BMD, identify possible genetic
   determinants of BMD, and examine closely the relationship between
   genotype and BMD.
+
+46. Hints for main programming challenge
+========================================
+
++ Some "geoms" you may find useful: `geom_point`, `geom_histogram`,
+  `geom_boxplot`.
+
++ It may be useful to transform some columns to *factors*.
+
++ More hints are given in the programming challenge text.
+
++ Coming up with the answers will involve skills other than
+  programming, so collaborate!
