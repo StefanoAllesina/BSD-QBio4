@@ -3,12 +3,12 @@ title: "Neural computation workshop"
 author: "Stephanie Palmer & Jeff Johnston"
 date: "September 2-9, 2018"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     theme: cosmo
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: yes
 urlcolor: blue
 ---
 
@@ -103,14 +103,10 @@ Now, let's examine what's happening in this data structure:
 str(mt_neuron)
 ```
 
-We can see that:
-
-- Everything is nested inside one list. 
-- The inner list has three elements: 
-    - **trial_raster:** A list of one element, where that element is an array of dimensions 246 and 2700. This is the spike "raster" for our MT neuron. There are 246 trials and each trial is segmented into 2700 bins, each 1 ms in size. The value of each bin is 0 if no spike was recorded from this neuron at that time point, and 1 if a spike was recorded. 
-  The visual motion stimulus appears 500 ms into the trial, at element 500. 
-    - **samp_direction_this_trial:** This is the direction in degrees of the first visual motion stimulus. Since MT neurons are thought to be tuned to visual motion, we might expect them to vary their responses with changes in direction. 
-    - **test_direction_this_trial:** We will largely ignore this here, but it is the direction of the second visual motion stimulus.
+We can see that the data is in a named list format and the list has three elements:  
+    - **trial_raster:** A list of one element, where that element is an array of dimensions 246 and 2700. This is the spike "raster" for our MT neuron. There are 246 trials and each trial is segmented into 2700 bins, each 1 ms in size. The value of each bin is 0 if no spike was recorded from this neuron at that time point, and 1 if a spike was recorded. The visual motion stimulus appears 500 ms into the trial, at element 500.   
+    - **samp_direction_this_trial:** This is the direction in degrees of the first visual motion stimulus. Since MT neurons are thought to be tuned to visual motion, we might expect them to vary their responses with changes in direction.  
+    - **test_direction_this_trial:** We will largely ignore this here, but it is the direction of the second visual motion stimulus.  
     
 We can begin to visualize the response of this neuron by creating a "raster plot" where the times of spikes in each trial are marked by a dash or circle, and trials are aligned and stacked along the y-axis.
 
