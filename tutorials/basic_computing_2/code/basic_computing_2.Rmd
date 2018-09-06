@@ -302,7 +302,7 @@ The return value is optional:
 
 ```{r}
 my_factorial <- function(a = 6){
-  if ( (as.integer(a) != a) | (a < 0) ) {
+  if ( (as.integer(a) != a) | (a < 1) ) {
     print("Please enter a positive integer!")
   } else {
     tmp <- 1

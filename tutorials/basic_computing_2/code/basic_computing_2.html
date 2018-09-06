@@ -309,21 +309,21 @@ summary(model_year_length)</code></pre>
 <p>If <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> were completely independent, we would expect <span class="math inline">\(\tau\)</span> to be distributed with a mean of 0. The variance of the null distribution of <span class="math inline">\(\tau\)</span> (and hence the p-value calculated above) depends on the data, and is typically approximated as a normal distribution. If you want to have a stronger result, you can use randomizations to approximate the p-value. Simply, compute <span class="math inline">\(\tau\)</span> for the actual data, and for many “fake” datasets obtained randomizing the data. Your p-value is well approximated by the proportion of <span class="math inline">\(\tau\)</span> values for the randomized sets that exceed the <span class="math inline">\(\tau\)</span> value for the actual data.</p>
 <p>To perform this randomization, or any simulation, we typically need to draw random numbers. <code>R</code> has functions to sample random numbers from very many different statistical distributions. For example:</p>
 <pre class="r"><code>runif(5) # sample 5 numbers from the uniform distribution between 0 and 1</code></pre>
-<pre><code>## [1] 0.39727591 0.90813799 0.36942285 0.05302802 0.57143409</code></pre>
+<pre><code>## [1] 0.7116211 0.1051231 0.9234181 0.6786193 0.1608014</code></pre>
 <pre class="r"><code>runif(5, min = 1, max = 9) # set the limits of the uniform distribution</code></pre>
-<pre><code>## [1] 6.644302 7.176022 5.672639 6.660425 2.873394</code></pre>
+<pre><code>## [1] 5.641785 7.340874 7.246531 5.295909 1.756242</code></pre>
 <pre class="r"><code>rnorm(3) # three values from standard normal</code></pre>
-<pre><code>## [1] 1.8986538 1.8983499 0.9644158</code></pre>
+<pre><code>## [1] -0.5622002  1.3164805  0.5402308</code></pre>
 <pre class="r"><code>rnorm(3, mean = 5, sd = 4) # specify mean and standard deviation</code></pre>
-<pre><code>## [1] 5.774069 2.455185 6.977325</code></pre>
+<pre><code>## [1] 0.2215408 4.5664900 6.3082723</code></pre>
 <p>To sample from a set of values, use <code>sample</code>:</p>
 <pre class="r"><code>v &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)
 sample(v, 2) # without replacement</code></pre>
-<pre><code>## [1] &quot;c&quot; &quot;d&quot;</code></pre>
+<pre><code>## [1] &quot;b&quot; &quot;c&quot;</code></pre>
 <pre class="r"><code>sample(v, 6, replace = TRUE) # with replacement</code></pre>
-<pre><code>## [1] &quot;b&quot; &quot;a&quot; &quot;a&quot; &quot;c&quot; &quot;c&quot; &quot;d&quot;</code></pre>
+<pre><code>## [1] &quot;c&quot; &quot;a&quot; &quot;c&quot; &quot;b&quot; &quot;b&quot; &quot;a&quot;</code></pre>
 <pre class="r"><code>sample(v) # simply shuffle the elements</code></pre>
-<pre><code>## [1] &quot;d&quot; &quot;c&quot; &quot;b&quot; &quot;a&quot;</code></pre>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;d&quot; &quot;c&quot;</code></pre>
 <p>Let’s try to write a randomization to calculate p-value associated with the <span class="math inline">\(\tau\)</span> observed for year 2006.</p>
 <pre class="r"><code># first, we subset the data
 papers_year &lt;- papers[papers$Year == 2006, ] # get all rows matching the year
@@ -346,7 +346,7 @@ for (i in 1:num_randomizations){
 # calculate proportion
 pvalue &lt;- pvalue / num_randomizations
 pvalue</code></pre>
-<pre><code>## [1] 0.0076</code></pre>
+<pre><code>## [1] 0.0088</code></pre>
 <p>Note that the p-value is different (and in fact smaller) than that calculated using the normal approximation:</p>
 <pre class="r"><code>cor.test(papers_year$TitleLength, papers_year$Cited.by, method = &quot;kendall&quot;)</code></pre>
 <pre><code>## 
@@ -391,7 +391,7 @@ sum_two_numbers()</code></pre>
 <pre><code>## [1] 10</code></pre>
 <p>The return value is optional:</p>
 <pre class="r"><code>my_factorial &lt;- function(a = 6){
-  if ( (as.integer(a) != a) | (a &lt; 0) ) {
+  if ( (as.integer(a) != a) | (a &lt; 1) ) {
     print(&quot;Please enter a positive integer!&quot;)
   } else {
     tmp &lt;- 1
@@ -411,7 +411,7 @@ my_factorial()</code></pre>
   return(c(b,a))
 }
 order_two_numbers(runif(1), runif(1))</code></pre>
-<pre><code>## [1] 0.19168098 0.01078889</code></pre>
+<pre><code>## [1] 0.8296030 0.6873394</code></pre>
 <p>Having learned a little about functions, we want to write one that takes as input a vector of citations, a vector of title lengths, and a number of randomizations to perform. The function returns the value of <span class="math inline">\(\tau\)</span> as well as the associated p-value. In <code>R</code>, we can write:</p>
 <pre class="r"><code>tau_citations_titlelength &lt;- function(citations, titlelength, num_randomizations = 1000){
   tau_original &lt;- cor(titlelength, citations, method = &quot;kendall&quot;)
@@ -439,16 +439,16 @@ for (my_year in all_years){
                             1000)
   print(paste(my_year, &quot;-&gt; Tau:&quot;, round(tmp$tau, 3), &quot;pvalue:&quot;, tmp$pvalue))
 }</code></pre>
-<pre><code>## [1] &quot;2004 -&gt; Tau: 0.006 pvalue: 0.47&quot;
-## [1] &quot;2005 -&gt; Tau: 0.054 pvalue: 0.131&quot;
-## [1] &quot;2006 -&gt; Tau: 0.114 pvalue: 0.011&quot;
-## [1] &quot;2007 -&gt; Tau: 0.01 pvalue: 0.44&quot;
-## [1] &quot;2008 -&gt; Tau: 0.065 pvalue: 0.084&quot;
-## [1] &quot;2009 -&gt; Tau: 0.012 pvalue: 0.395&quot;
-## [1] &quot;2010 -&gt; Tau: -0.052 pvalue: 0.865&quot;
+<pre><code>## [1] &quot;2004 -&gt; Tau: 0.006 pvalue: 0.467&quot;
+## [1] &quot;2005 -&gt; Tau: 0.054 pvalue: 0.106&quot;
+## [1] &quot;2006 -&gt; Tau: 0.114 pvalue: 0.008&quot;
+## [1] &quot;2007 -&gt; Tau: 0.01 pvalue: 0.391&quot;
+## [1] &quot;2008 -&gt; Tau: 0.065 pvalue: 0.099&quot;
+## [1] &quot;2009 -&gt; Tau: 0.012 pvalue: 0.405&quot;
+## [1] &quot;2010 -&gt; Tau: -0.052 pvalue: 0.852&quot;
 ## [1] &quot;2011 -&gt; Tau: 0.145 pvalue: 0&quot;
-## [1] &quot;2012 -&gt; Tau: 0.114 pvalue: 0.006&quot;
-## [1] &quot;2013 -&gt; Tau: 0.045 pvalue: 0.167&quot;</code></pre>
+## [1] &quot;2012 -&gt; Tau: 0.114 pvalue: 0.008&quot;
+## [1] &quot;2013 -&gt; Tau: 0.045 pvalue: 0.166&quot;</code></pre>
 </div>
 <div id="organizing-and-running-code" class="section level2">
 <h2>Organizing and running code</h2>
