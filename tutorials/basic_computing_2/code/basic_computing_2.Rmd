@@ -1,10 +1,11 @@
 ---
 title: "Basic Computing 2 -- Packages, Functions, Documenting code"
 author: "Stefano Allesina"
-output: 
+output:
   pdf_document:
     highlight: kate
     template: default
+  html_document: default
 ---
 
 # Basic Computing 2
@@ -301,11 +302,11 @@ The return value is optional:
 
 ```{r}
 my_factorial <- function(a = 6){
-  if (as.integer(a) != a) {
-    print("Please enter an integer!")
+  if ( (as.integer(a) != a) | (a < 0) ) {
+    print("Please enter a positive integer!")
   } else {
     tmp <- 1
-    for (i in 2:a){
+    for (i in 1:a){
       tmp <- tmp * i
     }
     print(paste(a, "! = ", tmp, sep = ""))
