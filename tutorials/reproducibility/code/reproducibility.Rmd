@@ -3,12 +3,12 @@ title: "Reproducibility of data analysis"
 author: "Stephanie Palmer & Stefano Allesina & Graham Smith"
 date: "September 2-9, 2018"
 output:
+  pdf_document:
+    toc: yes
   html_document:
     theme: cosmo
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: yes
 urlcolor: blue
 ---
 
@@ -206,7 +206,7 @@ To practice writing good code, let's take a look at some bad code. In this secti
 
 Follow the instructions in "Clone a Repo" to clone [https://github.com/grahamas/BentCoinLottery](https://github.com/grahamas/BentCoinLottery)
 
-Before you try reading the code, we should tell you that the code uses one of R's random number generator functions `runif`, which will give you uniformly distributed numbers on the interval $[0.1]$.
+Before you try reading the code, we should tell you that the code uses one of R's random number generator functions `runif`, which will give you uniformly distributed numbers on the interval $[0,1]$.
 
 > **Exercise 2**: Use meaningful variables
 >
