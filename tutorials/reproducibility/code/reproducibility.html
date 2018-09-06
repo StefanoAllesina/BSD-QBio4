@@ -479,20 +479,20 @@ save(&quot;seed_used&quot;,&quot;RNGkind_used&quot;,file=RNGinfo_for_mycode)</co
 </div>
 <div id="the-challenge" class="section level3">
 <h3>The challenge</h3>
-<p>Check visually how the distributions of the three bug types fit to Poisson and LGP distributions.</p>
+<p>Check visually how the distributions of the three bug types (for weevils, its their eggs and they lay their eggs inside beans, so it’s eggs per bean instead of bugs per board, but you will plot and fit the data in the same way) fit to a Poisson or the LGP distributions.</p>
 <ol style="list-style-type: decimal">
 <li>Plot the Poisson distribution with the same mean as the spider counts, along with the data</li>
 <li>Plot the Poisson distribution with the same mean as the sowbug counts, along with the data</li>
-<li>Plot the Poisson distribution with the same mean as the weevil counts, along with the data</li>
+<li>Plot the Poisson distribution with the same mean as the weevil egg counts, along with the data</li>
 <li>Add a curve to Plot 1) showing the LGP distribution with the parameter hint below for the spider counts</li>
 <li>Add a curve to Plot 2) showing the LGP distribution with the parameter hint below for the sowbug counts</li>
-<li>Add a curve to Plot 3) showing the LGP distribution with the parameter hint below for the weevil counts</li>
+<li>Add a curve to Plot 3) showing the LGP distribution with the parameter hint below for the weevil egg counts</li>
 </ol>
 <p>Each figure should have datapoints corresponding to empirical data, and lines corresponding to theoretical distribution. Indicate in the README how well the each distribution fits these data sets, as well as the chosen <span class="math inline">\(\lambda_2\)</span>.</p>
 <p>For LGP, you can use the function <code>dLGP</code> from the library <code>RMKdiscrete</code>.</p>
 <p>For spiders, you can set <span class="math inline">\(\lambda_2\)</span> to 0 and <span class="math inline">\(\lambda_1\)</span> to the mean.</p>
 <p>For sowbugs, you can use the empirically determined <span class="math inline">\(\lambda_2 = 0.53214\)</span> and estimate <span class="math inline">\(\lambda_1\)</span> by the formula <span class="math inline">\(\lambda_1 = \text{mean} * (1 - \lambda_2)\)</span>.</p>
-<p>For weevils, look at the data to see if you can gauge their sociability, and thereby start guessing appropriate <span class="math inline">\(\lambda_2\)</span>.</p>
+<p>For weevil eggs, look at the data to see if you can gauge their sociability (i.e. do weevils lay their eggs all together or do they seem to intentionally separate them?) and thereby start guessing appropriate <span class="math inline">\(\lambda_2\)</span>.</p>
 </div>
 <div id="the-requirements" class="section level3">
 <h3>The requirements</h3>
