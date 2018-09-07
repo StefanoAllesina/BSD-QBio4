@@ -114,7 +114,8 @@ We can begin to visualize the response of this neuron by creating a "raster plot
 > **Exercise 1**: Make a raster plot for the MT neuron we loaded earlier.
 >
 >
-```{r raster plot, out.width = '65%'}
+
+```{r raster_plot, out.width = '65%'}
 
 library(ggplot2)
 
@@ -143,17 +144,32 @@ This gives us the overall structure of the trial. We get a response to the first
 >
 >
 
+```{r single_dir, out.width='65%'}
+dirs <- mt_neuron[['samp_direction_this_trial']]
+
+unique_dirs <- unique(dirs)
+print(unique_dirs)
+choose_dir <- 240
+
+dir_raster <- mt_raster[dirs == choose_dir,]
+dir_spks <- which(dir_raster == 1, arr.ind=TRUE)
+qplot(dir_spks[ , 2] - stim_onset, dir_spks[ , 1], 
+      xlab='time from stimulus onset (ms)',
+      ylab='trial')
+
+```
+
+
 There are many ways to create this plot, but here is some code that succintly creates a nice colored raster plot, using the `factor` function in `R`:
 
 ```{r sorted_raster, out.width = '65%'}
 
-dirs = mt_neuron[['samp_direction_this_trial']]
-sort_dirs = sort(dirs, index.return=TRUE)
-order_inds = sort_dirs$ix
-s_dirs = sort_dirs$x
+sort_dirs <- sort(dirs, index.return=TRUE)
+order_inds <- sort_dirs$ix
+s_dirs <- sort_dirs$x
 
-ordered_raster = mt_raster[order_inds, ]
-sorted_spkpairs = which(ordered_raster == 1, arr.ind=TRUE)
+ordered_raster <- mt_raster[order_inds, ]
+sorted_spkpairs <- which(ordered_raster == 1, arr.ind=TRUE)
 
 dfact = factor(s_dirs[sorted_spkpairs[, 1]], levels=unique(s_dirs))
 
@@ -218,9 +234,9 @@ An example call to `get_direction_tuning` is:
 ```{r, out.width = '50%'}
 count_start <- 100
 count_end <- 600
-dir_center <- 165 #this input variable will become more useful later
+
 get_direction_tuning(mt_neuron_path, count_start + stim_onset, 
-                     count_end + stim_onset, dir_center)
+                     count_end + stim_onset)
 ```
 
 > **Exercise 5**: Use `get_direction_tuning` to plot the average number of spikes our original MT neuron emits between 100ms and 600ms, as a function of the direction of motion of the stimulus. Cool! This neuron has strongly peaked responsiveness for a particular motion direction. Experiment with different spike counting windows (i.e. change count_start and count_end), and see how this changes the tuning curve. Refer back to the PSTH plot to examine different regions of interest.
