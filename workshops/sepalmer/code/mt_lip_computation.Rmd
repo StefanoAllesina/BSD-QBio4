@@ -232,8 +232,8 @@ The function you will find most useful is `get_direction_tuning`. This takes as 
 An example call to `get_direction_tuning` is:
 
 ```{r, out.width = '50%'}
-count_start <- 100
-count_end <- 600
+count_start <- 800
+count_end <- 1200
 
 get_direction_tuning(mt_neuron_path, count_start + stim_onset, 
                      count_end + stim_onset)
@@ -299,8 +299,8 @@ mt_neuron_names <- list.files(mt_neuron_folder)
 
 ## take a random subset from MT too!
 plots <- 5
-lip_samp <- sample(mt_neuron_names, plots)
-for (n in lip_samp) {
+mt_samp <- sample(mt_neuron_names, plots)
+for (n in mt_samp) {
   neur_path <- paste(mt_neuron_folder, n, sep='')
   f <- get_direction_tuning(neur_path, count_start + stim_onset, 
                             count_end + stim_onset, category_bound)
