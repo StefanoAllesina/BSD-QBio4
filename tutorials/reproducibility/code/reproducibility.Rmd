@@ -206,7 +206,7 @@ To practice writing good code, let's take a look at some bad code. In this secti
 
 Follow the instructions in "Clone a Repo" to clone [https://github.com/grahamas/BentCoinLottery](https://github.com/grahamas/BentCoinLottery)
 
-Before you try reading the code, we should tell you that the code uses one of R's random number generator functions `runif`, which will give you uniformly distributed numbers on the interval $[0.1]$.
+Before you try reading the code, we should tell you that the code uses one of R's random number generator functions `runif`, which will give you uniformly distributed numbers on the interval $[0,1]$.
 
 > **Exercise 2**: Use meaningful variables
 >
@@ -349,14 +349,14 @@ When $\lambda_2 =0$, we get precisely the Poisson distribution.
 
 ### The challenge
 
-Check visually how the distributions of the three bug types fit to Poisson and LGP distributions.
+Check visually how the distributions of the three bug types (for weevils, its their eggs and they lay their eggs inside beans, so it's eggs per bean instead of bugs per board, but you will plot and fit the data in the same way) fit to a Poisson or the LGP distributions.
 
 1) Plot the Poisson distribution with the same mean as the spider counts, along with the data
 2) Plot the Poisson distribution with the same mean as the sowbug counts, along with the data
-3) Plot the Poisson distribution with the same mean as the weevil counts, along with the data
+3) Plot the Poisson distribution with the same mean as the weevil egg counts, along with the data
 4) Add a curve to Plot 1) showing the LGP distribution with the parameter hint below for the spider counts
 5) Add a curve to Plot 2) showing the LGP distribution with the parameter hint below for the sowbug counts
-6) Add a curve to Plot 3) showing the LGP distribution with the parameter hint below for the weevil counts
+6) Add a curve to Plot 3) showing the LGP distribution with the parameter hint below for the weevil egg counts
 
 Each figure should have datapoints corresponding to empirical data, and lines corresponding to theoretical distribution. Indicate in the README how well the each distribution fits these data sets, as well as the chosen $\lambda_2$.
 
@@ -366,7 +366,7 @@ For spiders, you can set $\lambda_2$ to 0 and $\lambda_1$ to the mean.
 
 For sowbugs, you can use the empirically determined $\lambda_2 = 0.53214$ and estimate $\lambda_1$ by the formula $\lambda_1 = \text{mean} * (1 - \lambda_2)$.
 
-For weevils, look at the data to see if you can gauge their sociability, and thereby start guessing appropriate $\lambda_2$.
+For weevil eggs, look at the data to see if you can gauge their sociability (i.e. do weevils lay their eggs all together or do they seem to intentionally separate them?) and thereby start guessing appropriate $\lambda_2$.
 
 ### The requirements
 

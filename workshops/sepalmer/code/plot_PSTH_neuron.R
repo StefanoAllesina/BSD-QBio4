@@ -1,6 +1,7 @@
 plot_PSTH_neuron <- function(filename,filter_size){
   neur <- read_neuron(filename)
   unique_dirs <- neur[['udirs']]
+  s_dirs <- neur[['dirs']]
   
   stim_onset <- 500
   xs <- 1:2700 - stim_onset
@@ -23,8 +24,9 @@ plot_PSTH_neuron <- function(filename,filter_size){
                          each=length(xs)),
                  spk_rates=flat_means)
   
-  ggplot(d, aes(x=ts, y=spk_rates, color=factor(dir))) +
+  fig <- ggplot(d, aes(x=ts, y=spk_rates, color=factor(dir))) +
     geom_line(aes(group=factor(dir)), size=1) +
     labs(x='time from stimulus onset (ms)', y='spks/s', 
          color='motion direction (degrees)')
+  fig
 }
