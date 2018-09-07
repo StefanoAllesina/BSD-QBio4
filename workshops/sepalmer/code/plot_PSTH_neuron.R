@@ -1,6 +1,7 @@
 plot_PSTH_neuron <- function(filename,filter_size){
   neur <- read_neuron(filename)
   unique_dirs <- neur[['udirs']]
+  s_dirs <- neur[['dirs']]
   
   stim_onset <- 500
   xs <- 1:2700 - stim_onset
