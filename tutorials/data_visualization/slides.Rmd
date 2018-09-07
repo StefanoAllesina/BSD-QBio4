@@ -158,12 +158,13 @@ fuel economy data from the EPA:
 
 ```{r first-plot}
 library(ggplot2)
-mpg <- read.csv("mpg.csv")
+epa <- read.csv("epa.csv")
 ggplot(mpg,aes(displ,cty,color = class)) +
   geom_point()
 ```
 
 Did it work? Later we will understand what this code does.
+
 
 14. Hands-on exercise
 =====================
@@ -234,7 +235,7 @@ names(dat) <- colnames
 =====================================
 
 ```{r extract-year}
-get.third.entry <- function(x) x[3]
+get.third.entry <- function(x) { return(x[3]) }
 out      <- strsplit(dat$date,"/")
 dat$year <- sapply(out,get.third.entry)
 dat$year <- as.numeric(dat$year)
@@ -276,6 +277,7 @@ First, sort the rows of the table by year of inspection:
 rows <- order(pdat$year)
 pdat <- pdat[rows,]
 ```
+
 
 The idea is that the each "license" should correspond to a restaurant.
 After this step, there should be one row per pizza location:
@@ -400,11 +402,11 @@ create *now that we have carefully prepared the data*. First, we
 specify the data frame, the mapping, and what to plot:
 
 ```{r create-map-1}
-aes2 <- aes(x   = longitude,
-            y   = latitude,
-            col = year)
+aes2 <- aes(x     = longitude,
+            y     = latitude,
+            color = year)
 p2   <- ggplot(pdat,aes2)
-out  <- geom_point(pch = 20)
+out  <- geom_point(shape = 20)
 p2   <- ggplot_add(out,p2)
 ```
 
@@ -421,7 +423,7 @@ out <- scale_color_gradient2(low = "skyblue",
 p2  <- ggplot_add(out,p2)
 ```
 
-All functions starting with `scale_` **modify** the behaviour of the
+All functions starting with `scale_` modify the behaviour of the
 geoms.
 
 
@@ -461,19 +463,24 @@ plots you were expecting for the paper?
 ```
 Great work, and quick turnaround. These
 plots look fantastic. However, I would like
-a couple changes to better present the
-story I would like to tell: (1) Color
-the bars so that they match the colors
-in the map; (2) Label Marie's and Nella's
-pizzerias on the map. I want to highlight
-these in the report to illustrate two
-contrasting economic trends. Also, a PNG
-won't work for the report. Please send me
-a PDF instead. Thanks.
+one change to better present the story I
+would like to tell: color the bars so that
+they match the colors in the map. Also, a
+PNG won't work for the report. Please send
+me a PDF instead. Thanks.
 ```
 
-35. Automating plot creation
-============================
+35. Follow-up challenge
+=======================
+
+These improvements are left as a programming challenge---see the
+handout:
+
+1. Add color to the bar chart.
+
+2. Save the combined plot as a PDF.
+
+# 36. Automating plot creation
 
 Instead of stepping through the code line by line, we can run all the
 code at once, which should automate all the steps of the analysis and
@@ -485,79 +492,7 @@ source("pizzaplots.R")
 
 In RStudio, there are buttons to do the same thing.
 
-36. Add the labels, first attempt
-=================================
-
-Mostly the same code as before, but with a "label" mapping:
-
-```{r add-labels-to-map-1}
-aes2 <- aes(x = longitude,y = latitude,
-            col = year,label = dba)
-p2  <- ggplot(pdat,aes2)
-out <- geom_point(pch = 20)
-p2  <- ggplot_add(out,p2)
-out <- scale_color_gradient2(low = "skyblue",
-         mid = "white",high = "orangered",
-		 midpoint = 2014)
-p2  <- ggplot_add(out,p2)
-```
-
-Next, we add a *text* layer:
-
-```{r add-labels-to-map-2}
-out <- geom_text()
-p2  <- ggplot_add(out,p2)
-```
-
-37. Add labels, second attempt
-==============================
-
-Clearly, showing *all* restaurant names won't work. So let's create a
-new "label" column in the data frame that is blank except for
-the Nella's & Marie's locations:
-
-```{r add-labels-to-map-3}
-pdat$label <- ""
-rows<-grepl("nella",pdat$dba,ignore.case=TRUE)
-pdat[rows,"label"] <- "Nella's"
-rows<-grepl("marie",pdat$dba,ignore.case=TRUE)
-pdat[rows,"label"] <- "Marie's"
-```
-
-38. Add labels, second attempt
-==============================
-
-Now we can use the new "label" column. Let's also make a few
-adjustments so that the text is easier to read on the map.
-
-```{r add-labels-to-map-4}
-aes2 <- aes(x = longitude,y = latitude,
-            col = year,label = label)
-p2  <- ggplot(pdat,aes2)
-p2  <- ggplot_add(geom_point(pch = 20),p2)
-out <- scale_color_gradient2(low = "skyblue",
-         mid = "white",high = "orangered",
-		 midpoint = 2014)
-p2  <- ggplot_add(out,p2)
-out <- geom_text(color = "black",hjust = "right",
-                 size = 2.5)
-p2  <- ggplot_add(out,p2)
-```
-
-This looks good, so let's add our code to **pizzaplots.R** in case we
-need to make improvements later.
-
-39. Follow-up challenge
-=======================
-
-Other improvements are left as a programming challenge---see the
-handout:
-
-1. Add color to the bar chart.
-
-2. Save the combined plot as a PDF.
-
-# 40. Some take-home points
+# 37. Some take-home points
 
 + Preparing data is tedious. Data preparation is sometimes >90% of the
   effort! *Many analysis mistakes are due to poor data preparation.*
@@ -581,7 +516,7 @@ handout:
 + Plots are created by combining "layers" using `ggplot_add` or the +
   operator.
 
-41. Some Best Practices we illustrated
+38. Some Best Practices we illustrated
 ======================================
 
 1. Record your analysis and plotting steps in a file so you can
@@ -592,13 +527,13 @@ handout:
 3. Use pixel formats (e.g., GIF, PNG, JPEG) for exploratory work, and
    vector formats (e.g., EPS, PDF) for publication-ready figures.
 
-# 42. An xkcd bar chart
+# 39. An xkcd bar chart
 
 From http://xkcd.com/688:
 
 ![xkcd comic 688](images/xkcd.png)
 
-43. Main programming challenge
+40. Main programming challenge
 ==============================
 
 + Gain insight into biological data using simple visualizations.
@@ -610,7 +545,7 @@ From http://xkcd.com/688:
   musculoskeletal traits in mice.
 
 
-44. Data used in programming challenge
+41. Data used in programming challenge
 ======================================
 
 All data are stored in CSV files:
@@ -625,7 +560,7 @@ All data are stored in CSV files:
 
 + **geno_rs29477109.csv:** Genotypes at one SNP in 1,038 CFW mice.
 
-45. Overview of main programming challenge
+42. Overview of main programming challenge
 ==========================================
 
 + **Part A:** You will use plots to explore features of the data, and
@@ -639,7 +574,7 @@ All data are stored in CSV files:
   determinants of BMD, and examine closely the relationship between
   genotype and BMD.
 
-46. Hints for main programming challenge
+43. Hints for main programming challenge
 ========================================
 
 + Some "geoms" you may find useful: `geom_point`, `geom_histogram`,

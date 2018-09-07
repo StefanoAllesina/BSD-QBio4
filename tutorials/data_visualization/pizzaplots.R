@@ -39,7 +39,7 @@ names(dat) <- colnames
 
 # I only need the years, so I create a new column containing the year
 # of the inspection only.
-get.third.entry <- function(x) x[3]
+get.third.entry <- function(x) { return(x[3]) }
 out      <- strsplit(dat$date,"/")
 dat$year <- sapply(out,get.third.entry)
 dat$year <- as.numeric(dat$year)
@@ -101,9 +101,9 @@ p1   <- ggplot_add(out,p1)
 # ----------------------
 # Next, I create a map of pizza restaurants in Chicago. I highlight
 # more recent pizza restaurants in warmer (red) colours.
-aes2 <- aes(x = longitude,y = latitude,col = year)
+aes2 <- aes(x = longitude,y = latitude,color = year)
 p2   <- ggplot(pdat,aes2)
-out  <- geom_point(pch = 20)
+out  <- geom_point(shape = 20)
 p2   <- ggplot_add(out,p2)
 out  <- scale_color_gradient2(low = "skyblue",mid = "white",
                               high = "orangered",midpoint = 2014)
