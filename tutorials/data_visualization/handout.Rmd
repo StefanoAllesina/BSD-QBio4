@@ -164,13 +164,13 @@ create a data frame, `pheno`, containing phenotype data on 1,092
 samples, with one row per sample.
 
 + **hmdp.csv:** Text file in CSV format containing bone-mineral
-density measurements taken in 878 mice from the Hybrid Mouse Diversity
-Panel (HMDP). Data are from [Farber *et al*, 2011][hmdp-paper]. To
-load the data into your R environment, run the following code.
+density measurements taken in 878 male mice from the Hybrid Mouse
+Diversity Panel (HMDP). Data are from
+[Farber *et al*, 2011][hmdp-paper]. To load the data into your R
+environment, run the following code.
 
     ```{r read-hdmp-data}
     hmdp <- read.csv("hmdp.csv",stringsAsFactors = FALSE)
-    hmdp <- transform(hmdp,sex = factor(sex,c("M","F")))
     ```
 
     This will create a data frame, `hmdp`, containing BMD data on
@@ -300,12 +300,11 @@ population, compare these BMD data against BMD measurements taken in a
 "reference" mouse population. As reference, we will use the Hybrid
 Mouse Diversity Panel. To provide a direct visual comparison, create
 two histograms, and draw them one on top of the other. What difference
-do you observe in the BMD distributions? Note that, in the CFW study,
-BMD was measured in the femurs of male mice (whereas the HMDP study
-included males and females). Further note that BMD in the HMDP data
-set is recorded in $\mathrm{g}/\mathrm{cm}^2$. *Tips:* Functions
-`xlim` and `labs` from the ggplot2 package, and `plot_grid` from the
-cowplot package, might be useful for creating the plots. The
+do you observe in the BMD distributions? Note that BMD in the CFW was
+measured in the femurs of male mice. Further, note that BMD in the
+HMDP data set was recorded in $\mathrm{g}/\mathrm{cm}^2$. *Tips:*
+Functions `xlim` and `labs` from the ggplot2 package, and `plot_grid`
+from the cowplot package, might be useful for creating the plots. The
 `binwidth` argument in `geom_histogram` may also be useful.
 
 ## Part C: Mapping the genetic basis of osteopetrotic bones
@@ -383,14 +382,15 @@ consider the following:
 
      + The genotypes, stored in file **geno_rs29477109.csv**, are
        encoded as "dosages" (numbers between 0 and 2). You could start
-       with a plot of BMD vs. dosage. But ultimately it is more
+       with a scatterplot of BMD vs. dosage. But ultimately it is more
        directly interpretable if the genotypes (CC, CT and TT) are
        plotted instead. *Hint:* In effect, what you need to do is
        convert from a continuous variable (dosage) to a discrete
        variable (genotype). One approach is to create a new `factor`
        column from the "dosage" column. For dosages that are not
        exactly 0, 1 or 2, you could simply round to the nearest whole
-       number.
+       number. A boxplot is recommended, which you can create with
+       `geom_boxplot`.
 
     Based on your plot, how would describe in plain language the
     relationship between the genotype and BMD?

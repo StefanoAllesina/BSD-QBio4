@@ -171,7 +171,7 @@ s_dirs <- sort_dirs$x
 ordered_raster <- mt_raster[order_inds, ]
 sorted_spkpairs <- which(ordered_raster == 1, arr.ind=TRUE)
 
-dfact = factor(s_dirs[sorted_spkpairs[, 1]], levels=unique(s_dirs))
+dfact <- factor(s_dirs[sorted_spkpairs[, 1]], levels=unique(s_dirs))
 
 qplot(sorted_spkpairs[ , 2] - stim_onset, sorted_spkpairs[ , 1], 
       color=dfact, xlab='time from stimulus onset (ms)',
