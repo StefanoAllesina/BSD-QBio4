@@ -2,6 +2,8 @@
 output: 
   pdf_document: 
     highlight: tango
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path='Figs/',
@@ -28,7 +30,7 @@ As a biologist, you will learn what are the major patterns that are expected whe
 - Allele:  A particular variant form of DNA  (e.g. A partciular SNP may have the "A-T" allele in one DNA copy and "C-G" in another; We typically define a reference strand of the DNA to read off of, and then denote the alleles according to the reference strand base - so for example, these might be called simply the "A" and "C" alleles.  In many cases we don't care about the precise base, so we might call these simply the $A_1$ and $A_2$ alleles, or the $A$ or $a$ alleles, or the 0 and 1 alleles.) 
 - Minor allele: The allele that is more rare in a population 
 - Major allele: The allele that is more common in a population 
-- Genotype: The set of alleles carried by an individual (E.g. AA, AC, CC; or AA, Aa, and aa; or 0/0, 1/1, 2/2)
+- Genotype: The set of alleles carried by an individual (E.g. AA, AC, CC; or AA, Aa, aa; or 0, 1, 2)
 - Genotyping array: A technology based on hybridization with probes and florensence that allows genotype calls to be made at 100s of thousands of SNPs per individual at an affordable cost.  
 
 ### The data-set and basic pre-processing
@@ -196,7 +198,7 @@ Let's look at the top few p-values:
 head(g$pval)
 ```
 
-How should we interpret these?  A p-value gives us the frequency at which the observed departure from expectations (or a more extreme departure) would occur if the null hypothesis is true.  As an agreed upon standard (of the frequentist paradigm for statistical hypothesis testing), if the observation is relatively rare under the null (e.g. p-value < 5%), we reject the null hypothesis, and we would infer that the given SNP departs from Hardy-Weinberg expectations.  This is problematic here though.   The problem is that we are testing many, many SNPs (Use `dim(g)` to remind yourself how many rows/SNPs are in the dataset).  Even if the null is universally true, 5% of our SNPs would be expected to be rejected using the standard frequentist paradigm.  This is called the multiple testing problem.  As an example, if we have 50,000 SNPs, that all obey the null hypothesis, we would on average naively reject the null for ~2500 SNPs based on the p-values < 0.05.   
+How should we interpret these?  A p-value gives us the frequency at which the observed departure from expectations (or a more extreme departure) would occur if the null hypothesis is true.  As an agreed upon standard (of the frequentist paradigm for statistical hypothesis testing), if the observation is relatively rare under the null (e.g. p-value < 5%), we reject the null hypothesis, and we would infer that the given SNP departs from Hardy-Weinberg expectations.  This is problematic here though.   The problem is that we are testing many, many SNPs (Use `dim(g)` to remind yourself how many rows/SNPs are in the dataset).  Even if the null is universally true, 5% of our SNPs would be expected to be rejected using the standard frequentist paradigm.  This is called the multiple testing problem.  As an example, if we have 20,000 SNPs, that all obey the null hypothesis, we would on average naively reject the null for ~1000 SNPs based on the p-values < 0.05.   
 
 We clearly need some methods to deal with the "multiple testing problem".  Two frameworks are the Bonferroni approach and false-discovery-rate (FDR) approaches.  We will not say more about these here.  Instead, we will do two simple checks to see though if our data are globally consistent with the null.  
 
@@ -238,6 +240,11 @@ While statistically significant, the population structure appears to be subtle i
 
 **Question:** As an exercise, compute the average deficiency of heterozygotes relative to the expectated proportion.  This is the average of $$ \frac{2 p_1 (1-p_1)-p_{12}}{2p_1(1-p_1)}$$  What is this number for this data-set?  A common "rule-of-thumb" for this deficiency in a global sample of humans is approximately 10\%.  Do you find this to be true from the data? 
 
+```{r echo=FALSE}
+mean(((2 * g$p1 * (1-g$p1)) - g$p12) / (2 * g$p1 * (1-g$p1)))
+g <- mutate(g, F = (2*p1*(1-p1)-p12) / (2*p1*(1-p1)))
+mean(g$F)
+```
 A ~10% difference between expected and observed seems pretty remarkable given these samples are taken from across the globe.  It is a reminder that human populations are not very deeply structured.  Most of the alleles in the sample are globally widespread and not sufficiently geographically clustered to generate correlations among the uniting alleles.  This is because all humans populations derived from an ancestral population in Africa around 100-150 thousand years ago, which is relatively small amount of time for variation across populations to accumulate. 
 
 ### Finding specific loci that show large departure from Hardy-Weinberg proportions
@@ -260,7 +267,8 @@ Now, here's a trick.  When a high or low $F$ value is due to genotyping error, i
 The `stats::filter` command below calls the `filter` function from the `stats` library.  The code instructs the function to take 5 values centered on a focal SNP, weighting them each by 1/5 and then taking the sum.  In this way it produces a local average in a sliding window of 5 SNPs.  Let's define the `movingavg` function and then make a plot of its values:
 ```{r}
 movingavg <- function(x, n=5){stats::filter(x, rep(1/n,n), sides = 2)}
-plot(movingavg(g$F), xlab="SNP number")
+avgF <- movingavg(g$F)
+plot(avgF, xlab="SNP number")
 ```
 
 Wow --- there appears to be one large spike where the average $F$ is approximately 60% in the dataset!
